@@ -41,8 +41,7 @@
 (global-hl-line-mode)
 ;; 対応するカッコを強調表示
 (show-paren-mode t)
-;; 時間を表示
-(display-time)
+
 
 
 (setq-default indent-tabs-mode nil)

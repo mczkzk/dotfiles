@@ -8,6 +8,6 @@
 
 ;; definitions
 (load "init-defaults")
-(load "init-design")
+(load "init-frame")
 
 (load "init-keybinds")
