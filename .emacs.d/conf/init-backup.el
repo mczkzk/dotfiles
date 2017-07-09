@@ -8,7 +8,9 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
-;; バックアップファイルを作らないようにする
-(setq make-backup-files nil)
 ;;; 終了時にオートセーブファイルを消す
 (setq delete-auto-save-files t)
+
+;; ファイルが #! から始まる場合、+xを付けて保存する
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
