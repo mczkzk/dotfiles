@@ -8,6 +8,10 @@
 
 ;; definitions
 (load "init-defaults")
+(load "init-layout")
+(load "init-highlight")
 (load "init-frame")
+(load "init-indent")
+(load "init-backup")
 
 (load "init-keybinds")
