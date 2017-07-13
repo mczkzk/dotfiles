@@ -15,4 +15,4 @@
                   'append)
 (add-to-list 'default-frame-alist '(font . "fontset-ricty"))
 
-(setq face-font-rescale-alist '((".*Ricty.*" . 1.2)))
+(setq face-font-rescale-alist '((".*Ricty.*" . 1.1)))

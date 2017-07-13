@@ -47,3 +47,6 @@
 
 ;; emacs-lisp-modeのフックをセット
 (add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
+
+;; 置換
+(global-anzu-mode +1)
