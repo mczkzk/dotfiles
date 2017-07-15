@@ -8,6 +8,7 @@
     "~/.emacs.d/progmodes"
     "~/.emacs.d/elisp"
     "~/.emacs.d/public_repos"
+    "~/.emacs.d/yasnippets"
 ) load-path))
 
 ;; definitions
@@ -22,6 +23,7 @@
 (load "init-indent")
 (load "init-search")
 (load "init-auto-complete")
+(load "init-snippets")
 
 (load "init-backup")
 (load "init-history")
