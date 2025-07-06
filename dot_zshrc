@@ -119,6 +119,18 @@ alias -g C='| pbcopy' # 絞り込んでクリップボードにコピー e.g., p
 # alias mv='mv -iv'
 alias cat='bat'
 
+alias cvi='chezmoi edit'
+alias cpush='chezmoi apply \
+  && chezmoi cd \
+  && git update-index --no-skip-worktree --refresh >/dev/null \
+  && git add -u && git add . \
+  && { git diff --cached --quiet || git commit -m "update dotfiles"; } \
+  && git push \
+  && echo "✅ dotfiles synced"'
+alias cdiff='chezmoi diff'
+alias capply='chezmoi apply'
+alias csrc='chezmoi cd'
+
 # directory hash
 # よく使うディレクトリを設定すると~c だけで移動できる
 hash -d n=/Users/mczkzk/NoteBackups
