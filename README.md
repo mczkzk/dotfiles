@@ -17,13 +17,23 @@
 **Sync changes from other PCs:**
 - `cupdate`
 
-### Setup on New Machine
+## Package Management
+
+**Update Brewfile after installing new packages:**
+- `brew bundle dump --force`
+
+**Sync packages:**
+- `brew bundle` (install new packages)
+- `brew bundle cleanup --force` (remove old packages)
+
+## Setup on New Machine
 ```bash
 # First, backup existing dotfiles if they exist
 mkdir -p ~/dotfiles_backup
 [ -f ~/.zshrc ] && mv ~/.zshrc ~/dotfiles_backup/
 [ -f ~/.gitconfig ] && mv ~/.gitconfig ~/dotfiles_backup/
 [ -d ~/.claude ] && mv ~/.claude ~/dotfiles_backup/
+[ -f ~/Brewfile ] && mv ~/Brewfile ~/dotfiles_backup/
 
 # Install chezmoi and apply dotfiles (replace mczkzk with your username)
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply mczkzk
@@ -31,4 +41,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply mczkzk
 # Create git user config file with your email
 echo '[user]
 	email = your.email@example.com' > ~/.gitconfig_user
+
+# Install packages with Homebrew
+brew bundle
 ```
