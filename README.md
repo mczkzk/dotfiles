@@ -5,18 +5,30 @@
 > For more information, see [chezmoi.io](https://www.chezmoi.io/)
 
 ### Daily Workflow
-1. **Edit files**: `cvi <filename>` or edit files in chezmoi source directory directly
-2. **Push changes**: `cpush`
 
-### Adding New Files
-1. **Add file**: `cadd <filepath>`
-2. **Push changes**: `cpush`
+**Edit files:**
+1. `cvi <filename>` or edit files in chezmoi source directory directly
+2. `cpush`
+
+**Add new files:**
+1. `cadd <filepath>`
+2. `cpush`
+
+**Sync changes from other PCs:**
+- `cupdate`
 
 ### Setup on New Machine
 ```bash
+# First, backup existing dotfiles if they exist
+mkdir -p ~/dotfiles_backup
+[ -f ~/.zshrc ] && mv ~/.zshrc ~/dotfiles_backup/
+[ -f ~/.gitconfig ] && mv ~/.gitconfig ~/dotfiles_backup/
+[ -d ~/.claude ] && mv ~/.claude ~/dotfiles_backup/
+
 # Install chezmoi and apply dotfiles (replace mczkzk with your username)
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply mczkzk
 
-# Update dotfiles later (git pull + apply)
-chezmoi update
+# Create git user config file with your email
+echo '[user]
+	email = your.email@example.com' > ~/.gitconfig_user
 ```
