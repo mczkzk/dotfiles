@@ -27,21 +27,28 @@
 - `brew bundle cleanup --force` (remove old packages)
 
 ## Setup on New Machine
+
+**1. Backup existing dotfiles:**
 ```bash
-# First, backup existing dotfiles if they exist
 mkdir -p ~/dotfiles_backup
 [ -f ~/.zshrc ] && mv ~/.zshrc ~/dotfiles_backup/
 [ -f ~/.gitconfig ] && mv ~/.gitconfig ~/dotfiles_backup/
 [ -d ~/.claude ] && mv ~/.claude ~/dotfiles_backup/
 [ -f ~/Brewfile ] && mv ~/Brewfile ~/dotfiles_backup/
+```
 
-# Install chezmoi and apply dotfiles (replace mczkzk with your username)
+**2. Install chezmoi and apply dotfiles:**
+```bash
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply mczkzk
+```
 
-# Create git user config file with your email
+**3. Create git user config:**
+```bash
 echo '[user]
 	email = your.email@example.com' > ~/.gitconfig_user
+```
 
-# Install packages with Homebrew
+**4. Install packages:**
+```bash
 brew bundle
 ```
