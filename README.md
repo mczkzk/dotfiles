@@ -1,10 +1,8 @@
 # Dotfiles
 
-## Chezmoi Basic Usage
-
 > For more information, see [chezmoi.io](https://www.chezmoi.io/)
 
-### Daily Workflow
+## Daily Workflow
 
 **Edit files:**
 1. `cvi <filename>` or edit files in chezmoi source directory directly
@@ -16,6 +14,8 @@
 
 **Sync changes from other PCs:**
 - `cupdate`
+
+> Aliases are defined in [.zshrc](dot_zshrc)
 
 ## Package Management
 
