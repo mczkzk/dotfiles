@@ -42,6 +42,9 @@ alias -g C='| pbcopy' # Copy filtered output to clipboard (e.g., ps aux | grep p
 # alias cp='cp -iv'
 # alias mv='mv -iv'
 alias cat='bat'
+alias vi='nvim'
+alias vim='nvim'
+alias view='nvim -R'
 
 # Chezmoi aliases
 eval "$(chezmoi completion zsh)"
