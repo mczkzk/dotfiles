@@ -1,3 +1,5 @@
+brew "bat"
+brew "chezmoi"
 brew "exiftool"
 brew "fzf"
 brew "gh"
