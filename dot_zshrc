@@ -120,7 +120,7 @@ alias -g C='| pbcopy' # 絞り込んでクリップボードにコピー e.g., p
 alias cat='bat'
 
 alias cvi='chezmoi edit'
-alias cpush='chezmoi apply && chezmoi cd && git add . && git commit -m "update dotfiles" && git push'
+alias cpush='chezmoi apply && cd $HOME/.local/share/chezmoi && git add . && git commit -m "update dotfiles" && git push'
 alias cdiff='chezmoi diff'
 alias capply='chezmoi apply'
 alias csrc='chezmoi cd'
