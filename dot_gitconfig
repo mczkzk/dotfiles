@@ -1,3 +1,5 @@
 [user]
 	name = mczkzk
-	email = k.mochizuki.0409@gmail.com
+
+[include]
+	path = ~/.gitconfig_user
