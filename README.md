@@ -38,6 +38,14 @@ mkdir -p ~/dotfiles_backup
 ```
 
 **2. Install chezmoi and apply dotfiles:**
+
+Option A (Homebrew):
+```bash
+brew install chezmoi
+chezmoi init --apply mczkzk
+```
+
+Option B (Direct install):
 ```bash
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply mczkzk
 ```
