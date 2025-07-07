@@ -62,29 +62,3 @@ Re-read project CLAUDE.md and ~/.claude/CLAUDE.md
 This technique loads all available guidelines and rules at conversation start, ensuring AI has full context of your development standards and practices across all types of work.
 
 
-## How to Sync Settings on Another PC
-
-If you have an existing `~/.claude` directory, you can sync only the configuration files using the following steps:
-
-```bash
-# Navigate to .claude directory
-cd ~/.claude
-
-# Initialize git repository
-git init
-
-# Add remote repository
-git remote add origin https://github.com/mczkzk/claude-config.git
-
-# Fetch from remote
-git fetch origin
-
-# Create local branch tracking remote main branch
-git checkout -b main origin/main
-
-# Checkout individual files if needed
-git checkout origin/main -- commands/
-git checkout origin/main -- CLAUDE.md
-git checkout origin/main -- settings.json
-git checkout origin/main -- .gitignore
-```
