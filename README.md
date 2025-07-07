@@ -59,4 +59,5 @@ echo '[user]
 **4. Install packages:**
 ```bash
 brew bundle
+source ~/.zshrc
 ```
