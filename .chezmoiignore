@@ -1,0 +1,15 @@
+# Claude directory ignores (from .claude/.gitignore)
+# IDE-related temporary files
+dot_claude/ide/
+
+# Chat session conversation logs
+dot_claude/projects/
+
+# Statsig (Feature Flag) related files
+dot_claude/statsig/
+
+# Todo list storage for TodoRead/TodoWrite tools
+dot_claude/todos/
+
+# Git directory
+dot_claude/.git/
