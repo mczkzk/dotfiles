@@ -35,6 +35,7 @@ mkdir -p ~/dotfiles_backup
 [ -f ~/.zshrc ] && mv ~/.zshrc ~/dotfiles_backup/
 [ -f ~/.gitconfig ] && mv ~/.gitconfig ~/dotfiles_backup/
 [ -d ~/.claude ] && mv ~/.claude ~/dotfiles_backup/
+[ -d ~/.config ] && mv ~/.config ~/dotfiles_backup/
 [ -f ~/Brewfile ] && mv ~/Brewfile ~/dotfiles_backup/
 ```
 
