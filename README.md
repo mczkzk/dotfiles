@@ -66,12 +66,10 @@ source ~/.zshrc
 
 ## Claude Code – container-use setup
 
-This repo relies on [container-use](https://container-use.com) for isolated Claude environments.
+For projects using Claude Code with MCP, run this once per project:
 
 ```bash
-# one-liner if it's missing
 claude mcp add -s project container-use -- container-use stdio
 ```
 
-> Heads-up: Upstream CLI stores user-scope MCP in ~/.claude.json instead of ~/.claude/mcp.json
-(see anthropics/claude-code\3098).
+> Ideally this would be configured globally, but currently requires project-scope setup. It gets added to ~/.claude.json and works globally (see anthropics/claude-code\3098).
