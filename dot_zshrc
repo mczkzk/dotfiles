@@ -60,11 +60,21 @@ alias cupdate='chezmoi update'
 wtadd() {
   repo=$(basename "$(pwd)")
   branch="$1"
+  base="${2:-HEAD}"
   if [ -z "$branch" ]; then
-    echo "Usage: wtadd branch-name"
+    echo "Usage: wtadd branch-name [base-branch]"
     return 1
   fi
-  git worktree add ../${repo}-${branch} ${branch}
+
+  # Replace / with - for directory name
+  dir_name="${branch//\//-}"
+
+  # Check if branch exists
+  if git show-ref --verify --quiet "refs/heads/${branch}"; then
+    git worktree add "../${repo}-${dir_name}" "${branch}"
+  else
+    git worktree add -b "${branch}" "../${repo}-${dir_name}" "${base}"
+  fi
 }
 
 # ===============================
