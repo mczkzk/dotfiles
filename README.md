@@ -63,3 +63,15 @@ echo '[user]
 brew bundle
 source ~/.zshrc
 ```
+
+## Claude Code – container-use setup
+
+This repo relies on [container-use](https://container-use.com) for isolated Claude environments.
+
+```bash
+# one-liner if it's missing
+claude mcp add -s project container-use -- container-use stdio
+```
+
+> Heads-up: Upstream CLI stores user-scope MCP in ~/.claude.json instead of ~/.claude/mcp.json
+(see anthropics/claude-code\3098).
