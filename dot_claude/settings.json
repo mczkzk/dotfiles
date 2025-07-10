@@ -37,7 +37,10 @@
     ],
     "deny": [
       "Bash(git:push*)",
-      "Bash(rm:-rf ~/)"
+      "Bash(rm -rf /)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf ~/*)"
     ]
   },
   "env": {
