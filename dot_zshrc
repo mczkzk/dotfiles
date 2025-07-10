@@ -33,7 +33,7 @@ setopt share_history # Share history between tabs and windows
 setopt inc_append_history
 
 # ===============================
-# Aliases
+# Aliases & Functions
 # ===============================
 
 # General aliases
@@ -55,6 +55,17 @@ alias cdiff='chezmoi diff'
 alias capply='chezmoi apply'
 alias ccd='chezmoi cd'
 alias cupdate='chezmoi update'
+
+# Git functions
+wtadd() {
+  repo=$(basename "$(pwd)")
+  branch="$1"
+  if [ -z "$branch" ]; then
+    echo "Usage: wtadd branch-name"
+    return 1
+  fi
+  git worktree add ../${repo}-${branch} ${branch}
+}
 
 # ===============================
 # Directory Hash
