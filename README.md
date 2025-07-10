@@ -72,4 +72,8 @@ For projects using Claude Code with MCP, run this once per project:
 claude mcp add -s project container-use -- container-use stdio
 ```
 
-> Ideally this would be configured globally, but currently requires project-scope setup. It gets added to ~/.claude.json and works globally (see anthropics/claude-code\3098).
+This creates a `.mcp.json` file in the project. Test the connection with `/mcp`.
+
+See: https://docs.anthropic.com/en/docs/claude-code/mcp
+
+> Ideally, MCP would be managed globally, but when you add MCP globally, it gets recorded in ~/.claude.json instead of ~/.claude/mcp.json. (see anthropics/claude-code\3098).
