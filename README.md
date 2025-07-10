@@ -19,8 +19,9 @@
 
 ## Package Management
 
-**Update Brewfile after installing new packages:**
-- `brew bundle dump --force`
+**Update Brewfile:**
+- Automatic: `brew bundle dump --force` (overwrites with all installed packages + VS Code extensions)
+- Manual: Check with `brew list` and `code --list-extensions`, then add lines manually
 
 **Sync packages:**
 - `brew bundle` (install new packages)
