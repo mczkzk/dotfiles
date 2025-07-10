@@ -71,8 +71,10 @@ wtadd() {
 
   # Check if branch exists
   if git show-ref --verify --quiet "refs/heads/${branch}"; then
+    echo "Using existing branch '${branch}'"
     git worktree add "../${repo}-${dir_name}" "${branch}"
   else
+    echo "Creating new branch '${branch}' from '${base}'"
     git worktree add -b "${branch}" "../${repo}-${dir_name}" "${base}"
   fi
 }
