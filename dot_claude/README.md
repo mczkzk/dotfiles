@@ -62,3 +62,20 @@ Re-read project CLAUDE.md and ~/.claude/CLAUDE.md
 This technique loads all available guidelines and rules at conversation start, ensuring AI has full context of your development standards and practices across all types of work.
 
 
+## container-use setup
+
+(Optional) If you want to use container-use, run the following command in your project repository:
+
+```bash
+claude mcp add -s project container-use -- container-use stdio
+```
+
+This creates a `.mcp.json` file in the project.
+
+After Docker is running, run `/mcp` to test the connection.
+
+See: https://docs.anthropic.com/en/docs/claude-code/mcp
+
+> Ideally, MCP would be managed globally, but when you add MCP globally, it gets recorded in ~/.claude.json instead of ~/.claude/mcp.json. (see anthropics/claude-code\3098).
+
+

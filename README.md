@@ -63,19 +63,3 @@ echo '[user]
 brew bundle
 source ~/.zshrc
 ```
-
-## Claude Code – container-use setup
-
-(Optional) If you want to use container-use, run the following command in your project repository:
-
-```bash
-claude mcp add -s project container-use -- container-use stdio
-```
-
-This creates a `.mcp.json` file in the project.
-
-After Docker is running, run `/mcp` to test the connection.
-
-See: https://docs.anthropic.com/en/docs/claude-code/mcp
-
-> Ideally, MCP would be managed globally, but when you add MCP globally, it gets recorded in ~/.claude.json instead of ~/.claude/mcp.json. (see anthropics/claude-code\3098).
