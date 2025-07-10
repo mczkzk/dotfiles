@@ -66,7 +66,7 @@ source ~/.zshrc
 
 ## Claude Code – container-use setup
 
-For projects using Claude Code with MCP, run this once per project:
+(Optional) If you want to use container-use, run the following command:
 
 ```bash
 claude mcp add -s project container-use -- container-use stdio
