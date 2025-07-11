@@ -109,6 +109,8 @@ When external dependencies have limitations, always design the ideal solution fi
 - Implement OAuth 2.0 or JWT for authentication
 - Document with OpenAPI 3.0 specification
 - Apply semantic versioning for API versions
+- Preserve backward compatibility in minor and patch versions
+- Follow Postel’s Law and design tolerant readers for compatibility
 - Avoid RPC-style endpoints
 - Never expose internal IDs in public APIs
 
