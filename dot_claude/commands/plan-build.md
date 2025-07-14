@@ -82,6 +82,14 @@ Before marking ANY implementation task complete:
 ✓ Record implementation evidence in Implementation Notes before marking checkbox complete
 ✓ Plans can evolve during implementation - add new tasks when requirements change
 
+**COMMIT STRATEGY PROTOCOL**:
+✓ Create separate git commit for each A.1, A.2, B.1, etc. implementation item
+✓ Use conventional commit format: `feat(A.1): [brief description]` for main tasks
+✓ Use `test(A.CHECKPOINT): [description]` for checkpoint items
+✓ Commit immediately after completing each numbered item
+✓ Include subtask commits as: `feat(A.1): implement [specific subtask]`
+✓ This creates clear development milestones and easier code review
+
 ---
 
 ## 📄 Requirements Summary
