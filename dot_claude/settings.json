@@ -47,13 +47,21 @@
       "WebFetch(domain:*)"
     ],
     "deny": [
-      "Bash(git:push*)",
-      "Bash(git:add -f*)",
-      "Bash(git:add --force*)",
       "Bash(rm -rf /)",
       "Bash(rm -rf /*)",
       "Bash(rm -rf ~)",
-      "Bash(rm -rf ~/*)"
+      "Bash(rm -rf ~/*)",
+      "Bash(git:push*)",
+      "Bash(git:add -f*)",
+      "Bash(git:add --force*)",
+      "Bash(git commit --no-verify:*)",
+      "Bash(git commit -n:*)",
+      "Bash(HUSKY=0 git commit:*)",
+      "Bash(git commit*--no-verify*)",
+      "Bash(git commit*-n*)",
+      "Bash(HUSKY=0*git commit*)",
+      "Bash(*--no-verify*)",
+      "Bash(*HUSKY=0*)"
     ]
   },
   "env": {
