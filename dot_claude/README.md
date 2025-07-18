@@ -32,6 +32,7 @@ For larger implementations, use this structured approach:
 ### 3. Implementation | Auto-accept Mode
 - Use natural language: "go", "この計画を実装して", or specify plan document
 - Auto-accept mode enables rapid, uninterrupted development cycles
+- **Note**: Consider splitting tasks/PRs when plan documents exceed 1000 lines for better maintainability
 
 ### 4. Archive
 - Move completed or shelved plan documents to `plans/archive/` directory
