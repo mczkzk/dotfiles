@@ -82,6 +82,15 @@ Before marking ANY implementation task complete:
 ✓ Record implementation evidence in Implementation Notes before marking checkbox complete
 ✓ Plans can evolve during implementation - add new tasks when requirements change
 
+**NO QUICK FIXES PROTOCOL**:
+✓ NO implementation until complete understanding is achieved
+✓ NO quick fixes or workarounds - fundamental understanding takes priority
+✓ NO lint suppressions, ignore comments, or error suppression
+✓ NO temporary solutions - pursue root causes only
+✓ Use web search or ask user when information is missing
+✓ Take unlimited time for proper analysis and implementation
+✓ Research findings and insights are valuable even without immediate implementation
+
 ---
 
 ## 📄 Requirements Summary
