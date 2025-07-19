@@ -7,9 +7,9 @@ This repository manages user configuration and documentation for AI.
 - [`CLAUDE.md`](CLAUDE.md) - AI behavior and development guidelines
 - `commands/` - Custom command definitions
   - [`commit.md`](commands/commit.md) - Git commit creation command
-  - [`plan-search.md`](commands/plan-search.md) - Investigation and requirements gathering command
-  - [`plan-build.md`](commands/plan-build.md) - Plan document creation command
   - [`deepthink.md`](commands/deepthink.md) - Deep investigation command requiring complete understanding
+  - [`plan-build.md`](commands/plan-build.md) - Plan document creation command
+  - [`plan-search.md`](commands/plan-search.md) - Investigation and requirements gathering command
   - [`undo.md`](commands/undo.md) - Undo all changes from previous interaction
 - [`settings.json`](settings.json) - AI configuration file
 
