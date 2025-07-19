@@ -56,15 +56,6 @@ Always use correct current date in documentation. Check with `date +%Y-%m-%d` co
 - Never copy old template dates without updating
 - Verify dates match actual work date before committing
 
-### User Input Shortcuts
-
-**Basic Responses:**
-- `y` - YES (approve/execute)
-- `n` - NO (reject/stop)
-- `u` - undo last AI action/change
-
-Shortcuts are for standalone use. Use full sentences for complex instructions.
-
 ### Investigation Guidelines
 
 When receiving investigation or question requests, focus on research not implementation.

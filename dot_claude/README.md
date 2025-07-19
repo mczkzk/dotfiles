@@ -10,6 +10,7 @@ This repository manages user configuration and documentation for AI.
   - [`plan-search.md`](commands/plan-search.md) - Investigation and requirements gathering command
   - [`plan-build.md`](commands/plan-build.md) - Plan document creation command
   - [`deepthink.md`](commands/deepthink.md) - Deep investigation command requiring complete understanding
+  - [`undo.md`](commands/undo.md) - Undo all changes from previous interaction
 - [`settings.json`](settings.json) - AI configuration file
 
 
