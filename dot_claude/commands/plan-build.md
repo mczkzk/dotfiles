@@ -41,7 +41,7 @@ Creates detailed plan documents from completed plan-search investigations.
 
 4. 📝 **Create Plan Document**: 
    - Generate `plans/[feature-name].md` using template below ONLY after verification and guidelines review complete
-   - Structure implementation in Test → Code → Refactor cycles
+   - Structure implementation in Test → Code → Refactor cycles (t-wada TDD practices)
    - Use plan-search investigation findings to fill plan sections
 
 5. 🔍 **MANDATORY Section Completeness Verification**: 
@@ -70,7 +70,7 @@ Creates detailed plan documents from completed plan-search investigations.
 Before marking ANY implementation task complete:
 ✓ Evidence documented in Implementation Notes with specific details (code snippets, test results, file paths)
 ✓ Can answer "How do you know this works?" for this task
-✓ Implementation Notes contain proof of functionality (test output, screenshots, working code)
+✓ Implementation Notes contain proof of functionality (test output, working code)
 ✓ Next person reading notes can verify your implementation
 
 **Rule: If Implementation Notes don't prove the task completion, uncheck the box**
@@ -116,24 +116,26 @@ Before marking ANY implementation task complete:
 
 ## 🧪 Testing Strategy
 
-### TDD Cycle Testing (Development Phase)
-1. **Basic functionality test**
-   - Input: [specific input]
-   - Expected: [expected output]
+### TDD Cycle Testing (Development Phase) - t-wada practices
+1. **Red Phase**: Write failing test first
+   - Define expected behavior through test specification
+   - Ensure test fails (Red) before writing implementation
    
-2. **Edge case test**
-   - Input: [edge case input]
-   - Expected: [expected behavior]
-
-### Integration Testing Checkpoints
-- **Phase Completion**: Run broader test suite after each major phase
-- **Schema Changes**: Full test suite execution after database modifications
-- **Pre-Deployment**: Complete test suite validation before any production steps
-
-### Test Execution Strategy
-- **TDD Cycles**: Focused tests for current development
-- **Phase Checkpoints**: Related module/component testing
-- **Full Validation**: Complete test suite execution
+2. **Green Phase**: Write minimal implementation
+   - Implement only what's needed to make test pass
+   - Focus on functionality, not optimization
+   
+3. **Refactor Phase**: Improve code quality
+   - Clean up implementation while keeping tests green
+   - Apply SOLID principles and design patterns
+   
+**Test Examples**:
+- **Basic functionality test**
+  - Input: [specific input]
+  - Expected: [expected output]
+- **Edge case test**
+  - Input: [edge case input]
+  - Expected: [expected behavior]
 
 ## 📋 Implementation Plan
 
@@ -167,9 +169,8 @@ Before marking ANY implementation task complete:
 - **Mitigation**: Strategies to address identified risks
 
 ## ⌨️ Commands Reference
+Record useful commands for this implementation (server startup, linting, testing, database operations, etc.)
 
-### Category Name
-Command description
 *command here*
 
 ## 📝 Implementation Notes
@@ -188,10 +189,9 @@ Record ALL discoveries that impact development - BE COMPREHENSIVE! Include techn
 ## Key Principles
 
 - **Plan Search Required**: Must have completed `[feature-name]-search.md` before planning
-- **Strict Verification**: Never trust status alone - verify actual checkbox states
-- **Investigation-Based**: Uses investigation findings to create plan document
-- **Template-Driven**: Ensures consistency across all plan documents
-- **Section Completeness**: Generated plan MUST contain exactly 8 template sections
-- **Automatic Verification**: Command automatically checks section count and headers
-- **Fail-Safe Regeneration**: Incomplete plans trigger error and regeneration
+- **Verification-Based**: Never trust status alone - verify actual checkbox states
+- **Investigation-Driven**: Uses investigation findings to create plan document
+- **Template-Consistent**: Ensures consistency across all plan documents
+- **Section-Complete**: Generated plan MUST contain exactly 8 template sections
+- **TDD-First**: Follow t-wada practices with Red-Green-Refactor cycles
 - **Implementation-Ready**: Creates actionable tasks for development
