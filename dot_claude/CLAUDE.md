@@ -5,11 +5,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## AI Behavior
 
-### Command Policy
-- **Keep commands simple** - single file operations, single searches, single bash commands
-- **Avoid complex multi-step operations** - break into small steps
-- **No Task tool with long prompts** - use simple operations
-
 ### Confidence Indicators
 Always prefix statements:
 - **✅ Verified Facts** - Based on file reading or tool execution
