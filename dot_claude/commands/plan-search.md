@@ -63,11 +63,11 @@ Before marking ANY item complete:
 ✓ Record findings in Investigation Notes before marking checkbox complete
 
 ## 📋 Requirements Gathering
-- [ ] **Specifications provided**: Technical requirements documented
-- [ ] **UI/UX materials**: Screenshots, mockups, design references shared
-- [ ] **User stories**: Clear understanding of user needs
-- [ ] **Constraints identified**: Technical, business, or timeline limitations
-- [ ] **Success criteria defined**: Clear definition of completion
+- [ ] **Specifications provided**: Feature requirements and user stories documented
+- [ ] **UI/UX materials**: Screenshots, mockups, design references shared  
+- [ ] **Business constraints**: Timeline, resource, and scope limitations identified
+- [ ] **Success criteria defined**: Clear definition of completion and acceptance criteria
+- [ ] **Stakeholder alignment**: All parties agree on requirements and expectations
 
 ## 🔍 Codebase Analysis
 - [ ] **Entry points & impact scope**: Classes/modules where changes start, sync/async downstream impacts mapped
@@ -77,12 +77,12 @@ Before marking ANY item complete:
 - [ ] **Integration points mapped**: How feature connects with existing system architecture
 
 ## 🗄️ Database Investigation
-- [ ] **Current schema mapped**: Existing tables, columns, relationships, and constraints documented
-- [ ] **Data patterns sampled**: Actual data examined to understand structure and volume
-- [ ] **Domain rules identified**: Business constraints and validation requirements documented
-- [ ] **External data verified**: Third-party API responses logged and data structures confirmed
-- [ ] **Migration strategy planned**: Forward/backward compatibility, rollback approach, performance impact
-- [ ] **Anti-patterns avoided**: No assumptions without verification, no copy-paste patterns without analysis
+- [ ] **Schema structure analysis**: Feature-relevant tables, columns, data types, and primary keys documented
+- [ ] **Table relationship mapping**: Foreign key relationships with cardinality (1:1, 1:N, N:N) and constraint behaviors (CASCADE/RESTRICT/SET NULL) identified
+- [ ] **Junction table identification**: Many-to-many intermediate tables with composite primary keys and additional fields documented
+- [ ] **Constraint analysis**: Unique constraints, check constraints, and deletion impact chains mapped per table
+- [ ] **Independent table identification**: Tables with no foreign key relationships to other tables documented
+- [ ] **Data patterns & migration strategy**: Sample data examined, business rules identified, migration approach planned
 
 ## 🔗 External Dependencies
 - [ ] **APIs validated**: Third-party service responses verified with real data
