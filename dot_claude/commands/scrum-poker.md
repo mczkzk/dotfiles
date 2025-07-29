@@ -9,7 +9,7 @@ allowed-tools:
 
 # Scrum Poker Estimation Command
 
-Analyzes code complexity and provides effort estimates using standard Scrum poker scale: **0, 1, 2, 3, 5, 8, 13, 20, 40, 100**.
+Analyzes code complexity and provides effort estimates using standard Scrum poker scale: **0, 1, 2, 3, 5, 8, 13, 20, 40, 100, ?**.
 
 ## Usage
 
@@ -33,6 +33,7 @@ Analyzes code complexity and provides effort estimates using standard Scrum poke
 - **20** - Epic feature (multiple subsystems affected)
 - **40** - Large epic (major refactoring, new architecture)
 - **100** - Massive undertaking (complete rewrites, new systems)
+- **?** - Requirements too unclear to estimate (needs investigation)
 
 ## Analysis Factors
 
@@ -47,7 +48,7 @@ Analyzes code complexity and provides effort estimates using standard Scrum poke
 ## Output Format
 
 ```
-## 🎯 Scrum Poker Estimate: [NUMBER]
+## 🎯 Scrum Poker Estimate: [NUMBER or ?]
 
 ### 📊 Complexity Analysis
 - **Files affected**: X files
@@ -61,5 +62,9 @@ Analyzes code complexity and provides effort estimates using standard Scrum poke
 ### ⚠️ Assumptions & Risks
 - [Key assumptions made]
 - [Potential blockers or unknowns]
+
+### 📋 Next Steps (if estimate is ?)
+- [Specific investigation needed to clarify requirements]
+- [Questions that need answers before estimation]
 ```
 
