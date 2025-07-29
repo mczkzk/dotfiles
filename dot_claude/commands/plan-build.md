@@ -26,28 +26,28 @@ Creates detailed plan documents from completed plan-search investigations.
 ## Command Execution Steps
 
 1. 🔍 **Find Plan Search**: 
-   - If feature-name provided: Look for `plans/[feature-name]-search.md` file
-   - If no feature-name: Search `plans/` directory for `*-search.md` files (excluding `archive/` subdirectory) and identify from context
+   - If feature-name provided: Look for `plans/[feature-name]/search.md` file
+   - If no feature-name: Search `plans/` directory for `*/search.md` files (excluding `archive/` subdirectory) and identify from context
 
 2. ✅ **STRICT Completion Verification**: 
    - Search file for `- [ ]` patterns using grep or manual scan
    - If ANY unchecked items found → STOP, return error message
    - Verify status shows "✅ Investigation completed" 
    - Only proceed if 100% verified complete
-   - Run verification command: `grep '\- \[ \]' "plans/[feature-name]-search.md"` to confirm zero results
+   - Run verification command: `grep '\- \[ \]' "plans/[feature-name]/search.md"` to confirm zero results
 
 3. 📋 **Guidelines & Standards Review**: 
    - Re-read CLAUDE.md and ~/.claude/CLAUDE.md for development standards and behavioral guidelines
 
 4. 📝 **Create Plan Document**: 
-   - Generate `plans/[feature-name].md` using template below ONLY after verification and guidelines review complete
+   - Generate `plans/[feature-name]/plan.md` using template below ONLY after verification and guidelines review complete
    - Structure implementation in Test → Code → Refactor cycles (t-wada TDD practices)
    - Use plan-search investigation findings to fill plan sections
 
 5. 🔍 **MANDATORY Section Completeness Verification**: 
    - Count sections in generated plan document
    - MUST contain exactly 8 sections
-   - Run verification command: `grep -c "^## " "plans/[feature-name].md"`
+   - Run verification command: `grep -c "^## " "plans/[feature-name]/plan.md"`
    - Expected result: Exactly 8 sections
    - Verify each required section header is present:
      * 📄 Requirements Summary
@@ -188,7 +188,7 @@ Record ALL discoveries that impact development - BE COMPREHENSIVE! Include techn
 
 ## Key Principles
 
-- **Plan Search Required**: Must have completed `[feature-name]-search.md` before planning
+- **Plan Search Required**: Must have completed `[feature-name]/search.md` before planning
 - **Verification-Based**: Never trust status alone - verify actual checkbox states
 - **Investigation-Driven**: Uses investigation findings to create plan document
 - **Template-Consistent**: Ensures consistency across all plan documents

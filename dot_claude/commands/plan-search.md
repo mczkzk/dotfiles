@@ -23,7 +23,7 @@ Creates investigation checklist and gathers requirements before plan document cr
 ## Command Flow
 
 ### 1. Create Investigation File
-- Generate `plans/[feature-name]-search.md`
+- Generate `plans/[feature-name]/search.md`
 - Include comprehensive investigation checklist
 - All items must be completed before `/plan-build` command
 
@@ -150,7 +150,7 @@ Record key discoveries, decisions, and findings during investigation - BE DETAIL
 
 ## Integration with Planning
 
-- `/plan-build [feature-name]` requires completed `[feature-name]-search.md`
+- `/plan-build [feature-name]` requires completed `[feature-name]/search.md`
 - All checklist items must be marked `[x]` 
 - Investigation findings inform detailed planning
 - Plan-search serves as foundation for plan document
