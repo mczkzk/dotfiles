@@ -64,8 +64,8 @@ Before marking ANY item complete:
 
 ## 📋 Requirements Gathering
 - [ ] **Specifications provided**: Feature requirements and user stories documented
+- [ ] **Feature prioritization**: Required vs optional feature priorities defined
 - [ ] **UI/UX materials**: Screenshots, mockups, design references shared  
-- [ ] **Business constraints**: Timeline, resource, and scope limitations identified
 - [ ] **Success criteria defined**: Clear definition of completion and acceptance criteria
 - [ ] **Stakeholder alignment**: All parties agree on requirements and expectations
 
@@ -75,6 +75,7 @@ Before marking ANY item complete:
 - [ ] **Reusable components**: Available components and utilities documented
 - [ ] **Code conventions aligned**: Naming patterns and architecture styles understood
 - [ ] **Integration points mapped**: How feature connects with existing system architecture
+- [ ] **Backwards compatibility scope**: Compatibility boundaries and breaking change impact assessed
 
 ## 🗄️ Database Investigation
 - [ ] **Schema structure analysis**: Feature-relevant tables, columns, data types, and primary keys documented
@@ -93,6 +94,7 @@ Before marking ANY item complete:
 ## 🧪 Test & Quality Strategy
 - [ ] **Performance baselines**: Current latency & memory usage recorded
 - [ ] **Coverage gaps identified**: Critical paths and testing requirements mapped
+- [ ] **Cross-platform support**: Device and browser compatibility requirements defined
 - [ ] **Regression protection**: Snapshot/golden tests for current behavior
 - [ ] **Integration scenarios**: Happy/unhappy path test cases outlined
 
