@@ -42,6 +42,7 @@ Analyzes code complexity and provides effort estimates using standard Scrum poke
 - **Test coverage needs** - Testing complexity
 - **Documentation requirements** - API docs, comments
 - **Risk factors** - Potential blockers and unknowns
+- **Ambiguous requirements** - Add 1-2 points for unclear specs or missing details
 
 ## Output Format
 
