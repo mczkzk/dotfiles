@@ -10,6 +10,7 @@ This repository manages user configuration and documentation for AI.
   - [`deepthink.md`](commands/deepthink.md) - Deep investigation command requiring complete understanding
   - [`plan-build.md`](commands/plan-build.md) - Plan document creation command
   - [`plan-search.md`](commands/plan-search.md) - Investigation and requirements gathering command
+  - [`pr-review.md`](commands/pr-review.md) - Code review between branches with implementation summary
   - [`refactor.md`](commands/refactor.md) - Martin Fowler style refactoring command
   - [`scrum-poker.md`](commands/scrum-poker.md) - Code complexity estimation using Scrum poker scale
   - [`undo.md`](commands/undo.md) - Undo all changes from previous interaction
