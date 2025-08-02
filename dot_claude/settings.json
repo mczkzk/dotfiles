@@ -1,4 +1,6 @@
 {
+  "env": {},
+  "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
       "Read(**)",
@@ -7,14 +9,12 @@
       "Glob(**)",
       "Grep(**)",
       "LS(**)",
-
       "Bash(git:*)",
       "Bash(gh:*)",
       "Bash(npm:*)",
       "Bash(pnpm:*)",
       "Bash(yarn:*)",
       "Bash(node:*)",
-
       "Bash(ls:*)",
       "Bash(mv:*)",
       "Bash(cp:*)",
@@ -32,7 +32,6 @@
       "Bash(cut:*)",
       "Bash(sort:*)",
       "Bash(tree:*)",
-
       "mcp__container-use__environment_checkpoint",
       "mcp__container-use__environment_create",
       "mcp__container-use__environment_add_service",
@@ -43,7 +42,6 @@
       "mcp__container-use__environment_open",
       "mcp__container-use__environment_run_cmd",
       "mcp__container-use__environment_update",
-
       "WebFetch(domain:*)"
     ],
     "deny": [
@@ -64,7 +62,17 @@
       "Bash(*HUSKY=0*)"
     ]
   },
-  "env": {
-  },
-  "includeCoAuthoredBy": false
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/scripts/deny-check.sh"
+          }
+        ]
+      }
+    ]
+  }
 }
