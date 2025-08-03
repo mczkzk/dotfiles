@@ -14,6 +14,8 @@ This repository manages user configuration and documentation for AI.
   - [`refactor.md`](commands/refactor.md) - Martin Fowler style refactoring command
   - [`scrum-poker.md`](commands/scrum-poker.md) - Code complexity estimation using Scrum poker scale
   - [`undo.md`](commands/undo.md) - Undo all changes from previous interaction
+- `scripts/`
+  - [`deny-check.sh`](scripts/deny-check.sh) - Pre-tool use hook for command validation
 - [`settings.json`](settings.json) - AI configuration file
 
 
