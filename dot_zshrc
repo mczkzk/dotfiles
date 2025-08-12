@@ -44,6 +44,7 @@ setopt inc_append_history
 # Load functions
 [ -f ~/.config/zsh/functions/gwtadd.zsh ] && source ~/.config/zsh/functions/gwtadd.zsh
 [ -f ~/.config/zsh/functions/ghnew.zsh ] && source ~/.config/zsh/functions/ghnew.zsh
+[ -f ~/.config/zsh/functions/gconflict.zsh ] && source ~/.config/zsh/functions/gconflict.zsh
 
 # ===============================
 # Directory Hash
