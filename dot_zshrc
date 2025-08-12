@@ -33,59 +33,17 @@ setopt share_history # Share history between tabs and windows
 setopt inc_append_history
 
 # ===============================
-# Aliases & Functions
+# Custom Aliases & Functions
 # ===============================
 
-# General aliases
-alias -g C='| pbcopy' # Copy filtered output to clipboard (e.g., ps aux | grep python C)
-# alias rm='rm -iv' # Confirm before deletion
-# alias cp='cp -iv'
-# alias mv='mv -iv'
-alias cat='bat'
-alias vi='nvim'
-alias vim='nvim'
-alias view='nvim -R'
-alias compress-latest-screen-recording='cd ~/Desktop && latest=$(ls -t *.mov | head -n1) && ffmpeg -i "$latest" -vcodec libx264 -crf 28 -preset veryfast -acodec aac -b:a 128k "${latest%.mov}.mp4"'
-alias gcleanall='git restore . && git clean -fd'
+# Load aliases
+[ -f ~/.config/zsh/aliases/general.zsh ] && source ~/.config/zsh/aliases/general.zsh
+[ -f ~/.config/zsh/aliases/chezmoi.zsh ] && source ~/.config/zsh/aliases/chezmoi.zsh
+[ -f ~/.config/zsh/aliases/git.zsh ] && source ~/.config/zsh/aliases/git.zsh
 
-# Chezmoi aliases
-eval "$(chezmoi completion zsh)"
-alias cadd='chezmoi add'
-alias cvi='chezmoi edit'
-alias cpush='chezmoi apply && cd "$(chezmoi source-path)" && git add . && git commit -m "update dotfiles" && git push'
-alias cdiff='chezmoi diff'
-alias capply='chezmoi apply'
-alias ccd='chezmoi cd'
-alias cupdate='chezmoi update'
-
-# Git functions
-gwtadd() {
-  repo=$(basename "$(pwd)")
-  branch="$1"
-  base="${2:-HEAD}"
-  if [ -z "$branch" ]; then
-    echo "Usage: gwtadd branch-name [base-branch]"
-    return 1
-  fi
-
-  # Create worktree path (replace / with - in branch name)
-  worktree_path="../wt-${repo}-${branch//\//-}"
-
-  # Check if branch exists
-  if git show-ref --verify --quiet "refs/heads/${branch}"; then
-    echo "Using existing branch '${branch}'"
-    git worktree add "${worktree_path}" "${branch}"
-  else
-    echo "Creating new branch '${branch}' from '${base}'"
-    git worktree add -b "${branch}" "${worktree_path}" "${base}"
-  fi
-}
-
-ghnew() {
-  local repo_name
-  read "repo_name?Enter repository name: "
-  gh repo create "$repo_name" --private --clone --add-readme
-}
+# Load functions
+[ -f ~/.config/zsh/functions/gwtadd.zsh ] && source ~/.config/zsh/functions/gwtadd.zsh
+[ -f ~/.config/zsh/functions/ghnew.zsh ] && source ~/.config/zsh/functions/ghnew.zsh
 
 # ===============================
 # Directory Hash
