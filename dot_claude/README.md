@@ -87,6 +87,7 @@ See: https://docs.anthropic.com/en/docs/claude-code/mcp
 > Ideally, MCP would be managed globally, but when you add MCP globally, it gets recorded in ~/.claude.json instead of ~/.claude/mcp.json. (see anthropics/claude-code\3098).
 
 
-## serena setup
+## MCP
 
-See https://github.com/oraios/serena#claude-code
+- https://github.com/oraios/serena#claude-code
+- https://github.com/upstash/context7?tab=readme-ov-file#claude-code-local-server-connection
