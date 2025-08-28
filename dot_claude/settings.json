@@ -71,7 +71,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/scripts/deny-check.sh"
+            "command": "chmod +x ~/.claude/scripts/deny-check.sh && ~/.claude/scripts/deny-check.sh"
           }
         ]
       }
