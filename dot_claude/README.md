@@ -14,7 +14,6 @@ This repository manages user configuration and documentation for AI.
   - [`pr-template.md`](commands/pr-template.md) - Generate PR title, summary, and test plan from git diff
   - [`refactor.md`](commands/refactor.md) - Martin Fowler style refactoring command
   - [`scrum-poker.md`](commands/scrum-poker.md) - Code complexity estimation using Scrum poker scale
-  - [`undo.md`](commands/undo.md) - Undo all changes from previous interaction
 - `scripts/`
   - [`deny-check.sh`](scripts/deny-check.sh) - Pre-tool use hook for command validation
 - [`settings.json`](settings.json) - AI configuration file
