@@ -16,3 +16,10 @@ Create a git commit following these steps:
    - Use simple git commit -m "message" format (avoid HEREDOC)
    - Focus on the main purpose, avoid detailed bullet points
    - Follow repository's existing commit message style
+
+**Stop and ask the user if you notice:**
+- Changes to files completely unrelated to the current task/feature
+- Modification of sensitive files (.env, credentials files)
+- Changes that contradict explicit user instructions (e.g., "don't touch UserServices" but it's modified)
+
+**NEVER use `git restore`, `git reset`, or other destructive commands without explicit user instruction.**
