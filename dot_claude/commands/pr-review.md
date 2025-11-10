@@ -51,7 +51,14 @@ Perform a comprehensive code review comparing the current working branch with a 
 - Correct implementation logic
 - Edge case handling
 - Performance considerations
-- Security best practices
+
+### 🔒 **Security & Authorization**
+- Authorization parameters are passed through entire call chain to data access layer
+- Data access operations verify ALL authorization constraints when filtering/querying
+- No authorization parameter is received but unused in actual data filtering
+- Cross-resource access is prevented (accessing resource B through resource A without ownership verification)
+- Relationship constraints are enforced at data access time, not only at schema level
+- Authorization checks at entry points alone are insufficient; data layer must independently verify access rights
 
 ### 🏗️ **Architecture**
 - Follows existing patterns
