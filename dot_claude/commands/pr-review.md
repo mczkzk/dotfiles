@@ -42,7 +42,7 @@ Perform a comprehensive code review comparing the current working branch with a 
 ## Review Criteria
 
 ### ✅ **Code Quality**
-- Consistent code style and formatting
+- Consistent with existing codebase conventions, naming, and formatting
 - Proper error handling
 - Clear variable and function naming
 - Appropriate comments and documentation
@@ -59,6 +59,14 @@ Perform a comprehensive code review comparing the current working branch with a 
 - Cross-resource access is prevented (accessing resource B through resource A without ownership verification)
 - Relationship constraints are enforced at data access time, not only at schema level
 - Authorization checks at entry points alone are insufficient; data layer must independently verify access rights
+
+### ♻️ **Refactoring**
+- No code duplication (DRY principle)
+- No unused variables, functions, or dead code
+- No hardcoded values (use constants or configuration)
+- Appropriate level of abstraction (not over/under-engineered)
+- Single responsibility principle adherence
+- Opportunities to improve existing code touched by the change
 
 ### 🏗️ **Architecture**
 - Follows existing patterns
