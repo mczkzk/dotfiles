@@ -41,12 +41,47 @@ Apply Martin Fowler refactoring techniques through natural language requests.
 - Run tests (must be green)
 - Check git status (must be clean)
 
-### 2. Auto-Technique Selection
-- **"too long" / "splitting"** → Extract Method
-- **"duplicate code"** → Extract + Move Method  
-- **"complex conditions"** → Guard Clauses
-- **"doing too many things"** → Extract Class
-- **"changed since main"** → Analyze git diff
+### 2. Refactoring Techniques
+
+Select appropriate technique(s) based on the description:
+
+**Extraction & Splitting**
+- Extract Method - 長いメソッドを分割
+- Extract Class - 責務が多いクラスを分割
+- Extract + Move Method - 重複コードを統合
+
+**Naming & Clarity**
+- Rename Variable/Method/Class - 不明瞭な命名を改善
+- Replace Magic Number with Constant - マジックナンバーに名前をつける
+
+**Conditionals & Control Flow**
+- Guard Clauses - 早期リターンで条件をフラット化
+- Decompose Conditional - 複雑な条件式を分解
+- Replace Conditional with Polymorphism - 型による分岐をOOPに
+- Remove Flag Argument - フラグ引数を別メソッドに
+
+**Parameters & Data**
+- Introduce Parameter Object - 多すぎる引数をオブジェクトに
+- Replace Primitive with Object - プリミティブを値オブジェクトに
+- Extract Class (Data Clump) - 一緒に使うデータをまとめる
+
+**Encapsulation & Moving**
+- Move Method/Field - 責務が違う場所に移動
+- Encapsulate Field - 直接アクセスをgetter/setterに
+- Move Method (Feature Envy) - 他クラスを多用するメソッドを移動
+
+**Inheritance & Abstraction**
+- Extract Superclass/Interface - サブクラス間の共通コードを抽出
+- Replace Inheritance with Delegation - 不適切な継承を委譲に
+
+**Simplification & Cleanup**
+- Inline Method/Class - 過剰な抽象化を戻す
+- Remove Dead Code - 未使用コードを削除
+- Replace Temp with Query - 一時変数をメソッド呼び出しに
+- Separate Query from Modifier - 副作用と参照を分離
+
+**Git-Based**
+- Analyze git diff - ブランチ間の差分を分析してリファクタ
 
 ### 3. Micro-Cycle (Repeat)
 1. **Small change** (one technique, one location)
