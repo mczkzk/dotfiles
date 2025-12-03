@@ -75,8 +75,14 @@ This technique loads all available guidelines and rules at conversation start, e
 ### serena
 https://github.com/oraios/serena#claude-code
 
+May no longer be needed?
+
 ### context7
 https://github.com/upstash/context7?tab=readme-ov-file#claude-code-local-server-connection
+
+```
+claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: YOUR_API_KEY"
+```
 
 ### container-use
 
