@@ -43,7 +43,26 @@ Analyzes code complexity and provides effort estimates using standard Scrum poke
 - **Test coverage needs** - Testing complexity
 - **Documentation requirements** - API docs, comments
 - **Risk factors** - Potential blockers and unknowns
-- **Ambiguous requirements** - Add 1-2 points for unclear specs or missing details
+
+## ⚠️ Estimation Adjustment Rules (MUST Apply)
+
+Apply the following adjustments to the base estimate. Cumulative when multiple factors apply.
+
+### Adjustment Factors (+1 level each)
+- **Modifying existing code** - Requires impact analysis and regression testing
+- **External API/service integration** - Auth, error handling, rate limits, etc.
+- **Including review & testing** - PR creation, review cycles, CI fixes
+- **Unfamiliar codebase/domain** - Time to understand code and acquire domain knowledge
+- **Cross-team coordination** - Communication overhead
+
+### Uncertainty Adjustments (+1-2 levels)
+- Ambiguous or undefined requirements
+- Technical unknowns
+- No prior experience with similar tasks
+
+### Guidelines
+- **Estimate for "anyone on the team can complete" not "my fastest implementation"**
+- When in doubt, choose the higher estimate (correcting optimism bias)
 
 ## Output Format
 
