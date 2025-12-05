@@ -1,6 +1,7 @@
 brew "bat"
 brew "chezmoi"
 brew "exiftool"
+brew "ffmpeg"
 brew "fzf"
 brew "gh"
 brew "helm"
