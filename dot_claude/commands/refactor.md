@@ -70,6 +70,11 @@ Select appropriate technique(s) based on the description:
 - Encapsulate Field - 直接アクセスをgetter/setterに
 - Move Method (Feature Envy) - 他クラスを多用するメソッドを移動
 
+**Module & Exports**
+- Remove Unused Export - 外部から使われていないexportを削除
+- Minimize Public Surface - 内部実装のexportを最小化
+- Consolidate Exports - バラバラのexportをオブジェクトにまとめる
+
 **Inheritance & Abstraction**
 - Extract Superclass/Interface - サブクラス間の共通コードを抽出
 - Replace Inheritance with Delegation - 不適切な継承を委譲に
