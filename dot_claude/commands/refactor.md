@@ -70,10 +70,10 @@ Select appropriate technique(s) based on the description:
 - Encapsulate Field - 直接アクセスをgetter/setterに
 - Move Method (Feature Envy) - 他クラスを多用するメソッドを移動
 
-**Module & Exports**
-- Remove Unused Export - 外部から使われていないexportを削除
-- Minimize Public Surface - 内部実装のexportを最小化
-- Consolidate Exports - バラバラのexportをオブジェクトにまとめる
+**Visibility & Scope**
+- Remove Unused Public - 外部から使われていないpublic APIを削除
+- Minimize Public Surface - 内部実装の公開を最小化
+- Consolidate Exports - バラバラのexport/publicをまとめる
 
 **Inheritance & Abstraction**
 - Extract Superclass/Interface - サブクラス間の共通コードを抽出
@@ -84,6 +84,10 @@ Select appropriate technique(s) based on the description:
 - Remove Dead Code - 未使用コードを削除
 - Replace Temp with Query - 一時変数をメソッド呼び出しに
 - Separate Query from Modifier - 副作用と参照を分離
+
+**Documentation & Types**
+- Verify Doc Accuracy - ドキュメントと実装の整合性を検証
+- Update Stale Comments - 実装と乖離したコメントを更新
 
 **Git-Based**
 - Analyze git diff - ブランチ間の差分を分析してリファクタ
