@@ -86,6 +86,10 @@ Select appropriate technique(s) based on the description:
 - Separate Query from Modifier - 副作用と参照を分離
 - Avoid Unnecessary Complexity - 冗長な間接参照や不要なステップを避ける
 
+**Performance Optimization**
+- Replace Loop Lookup with Map/Set - ループ内の線形探索をO(1)アクセスに
+- Cache Repeated Queries - 繰り返し計算される値をキャッシュ
+
 **Documentation & Types**
 - Verify Doc Accuracy - ドキュメントと実装の整合性を検証
 - Update Stale Comments - 実装と乖離したコメントを更新
