@@ -84,6 +84,7 @@ Select appropriate technique(s) based on the description:
 - Remove Dead Code - 未使用コードを削除
 - Replace Temp with Query - 一時変数をメソッド呼び出しに
 - Separate Query from Modifier - 副作用と参照を分離
+- Avoid Unnecessary Complexity - 冗長な間接参照や不要なステップを避ける
 
 **Documentation & Types**
 - Verify Doc Accuracy - ドキュメントと実装の整合性を検証
