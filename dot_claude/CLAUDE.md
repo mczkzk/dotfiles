@@ -17,6 +17,11 @@ After resolving issues or learning something non-obvious, ask:
 ### Date Handling
 Always use correct current date in documentation. Check with `date +%Y-%m-%d` command.
 
+### Implementation Approach
+- **Research existing code first**: Before creating new files, constants, functions, or patterns, always investigate the existing codebase. Follow existing naming conventions, file structures, and implementation patterns.
+- **Match file language**: Write documentation and comments in the same language as the existing file.
+- **Read before modifying**: When asked to modify a file, read it first. Then check any related files referenced within it. Make decisions based on comprehensive understanding.
+
 ---
 
 ## Container Use
