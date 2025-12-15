@@ -84,6 +84,8 @@ Before marking ANY item complete:
 - [ ] **Constraint analysis**: Unique constraints, check constraints, and deletion impact chains mapped per table
 - [ ] **Independent table identification**: Tables with no foreign key relationships to other tables documented
 - [ ] **Data patterns & migration strategy**: Sample data examined, business rules identified, migration approach planned
+- [ ] **Existing data backfill requirements**: For new columns, determine values for existing rows, identify data sources for backfill, define post-migration integrity verification
+- [ ] **Query compatibility analysis**: Verify queries using new columns can retrieve existing data, assess NULL value impact on query results, determine if application-side NULL handling is needed
 
 ## 🔗 External Dependencies
 - [ ] **APIs validated**: Third-party service responses verified with real data
