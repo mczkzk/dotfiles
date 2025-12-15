@@ -6,12 +6,13 @@ allowed-tools:
   - Edit
   - Glob
   - Grep
+  - Bash(git diff:*, git log:*, git status:*)
   - Task
 ---
 
 # Plan Sync Command
 
-Synchronizes plan.md with current implementation state. Reflects progress, discovered issues, and corrects incorrect assumptions.
+Automatically syncs plan.md with actual implementation state using conversation context and codebase analysis.
 
 ## Usage
 
@@ -27,99 +28,98 @@ Synchronizes plan.md with current implementation state. Reflects progress, disco
 
 ### 1. 🔍 Identify Target Files
 - If feature-name provided: Load `plans/[feature-name]/plan.md`
-- If no feature-name: Find most recently modified `plans/*/plan.md`
-- Also load corresponding `plans/[feature-name]/search.md`
+- If no feature-name: Find most recently modified `plans/*/plan.md` (excluding `archive/`)
 
-### 2. 📊 Gather Current Status
-Ask user the following:
+### 2. 📊 Gather Evidence (No User Prompts)
 
-```
-## Sync Check
+**From Conversation Context:**
+- What tasks were discussed as completed
+- Issues encountered and how they were resolved
+- Approach changes or pivots made during implementation
+- New discoveries or learnings mentioned
+- Incorrect assumptions that were corrected
 
-### Completed Tasks
-Which tasks have been completed? (Specify by task number)
+**From Codebase:**
+- Check if mentioned files exist (Glob)
+- Verify functions/classes/patterns exist (Grep)
+- Review recent changes (git diff)
+- Read relevant source files to confirm implementation
 
-### New Tasks
-Any additional tasks discovered during implementation?
+### 3. ✏️ Apply Updates Directly
 
-### Modified Tasks
-Any tasks that changed from original plan? (Scope change, approach change, etc.)
+Update plan.md immediately without confirmation:
 
-### Removed Tasks
-Any tasks that became unnecessary or should be skipped?
+- **Completed tasks**: `[ ]` → `[x]`
+- **New tasks**: Add to appropriate Phase
+- **Modified tasks**: Update description to match actual implementation
+- **Removed tasks**: Delete or strikethrough
+- **Assumption corrections**: Update search.md if exists
 
-### Incorrect Assumptions
-Any mistakes in search.md investigation?
-(e.g., API spec was different, misunderstood existing code, etc.)
+### 4. 📝 Append to Implementation Notes
 
-### Other Discoveries
-Any findings or learnings to record in Implementation Notes?
-```
-
-### 3. ✏️ Update plan.md
-Based on user responses:
-
-- **Completed tasks**: Update `- [ ]` → `- [x]`
-- **New tasks**: Add to appropriate Phase (renumber as needed)
-- **Modified tasks**: Update task content, add comment explaining change reason
-- **Removed tasks**: ~~Strikethrough~~ or delete (confirm with user)
-- **Implementation Notes**: Append change history and discoveries
-
-### 4. ✏️ Update search.md (If Assumptions Were Wrong)
-- Add corrections to relevant investigation items
-- Record error and correct information in Investigation Notes
-- Format: `~~incorrect info~~ → correct info (discovered: YYYY-MM-DD)`
-
-### 5. 📋 Output Sync Summary
-
-```markdown
-## Plan Sync Complete
-
-### Change Summary
-- ✅ Completed: X items
-- ➕ Added: X items
-- ✏️ Modified: X items
-- 🗑️ Removed: X items
-- 🔧 Assumption fixes: X items
-
-### Updated Files
-- plans/[feature-name]/plan.md
-- plans/[feature-name]/search.md (if assumptions corrected)
-
-### Remaining Tasks
-- Incomplete: X items
-- Next task: [task name]
-```
-
-## Implementation Notes Update Format
+Add sync log:
 
 ```markdown
 ### Sync Log - YYYY-MM-DD HH:MM
 
-**Changes:**
-- [completed] A.1 - Task name
-- [added] B.3 - New task name (reason: discovered ○○ was needed)
-- [modified] A.2 - old: ○○ → new: △△ (reason: due to ××)
-- [removed] C.1 - Task name (reason: determined unnecessary)
+**Changes applied:**
+- [completed] A.1 - Task name (evidence: src/feature.ts:45)
+- [modified] B.2 - Changed approach from X to Y
+- [added] C.3 - New task discovered during implementation
+- [removed] D.1 - No longer needed
 
-**Assumption Corrections:**
-- search.md: ○○ spec was actually ×× not △△
-
-**Discoveries & Learnings:**
-- Notable findings to record
+**Context sources:**
+- Conversation: discussed completion of X, pivot from Y to Z
+- Codebase: verified in src/*, git diff shows 15 files changed
 ```
+
+### 5. 📋 Output Summary
+
+After applying changes, output brief summary:
+
+```markdown
+## Plan Sync Complete
+
+**Applied:**
+- ✅ Completed: X tasks
+- ✏️ Modified: X tasks
+- ➕ Added: X tasks
+- 🗑️ Removed: X tasks
+
+**Updated files:**
+- plans/[feature-name]/plan.md
+```
+
+## Analysis Techniques
+
+### Conversation Context
+- Recent messages about task completion
+- Error discussions and resolutions
+- "Actually we should..." or "Let's change to..." statements
+- Questions answered that clarify implementation
+
+### Codebase Verification
+- `Glob` for files mentioned in tasks
+- `Grep` for function/class names from task descriptions
+- `git diff main...HEAD` for changed files
+- `Read` to confirm implementation details
+
+### Pattern Matching
+- "Add function X" → Grep for "function X"
+- "Create component Y" → Check Y.tsx exists
+- "Update schema Z" → Check migration files
 
 ## Key Principles
 
-- **Implementation-driven**: Update plan based on actual progress
-- **History preservation**: Record why changes were made
-- **Assumption correction**: Honestly record investigation errors as learnings
-- **Interactive**: Confirm with user before updating, no auto-decisions
-- **Lightweight**: Keep simple so it can be called frequently
+- **Fully automatic**: No confirmation prompts (user can undo with cmd+z)
+- **Context-aware**: Uses conversation history + codebase
+- **Evidence-based**: Every change backed by source
+- **Comprehensive**: Checks all tasks, not just recent
+- **Preserve history**: Logs all changes in Implementation Notes
 
 ## Recommended Timing
 
 - After completing a Phase
-- When major approach changes occur
-- After long work sessions as a checkpoint
-- Whenever you think "this doesn't match the plan"
+- Before `/pr-template`
+- After long work sessions
+- When resuming after context loss
