@@ -10,6 +10,7 @@ This repository manages user configuration and documentation for AI.
   - [`deepthink.md`](commands/deepthink.md) - Deep investigation command requiring complete understanding
   - [`plan-build.md`](commands/plan-build.md) - Plan document creation command
   - [`plan-search.md`](commands/plan-search.md) - Investigation and requirements gathering command
+  - [`plan-sync.md`](commands/plan-sync.md) - Sync plan with implementation progress
   - [`pr-review.md`](commands/pr-review.md) - Code review between branches with implementation summary
   - [`pr-template.md`](commands/pr-template.md) - Generate PR title, summary, and test plan from git diff
   - [`refactor.md`](commands/refactor.md) - Martin Fowler style refactoring command
@@ -38,6 +39,9 @@ For larger implementations, use this structured approach:
 ### 3. Implementation
 - Use natural language: "go", "implement", or specify plan document
 - Auto-accept mode or `claude --dangerously-skip-permissions` enables rapid, uninterrupted development cycles
+- Run `/plan-sync [feature-name]` periodically to sync plan with actual progress
+  - Update completed/added/modified/removed tasks
+  - Correct incorrect assumptions discovered during implementation
 - **Note**: Consider splitting tasks/PRs when plan documents exceed 1000 lines for better maintainability
 
 ### 4. Archive
