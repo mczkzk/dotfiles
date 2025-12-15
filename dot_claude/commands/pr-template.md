@@ -1,9 +1,10 @@
 ---
 description: Generate PR title, summary, and test plan from git diff between working branch and target branch
-allowed-tools: 
+allowed-tools:
   - Bash(git:*)
   - Read
   - Grep
+  - Glob
 ---
 
 Generate a pull request template with title, summary, and test plan based on code changes between the current working branch and a target branch (default: main).
@@ -21,22 +22,31 @@ Generate a pull request template with title, summary, and test plan based on cod
 
 ## Analysis Process
 
-1. **Identify Changes**
+1. **Check for Plan Document**
+   - Search for `plans/*/plan.md` files in the repository
+   - If found, read plan.md to understand:
+     - Requirements Summary (the "why")
+     - Architecture Impact and design decisions
+     - Testing Strategy for test plan reference
+     - Implementation Notes for context and learnings
+
+2. **Identify Changes**
    - Run `git diff [target-branch]...HEAD --name-only` to list changed files
    - Run `git diff [target-branch]...HEAD --stat` to show change statistics
    - Run `git diff [target-branch]...HEAD` to analyze actual code changes
 
-2. **Analyze Implementation**
+3. **Analyze Implementation**
    - Review each changed file to understand:
      - Purpose and functionality of changes
      - New features or bug fixes implemented
      - Modified components and their interactions
      - Configuration or dependency changes
+   - Cross-reference with plan.md to verify completeness
 
-3. **Generate PR Template**
+4. **Generate PR Template**
    - **Title**: Concise, descriptive title summarizing the main change
-   - **Summary**: Bullet points explaining what was changed and why
-   - **Test Plan**: Step-by-step instructions for manual testing and verification
+   - **Summary**: Bullet points explaining what was changed and why (leverage plan.md Requirements)
+   - **Test Plan**: Step-by-step instructions for manual testing (leverage plan.md Testing Strategy)
 
 ## Template Format
 
@@ -89,9 +99,10 @@ If the diff doesn't provide enough context to generate a complete template, the 
 
 ## Notes
 
+- **Plan-aware**: References plan.md for requirements, design decisions, and test strategy
 - **Context-aware**: Considers existing codebase patterns and conventions
 - **Comprehensive**: Covers both technical changes and business impact
 - **Actionable**: Provides clear testing and verification steps
 - **Interactive**: Asks for clarification when needed for completeness
 
-This command streamlines the PR creation process by automatically generating professional, comprehensive pull request descriptions based on actual code changes.
+This command streamlines the PR creation process by automatically generating professional, comprehensive pull request descriptions based on actual code changes and plan documentation.
