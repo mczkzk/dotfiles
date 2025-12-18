@@ -1,119 +1,86 @@
 ---
-description: Review code changes between branches and provide implementation summary and code review
-allowed-tools: 
+description: Review GitHub PR and identify issues and improvements
+allowed-tools:
+  - Bash(gh:*)
   - Bash(git:*)
   - Read
   - Grep
 ---
 
-Perform a comprehensive code review comparing the current working branch with a target branch (default: main).
+Review a GitHub Pull Request and identify issues that need to be fixed.
 
 ## Usage
 
 ```
-/pr-review [target-branch]
+/pr-review <PR number>
 ```
 
 **Examples:**
-- `/pr-review` - Compare with main branch
-- `/pr-review develop` - Compare with develop branch
-- `/pr-review feature/auth` - Compare with feature/auth branch
+- `/pr-review 123`
+- `/pr-review 456`
 
-## Review Process
+## Process
 
-1. **Identify Changes**
-   - Run `git diff [target-branch]...HEAD --name-only` to list changed files
-   - Run `git diff [target-branch]...HEAD --stat` to show change statistics
+1. **Get PR Details**
+   - `gh pr diff <PR number>` - Get diff
+   - `gh pr view <PR number>` - Get PR info
 
-2. **Analyze Implementation**
-   - Review each changed file for:
-     - Purpose and functionality
-     - Code quality and patterns
-     - Potential issues or improvements
-     - Architecture impact
-
-3. **Generate Review**
-   - **Implementation Summary**: What was implemented and why
-   - **Code Quality**: Style, patterns, and best practices
-   - **Potential Issues**: Bugs, performance, security concerns
-   - **Suggestions**: Improvements and optimizations
-   - **Architecture Impact**: How changes affect overall system
+2. **Review Changes**
+   - Analyze implementation logic and correctness
+   - Check code quality and patterns
+   - Identify bugs, security issues, performance problems
+   - Verify error handling and edge cases
 
 ## Review Criteria
 
-### ✅ **Code Quality**
-- Consistent with existing codebase conventions, naming, and formatting
-- Proper error handling
-- Clear variable and function naming
-- Appropriate comments and documentation
+### Code Quality
+- Inconsistent naming or formatting
+- Missing error handling
+- Unclear variable/function names
+- Unnecessary comments or missing critical ones
 
-### 🔍 **Logic Review**
-- Correct implementation logic
-- Edge case handling
-- Performance considerations
+### Logic & Correctness
+- Incorrect implementation
+- Unhandled edge cases
+- Performance issues
 
-### 🔒 **Security & Authorization**
-- Authorization parameters are passed through entire call chain to data access layer
-- Data access operations verify ALL authorization constraints when filtering/querying
-- No authorization parameter is received but unused in actual data filtering
-- Cross-resource access is prevented (accessing resource B through resource A without ownership verification)
-- Relationship constraints are enforced at data access time, not only at schema level
-- Authorization checks at entry points alone are insufficient; data layer must independently verify access rights
+### Security
+- Authorization not passed through call chain
+- Data access without authorization checks
+- Cross-resource access without ownership verification
+- Authorization checks only at entry points
 
-### ♻️ **Refactoring**
-- No code duplication (DRY principle)
-- No unused variables, functions, or dead code
-- No hardcoded values (use constants or configuration)
-- Appropriate level of abstraction (not over/under-engineered)
-- Single responsibility principle adherence
-- Opportunities to improve existing code touched by the change
+### Code Smells
+- Code duplication
+- Unused code or dead code
+- Hardcoded values
+- Over/under-engineered abstractions
+- Multiple responsibilities in single function/class
 
-### 🏗️ **Architecture**
-- Follows existing patterns
-- Proper separation of concerns
-- Maintainable and extensible design
-- Integration with existing systems
+### Architecture
+- Violates existing patterns
+- Poor separation of concerns
+- Hard to maintain or extend
 
-### 🧪 **Testing**
-- Test coverage for new functionality
-- Test quality and effectiveness
-- Integration test considerations
+### Testing
+- Missing test coverage
+- Poor test quality
 
 ## Output Format
 
-The review includes:
+1. **Summary**
+   - Changed files and scope
 
-1. **📊 Change Summary**
-   - Files modified, added, deleted
-   - Lines of code changes
-   - Scope of modifications
+2. **Issues Found**
+   - Bugs and logic errors
+   - Security vulnerabilities
+   - Performance problems
+   - Code quality issues
+   - Architecture violations
 
-2. **🎯 Implementation Overview**
-   - Main features/changes implemented
-   - Key architectural decisions
-   - Integration points
+3. **Required Changes**
+   - Critical fixes needed
+   - Code improvements
+   - Refactoring suggestions
 
-3. **✨ Strengths**
-   - Well-implemented aspects
-   - Good practices followed
-   - Quality improvements
-
-4. **⚠️ Areas for Improvement**
-   - Potential issues or bugs
-   - Code quality concerns
-   - Performance optimizations
-   - Security considerations
-
-5. **🚀 Recommendations**
-   - Specific improvement suggestions
-   - Best practice recommendations
-   - Future enhancement ideas
-
-## Notes
-
-- **Read-only operation**: No code modifications are made
-- **Comprehensive analysis**: Reviews both implementation and design
-- **Context-aware**: Considers existing codebase patterns
-- **Actionable feedback**: Provides specific, implementable suggestions
-
-This command helps ensure code quality and consistency before merging changes, providing valuable feedback for continuous improvement.
+Focus on actionable items that need to be addressed before merging.
