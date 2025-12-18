@@ -11,8 +11,8 @@ This repository manages user configuration and documentation for AI.
   - [`plan-build.md`](commands/plan-build.md) - Plan document creation command
   - [`plan-search.md`](commands/plan-search.md) - Investigation and requirements gathering command
   - [`plan-sync.md`](commands/plan-sync.md) - Sync plan with implementation progress
-  - [`pr-review.md`](commands/pr-review.md) - Code review between branches with implementation summary
-  - [`pr-template.md`](commands/pr-template.md) - Generate PR title, summary, and test plan from git diff
+  - [`pr-review.md`](commands/pr-review.md) - Review GitHub PR and identify issues and improvements
+  - [`pr-template.md`](commands/pr-template.md) - Generate PR title and description from GitHub PR diff
   - [`refactor.md`](commands/refactor.md) - Martin Fowler style refactoring command
   - [`scrum-poker.md`](commands/scrum-poker.md) - Code complexity estimation using Scrum poker scale
 - `scripts/`
@@ -37,7 +37,6 @@ For larger implementations, use this structured approach:
 - Document includes: API design, data structures, component architecture, test strategy
 
 ### 3. Implementation
-- Use natural language: "go", "implement", or specify plan document
 - Auto-accept mode or `claude --dangerously-skip-permissions` enables rapid, uninterrupted development cycles
 - Run `/plan-sync [feature-name]` periodically to sync plan with actual progress
   - Update completed/added/modified/removed tasks
@@ -48,30 +47,13 @@ For larger implementations, use this structured approach:
 - Move completed or shelved plan documents to `plans/archive/` directory
 - Keeps active workspace clean while preserving work for reference
 
-### Context Recovery
-When context is lost during development:
-- Reference the plan document
-- Re-paste screenshots if needed
-- Ensure all requirements are still captured
-
 
 ## Project Tips
 
-### Incident Documentation
-For individual projects, consider creating a `docs/incidents/` directory to document failures, major setbacks, and lessons learned. Add `@docs/incidents/` to your project's CLAUDE.md to help AI learn from past mistakes and prevent similar issues.
+### AI Context Documentation
+For individual projects, consider creating an `agent-docs/` directory to organize AI-specific documentation such as architecture overview, domain glossary, API patterns, coding conventions, database schema, and external dependencies.
 
-### Temporary Notes and Records
-Create a `notes/` directory in your project for quick notes and records from AI conversations. This is useful for capturing insights, debugging information, or temporary findings that you want to preserve but aren't ready to formalize into documentation.
-
-
-## Advanced Techniques
-
-### Documentation Re-reading Technique
-For any complex task or project, you can trade token consumption for comprehensive context by asking AI to:
-```
-Re-read project CLAUDE.md and ~/.claude/CLAUDE.md
-```
-This technique loads all available guidelines and rules at conversation start, ensuring AI has full context of your development standards and practices across all types of work.
+Reference this directory with `@agent-docs/` in your project's CLAUDE.md to provide comprehensive context for AI assistance.
 
 
 ## MCP
