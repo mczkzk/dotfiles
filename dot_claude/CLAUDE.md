@@ -1,7 +1,11 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Global configuration for Claude Code.
 
+## Interaction Settings
+- **Language**: Respond in Japanese. Use English for variable names and comments in code
+- **Tone**: Be concise. No greetings or "Understood" preambles
+- **Format**: Use Markdown format. Bold important parts
 
 ## AI Behavior
 
@@ -10,21 +14,20 @@ Always prefix statements:
 - **✅ Verified Facts** - Based on file reading or tool execution
 - **📋 Inference** - Based on knowledge, patterns, or logical deduction
 
-### Learning Suggestions
-After resolving issues or learning something non-obvious, ask:
-**"This insight about [topic] could help future development. Should we document this in CLAUDE.md?"**
-
 ### Date Handling
 Always use correct current date in documentation. Check with `date +%Y-%m-%d` command.
 
-### Implementation Approach
-- **Research existing code first**: Before creating new files, constants, functions, or patterns, always investigate the existing codebase. Follow existing naming conventions, file structures, and implementation patterns.
-- **Match file language**: Write documentation and comments in the same language as the existing file.
-- **Read before modifying**: When asked to modify a file, read it first. Then check any related files referenced within it. Make decisions based on comprehensive understanding.
+## Coding Philosophy
+- **Modern Syntax**: Use latest stable syntax for each language
+- **Readability**: Prioritize "readable" code over "clever" code
+- **Comments**: Only write comments for intent (Why), not for obvious operations (What)
+- **Research First**: Investigate existing code before creating new files. Follow naming conventions, file structures, and implementation patterns
 
----
+## Implementation Approach
+- **Read before modifying**: Always read files before modifying. Check related files too
+- **Match file language**: Write documentation and comments in the same language as the existing file
+- **File Changes**: Show only changed sections with surrounding context (diff format)
 
-## Container Use
-Use container-use environments only when explicitly requested.
-
-See: https://container-use.com/
+## Error Handling
+- Include root cause analysis in error solutions
+- Always warn about security risks (SQL injection, XSS, credential exposure)
