@@ -51,10 +51,9 @@ setopt inc_append_history
 # ===============================
 
 # Set frequently used directories to navigate with ~hash (e.g., ~n)
-hash -d n=$HOME/NoteBackups
-hash -d o=$HOME/NoteBackups/obsidian-vault0
-hash -d z=$HOME/NoteBackups/zenn
-hash -d g=$HOME/NoteBackups/github
+hash -d n="/Volumes/Extreme SSD/01_Notes"
+hash -d o="/Volumes/Extreme SSD/01_Notes/github/obsidian-vault0"
+hash -d g="/Volumes/Extreme SSD/01_Notes/github"
 hash -d c=$HOME/.claude
 
 # ===============================
