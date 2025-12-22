@@ -4,6 +4,8 @@
 .fseventsd
 .DS_Store
 ._*
+.DocumentRevisions-V100
+.TemporaryItems
 
 # ===== Git / 開発系（HDD保管不要） =====
 .git/
