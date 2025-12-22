@@ -1,0 +1,28 @@
+# ===== macOS / システム系（不要） =====
+.Spotlight-V100
+.Trashes
+.fseventsd
+.DS_Store
+._*
+
+# ===== Git / 開発系（HDD保管不要） =====
+.git/
+node_modules/
+dist/
+build/
+coverage/
+
+# ===== GitHub / コード保管はクラウドに任せる =====
+01_Notes/github/
+
+# ===== 使っていないクラウド・メモ系 =====
+01_Notes/AppleNotes/
+01_Notes/Evernote/
+01_Notes/Gist/
+01_Notes/Qiita/
+01_Notes/Scrapbox/
+
+# ===== 一時・キャッシュ系（将来増えがち） =====
+.cache/
+tmp/
+temp/
