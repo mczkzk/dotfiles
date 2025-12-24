@@ -27,6 +27,7 @@ Always use correct current date in documentation. Check with `date +%Y-%m-%d` co
 - **Read before modifying**: Always read files before modifying. Check related files too
 - **Match file language**: Write documentation and comments in the same language as the existing file
 - **File Changes**: Show only changed sections with surrounding context (diff format)
+- **No Quick Fixes**: Avoid workarounds. Investigate root causes even in external packages (OSS = readable source)
 
 ## Error Handling
 - Include root cause analysis in error solutions
