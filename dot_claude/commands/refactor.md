@@ -1,5 +1,5 @@
 ---
-description: Perform Martin Fowler style refactoring with systematic approach
+description: Perform Martin Fowler style refactoring on <target>
 allowed-tools:
   - Read
   - Edit

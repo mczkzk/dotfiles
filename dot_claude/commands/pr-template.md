@@ -1,5 +1,5 @@
 ---
-description: Generate PR title and description from GitHub PR diff
+description: Generate PR title and description from GitHub PR <number> diff
 allowed-tools:
   - Bash(gh:*)
   - Bash(git:*)

@@ -1,5 +1,5 @@
 ---
-description: Review GitHub PR and identify issues and improvements
+description: Review GitHub PR <number> and identify issues and improvements
 allowed-tools:
   - Bash(gh:*)
   - Bash(git:*)

@@ -1,5 +1,5 @@
 ---
-description: Create investigation checklist and gather requirements
+description: Create investigation checklist for <feature-name> and gather requirements
 allowed-tools:
   - Read
   - Write

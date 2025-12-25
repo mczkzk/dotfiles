@@ -1,5 +1,5 @@
 ---
-description: Think deeply and investigate thoroughly about the given topic
+description: Think deeply and investigate thoroughly about <topic>
 allowed-tools:
   - Read
   - Write
