@@ -28,8 +28,10 @@ Generate PR title and description from an existing GitHub Pull Request's diff. A
    - `gh pr diff <PR number>` - Get code changes
 
 2. **Check for Plan Document**
-   - Search for `plans/*/plan.md` files
-   - If found, read plan.md for:
+   - Search for plan files in priority order:
+     1. Current session's plan
+     2. Feature plans: `plans/*/plan.md`
+   - If found, read plan for:
      - Requirements and motivation
      - Architecture decisions
      - Testing strategy

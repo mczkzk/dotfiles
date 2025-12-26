@@ -27,8 +27,10 @@ Automatically syncs plan.md with actual implementation state using conversation 
 ## Command Execution Steps
 
 ### 1. 🔍 Identify Target Files
-- If feature-name provided: Load `plans/[feature-name]/plan.md`
-- If no feature-name: Find most recently modified `plans/*/plan.md` (excluding `archive/`)
+- **If feature-name provided**: Use `plans/[feature-name]/plan.md`
+- **Otherwise**:
+  1. Check current session's plan
+  2. If not found, infer feature-name from context and check `plans/*/plan.md` (excluding `archive/`)
 
 ### 2. 📊 Gather Evidence (No User Prompts)
 
