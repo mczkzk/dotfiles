@@ -23,7 +23,8 @@ Review a GitHub Pull Request and identify issues that need to be fixed.
 
 1. **Get PR Details**
    - `gh pr diff <PR number>` - Get diff
-   - `gh pr view <PR number>` - Get PR info
+   - `gh pr view <PR number> --comments` - Get PR info and discussion comments
+   - `gh api repos/{owner}/{repo}/pulls/{number}/comments` - Get inline review comments on code
 
 2. **Review Changes**
    - Analyze implementation logic and correctness
