@@ -6,15 +6,22 @@ This repository manages user configuration and documentation for AI.
 
 - [`CLAUDE.md`](CLAUDE.md) - AI behavior and development guidelines
 - `commands/` - Custom command definitions
-  - [`commit.md`](commands/commit.md) - Git commit creation command
-  - [`deepthink.md`](commands/deepthink.md) - Deep investigation command requiring complete understanding
-  - [`plan-build.md`](commands/plan-build.md) - Plan document creation command
-  - [`plan-search.md`](commands/plan-search.md) - Investigation and requirements gathering command
-  - [`plan-sync.md`](commands/plan-sync.md) - Sync plan with implementation progress
-  - [`pr-review.md`](commands/pr-review.md) - Review GitHub PR and identify issues and improvements
-  - [`pr-template.md`](commands/pr-template.md) - Generate PR title and description from GitHub PR diff
-  - [`refactor.md`](commands/refactor.md) - Martin Fowler style refactoring command
-  - [`scrum-poker.md`](commands/scrum-poker.md) - Code complexity estimation using Scrum poker scale
+  - **Core Commands**
+    - [`commit.md`](commands/commit.md) - Create a git commit with proper format following repository conventions
+    - [`deepthink.md`](commands/deepthink.md) - Think deeply and investigate thoroughly about `<topic>`
+  - **Planning Commands**
+    - [`plan-search.md`](commands/plan-search.md) - Create investigation checklist for `<feature-name>` and gather requirements
+    - [`plan-build.md`](commands/plan-build.md) - Create plan document for structured development
+    - [`plan-sync.md`](commands/plan-sync.md) - Sync plan document with actual implementation progress
+  - **PR Commands**
+    - [`pr-review.md`](commands/pr-review.md) - Review GitHub PR `<number>` and identify issues and improvements
+    - [`pr-review-respond.md`](commands/pr-review-respond.md) - Respond to PR review comments `<number>` with fixes and reply drafts
+    - [`pr-template.md`](commands/pr-template.md) - Generate PR title and description from GitHub PR `<number>` diff
+  - **Code Quality Commands**
+    - [`refactor.md`](commands/refactor.md) - Perform Martin Fowler style refactoring on `<target>`
+    - [`scrum-poker.md`](commands/scrum-poker.md) - Estimate code complexity and effort using Scrum poker scale
+  - **Project-specific (samples)**
+    - [`project/check.md`](commands/project/check.md) - Check Code Quality (requires project-specific adjustments)
 - `scripts/`
   - [`deny-check.sh`](scripts/deny-check.sh) - Pre-tool use hook for command validation
 - [`settings.json`](settings.json) - AI configuration file
