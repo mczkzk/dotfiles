@@ -57,7 +57,14 @@ Review GitHub PR and identify issues.
 ## Output
 
 1. **Summary**: Changed files and scope
+
 2. **Verification Steps** (if any): Prerequisites, setup, test scenarios, expected results, edge cases
-3. **Questions** (if any): For unclear implementation (copy to GitHub comments)
-4. **Issues**: Bugs, security, performance, quality
-5. **Changes**: Fixes and improvements
+
+3. **Findings**: Label each with severity
+   - `[BLOCKER]`: Must fix before merge
+   - `[MUST]`: Required changes
+   - `[SHOULD]`: Important but negotiable
+   - `[SUGGESTION]`: Improvements and alternatives
+   - `[NIT]`: Minor issues (naming, formatting)
+   - `[QUESTION]`: Clarifications needed
+   - `[FYI]`: Notes and references
