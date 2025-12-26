@@ -5,9 +5,10 @@ allowed-tools:
   - Bash(git:*)
   - Read
   - Grep
+  - Glob
 ---
 
-Review a GitHub Pull Request and identify issues that need to be fixed.
+Review GitHub PR and identify issues.
 
 ## Usage
 
@@ -15,83 +16,44 @@ Review a GitHub Pull Request and identify issues that need to be fixed.
 /pr-review <PR number>
 ```
 
-**Examples:**
-- `/pr-review 123`
-- `/pr-review 456`
-
 ## Process
 
 1. **Get PR Details**
-   - `gh pr diff <PR number>` - Get diff
-   - `gh pr view <PR number> --comments` - Get PR info and discussion comments
-   - `gh api repos/{owner}/{repo}/pulls/{number}/comments` - Get inline review comments on code
+   - `gh pr diff <PR number>`
+   - `gh pr view <PR number> --comments`
+   - `gh api repos/{owner}/{repo}/pulls/{number}/comments`
 
-2. **Review Changes**
-   - Analyze implementation logic and correctness
-   - Check code quality and patterns
-   - Identify bugs, security issues, performance problems
-   - Verify error handling and edge cases
+2. **Understand Context**
+   - Read changed and related files
+   - Check config, dependencies, architecture
 
-## Review Principles
+3. **Review Changes**
+   - Logic, correctness, quality, patterns
+   - Bugs, security, performance, edge cases
 
-- **Only flag verifiable problems** - Report issues with concrete evidence (bugs, security, performance)
-- **When uncertain, ask questions** - If you cannot determine whether something is good or bad, write a concise question in English for the author
-- **Don't criticize unfamiliar patterns** - Unknown intent ≠ bad code
+4. **Create Verification Plan**
+   - Prerequisites and setup
+   - Test scenarios and expected results
 
-## Review Criteria
+## Principles
 
-### Code Quality
-- Inconsistent naming or formatting
-- Missing error handling
-- Unclear variable/function names
-- Unnecessary comments or missing critical ones
+- Flag verifiable problems only
+- Ask questions when uncertain
+- Don't criticize unfamiliar patterns
 
-### Logic & Correctness
-- Incorrect implementation
-- Unhandled edge cases
-- Performance issues
+## Criteria
 
-### Security
-- Authorization not passed through call chain
-- Data access without authorization checks
-- Cross-resource access without ownership verification
-- Authorization checks only at entry points
+- **Quality**: Naming, error handling, comments
+- **Logic**: Implementation, edge cases, performance
+- **Security**: Authorization in call chain, data access checks, cross-resource ownership, entry point validation
+- **Smells**: Duplication, dead code, hardcoded values
+- **Architecture**: Pattern violations, separation of concerns
+- **Testing**: Coverage, quality
 
-### Code Smells
-- Code duplication
-- Unused code or dead code
-- Hardcoded values
-- Over/under-engineered abstractions
-- Multiple responsibilities in single function/class
+## Output
 
-### Architecture
-- Violates existing patterns
-- Poor separation of concerns
-- Hard to maintain or extend
-
-### Testing
-- Missing test coverage
-- Poor test quality
-
-## Output Format
-
-1. **Summary**
-   - Changed files and scope
-
-2. **Questions for Author** (if any)
-   - Write concise questions in English when you cannot determine if implementation is good or bad
-   - User will copy-paste these to GitHub PR comments
-
-3. **Issues Found**
-   - Bugs and logic errors
-   - Security vulnerabilities
-   - Performance problems
-   - Code quality issues
-   - Architecture violations
-
-4. **Required Changes**
-   - Critical fixes needed
-   - Code improvements
-   - Refactoring suggestions
-
-Focus on actionable items that need to be addressed before merging.
+1. **Summary**: Changed files and scope
+2. **Verification Steps** (if any): Prerequisites, setup, test scenarios, expected results, edge cases
+3. **Questions** (if any): For unclear implementation (copy to GitHub comments)
+4. **Issues**: Bugs, security, performance, quality
+5. **Changes**: Fixes and improvements
