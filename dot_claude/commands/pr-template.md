@@ -9,7 +9,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-Generate PR title and description from an existing GitHub Pull Request's diff. After generation, confirm whether to update the PR with `gh pr edit`.
+Generate PR title and description from PR diff. Confirm before updating with `gh pr edit`.
 
 ## Usage
 
@@ -17,47 +17,33 @@ Generate PR title and description from an existing GitHub Pull Request's diff. A
 /pr-template <PR number>
 ```
 
-**Examples:**
-- `/pr-template 123`
-- `/pr-template 456`
-
 ## Process
 
 1. **Get PR Information**
-   - `gh pr view <PR number>` - Get current title and description
-   - `gh pr diff <PR number>` - Get code changes
+   - `gh pr view <PR number>`
+   - `gh pr diff <PR number>`
 
 2. **Check for Plan Document**
-   - Search for plan files in priority order:
-     1. Current session's plan
-     2. Feature plans: `plans/*/plan.md`
-   - If found, read plan for:
-     - Requirements and motivation
-     - Architecture decisions
-     - Testing strategy
+   - Search: current session plan → `plans/*/plan.md`
+   - Read for requirements, architecture, tests
 
 3. **Analyze Changes**
-   - Review changed files and their purpose
-   - Identify new features or bug fixes
-   - Note configuration or dependency changes
-   - Cross-reference with plan.md if available
+   - Changed files, features, bug fixes, config changes
+   - Cross-reference with plan if available
 
 4. **Generate Template**
-   - Follow existing PR description structure if present
-   - If PR description is empty, use minimal template:
-     - **Summary**: What changed and why (reference plan.md)
-     - **Test Plan**: Step-by-step verification (reference plan.md)
-   - **Title**: Concise, descriptive summary
+   - Follow existing structure or use minimal:
+     - **Summary**: What changed and why (reference plan)
+     - **Test Plan**: Verification steps (reference plan)
+   - **Title**: Concise summary
 
 5. **Confirm Update**
-   - Display generated title and description
-   - Ask: "Update this PR with `gh pr edit`?"
-   - If yes: Run `gh pr edit <PR number> --title "..." --body "..."`
-   - If no: User can manually copy parts they want
+   - Display generated content
+   - Ask: "Update with `gh pr edit`?"
+   - Execute or let user copy manually
 
 ## Notes
 
-- Title and summary written in English
-- Leverages plan.md if available for context
-- Shows current PR content for reference
-- User confirms before updating PR
+- English title and summary
+- Leverages plan for context
+- User confirms before update
