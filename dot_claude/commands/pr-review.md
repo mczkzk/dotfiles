@@ -32,6 +32,12 @@ Review a GitHub Pull Request and identify issues that need to be fixed.
    - Identify bugs, security issues, performance problems
    - Verify error handling and edge cases
 
+## Review Principles
+
+- **Only flag verifiable problems** - Report issues with concrete evidence (bugs, security, performance)
+- **When uncertain, ask questions** - If you cannot determine whether something is good or bad, write a concise question in English for the author
+- **Don't criticize unfamiliar patterns** - Unknown intent ≠ bad code
+
 ## Review Criteria
 
 ### Code Quality
@@ -72,14 +78,18 @@ Review a GitHub Pull Request and identify issues that need to be fixed.
 1. **Summary**
    - Changed files and scope
 
-2. **Issues Found**
+2. **Questions for Author** (if any)
+   - Write concise questions in English when you cannot determine if implementation is good or bad
+   - User will copy-paste these to GitHub PR comments
+
+3. **Issues Found**
    - Bugs and logic errors
    - Security vulnerabilities
    - Performance problems
    - Code quality issues
    - Architecture violations
 
-3. **Required Changes**
+4. **Required Changes**
    - Critical fixes needed
    - Code improvements
    - Refactoring suggestions
