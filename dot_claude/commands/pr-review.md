@@ -23,15 +23,19 @@ Review GitHub PR and identify issues.
    - `gh pr view <PR number> --comments`
    - `gh api repos/{owner}/{repo}/pulls/{number}/comments`
 
-2. **Understand Context**
+2. **Check for Plan Document**
+   - Search: current session plan → `plans/*/plan.md`
+   - If found, verify alignment with requirements, architecture, tests
+
+3. **Understand Context**
    - Read changed and related files
    - Check config, dependencies, architecture
 
-3. **Review Changes**
+4. **Review Changes**
    - Logic, correctness, quality, patterns
    - Bugs, security, performance, edge cases
 
-4. **Create Verification Plan**
+5. **Create Verification Plan**
    - Prerequisites and setup
    - Test scenarios and expected results
 
