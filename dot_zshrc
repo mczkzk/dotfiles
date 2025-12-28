@@ -40,12 +40,13 @@ setopt inc_append_history
 [ -f ~/.config/zsh/aliases/general.zsh ] && source ~/.config/zsh/aliases/general.zsh
 [ -f ~/.config/zsh/aliases/chezmoi.zsh ] && source ~/.config/zsh/aliases/chezmoi.zsh
 [ -f ~/.config/zsh/aliases/git.zsh ] && source ~/.config/zsh/aliases/git.zsh
-[ -f ~/.config/zsh/aliases/media.zsh ] && source ~/.config/zsh/aliases/media.zsh
 
 # Load functions
 [ -f ~/.config/zsh/functions/gwtadd.zsh ] && source ~/.config/zsh/functions/gwtadd.zsh
 [ -f ~/.config/zsh/functions/ghnew.zsh ] && source ~/.config/zsh/functions/ghnew.zsh
 [ -f ~/.config/zsh/functions/gconflict.zsh ] && source ~/.config/zsh/functions/gconflict.zsh
+[ -f ~/.config/zsh/functions/kill-port.zsh ] && source ~/.config/zsh/functions/kill-port.zsh
+[ -f ~/.config/zsh/functions/media-viewer.zsh ] && source ~/.config/zsh/functions/media-viewer.zsh
 
 # ===============================
 # Directory Hash

@@ -3,29 +3,27 @@ name: edit-dotfile
 description: dotfileの編集・修正を依頼されたとき、ホームディレクトリのファイルではなくchezmoiで管理されているファイルを優先的に確認・編集する。~/.bashrc、~/.zshrc、~/.vimrcなどのdotfile関連の変更要求時に使用。
 ---
 
-# Edit Dotfile (Chezmoi管理優先)
+# CRITICAL: 必ずchezmoi配下のファイルを変更する
 
-## Instructions
+**ホームディレクトリ（`~/.zshrc`など）を直接読んだり変更してはいけない。**
 
-dotfile編集要求を受けたとき、以下の手順に従ってください：
+## 最初のアクション
 
-1. **chezmoi管理ファイルを検索**
-   - `~/.local/share/chezmoi` 内をGlob/Grepで検索
-   - 命名規則: `~/.bashrc` → `dot_bashrc`, `~/.config/nvim/init.vim` → `dot_config/nvim/init.vim`, `~/.ssh/config` → `private_dot_ssh/config`
+dotfile編集要求を受けたら、**必ず最初に** `/Users/mczkzk/.local/share/chezmoi/` 配下のファイルを検索・確認する。
 
-2. **ファイルが見つかった場合**
-   - chezmoi管理下のファイル（例: `~/.local/share/chezmoi/dot_bashrc`）を編集
-   - 編集後、ユーザーに `chezmoi apply` コマンドの実行が必要なことを通知
+## パスマッピング
 
-3. **ファイルが見つからない場合**
-   - 通常のホームディレクトリのファイルを編集
-   - または、chezmoi管理下に追加するか確認
+- `~/.zshrc` → `/Users/mczkzk/.local/share/chezmoi/dot_zshrc`
+- `~/.config/zsh/aliases/*.zsh` → `/Users/mczkzk/.local/share/chezmoi/dot_config/zsh/aliases/*.zsh`
+- `~/.config/zsh/functions/*.zsh` → `/Users/mczkzk/.local/share/chezmoi/dot_config/zsh/functions/*.zsh`
 
-## Examples
+## Zsh: エイリアス vs 関数
 
-ユーザー: `.bashrc` にエイリアスを追加して
+- **引数なし** → `dot_config/zsh/aliases/` 内の適切なファイルに追加
+- **引数あり** → `dot_config/zsh/functions/` に新規ファイル作成 + `dot_zshrc` にsource行追加
 
-対応:
-1. Globで `~/.local/share/chezmoi/**/*bashrc*` を検索
-2. `~/.local/share/chezmoi/dot_bashrc` を編集
-3. 通知: 「`~/.local/share/chezmoi/dot_bashrc` を編集しました。`chezmoi apply` で反映してください」
+フォーマット: `name() { ... }` （`function`キーワード省略）
+
+## 最後に
+
+編集後、必ず `chezmoi apply` をユーザーに案内する。
