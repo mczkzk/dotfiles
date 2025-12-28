@@ -33,6 +33,16 @@ setopt share_history # Share history between tabs and windows
 setopt inc_append_history
 
 # ===============================
+# Environment Variables & PATH
+# ===============================
+
+# Local bin directory (Claude Code, etc.)
+export PATH="$HOME/.local/bin:$PATH"
+
+# Required for VSCode terminal to recognize node, npm, etc.
+export PATH="$PATH:/opt/homebrew/bin/"
+
+# ===============================
 # Custom Aliases & Functions
 # ===============================
 
@@ -57,16 +67,6 @@ hash -d n="/Volumes/Extreme SSD/01_Notes"
 hash -d o="/Volumes/Extreme SSD/01_Notes/github/obsidian-vault0"
 hash -d g="/Volumes/Extreme SSD/01_Notes/github"
 hash -d c=$HOME/.claude
-
-# ===============================
-# Environment Variables & PATH
-# ===============================
-
-# Local bin directory (Claude Code, etc.)
-export PATH="$HOME/.local/bin:$PATH"
-
-# Required for VSCode terminal to recognize node, npm, etc.
-export PATH="$PATH:/opt/homebrew/bin/"
 
 # ===============================
 # Development Environment
