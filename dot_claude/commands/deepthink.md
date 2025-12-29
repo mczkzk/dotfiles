@@ -1,5 +1,6 @@
 ---
 description: Think deeply and investigate thoroughly about <topic>
+argument-hint: <topic: subject to investigate like "authentication flow" or "performance bottleneck">
 allowed-tools:
   - Read
   - Write
@@ -11,11 +12,6 @@ allowed-tools:
   - WebFetch
   - Bash
 ---
-
-## Usage
-```
-/deepthink [topic]
-```
 
 Think deeply and investigate thoroughly about the given topic:
 

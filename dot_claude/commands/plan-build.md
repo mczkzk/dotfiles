@@ -1,5 +1,6 @@
 ---
 description: Create plan document for structured development
+argument-hint: [optional: feature-name like "user-auth" or "api-v2", auto-detected from context if omitted]
 allowed-tools:
   - Task
   - Read
@@ -12,16 +13,6 @@ allowed-tools:
 # Plan Build Command
 
 Creates detailed plan documents from completed plan-search investigations.
-
-## Usage
-
-```
-/plan-build [feature-name]
-# Creates plan document for specific feature (requires completed plan-search)
-
-/plan-build
-# Creates plan document when feature-name is contextually obvious
-```
 
 ## Command Execution Steps
 

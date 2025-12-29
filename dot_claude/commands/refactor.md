@@ -1,5 +1,6 @@
 ---
 description: Perform Martin Fowler style refactoring on <target>
+argument-hint: <target: what to refactor like "files changed since main", "xxx.ts too long", or "this function has duplicate code">
 allowed-tools:
   - Read
   - Edit
@@ -13,19 +14,6 @@ allowed-tools:
 # Refactor Command
 
 Apply Martin Fowler refactoring techniques through natural language requests.
-
-## Usage
-```
-/refactor [description of what needs refactoring]
-```
-
-**Examples:**
-```
-/refactor files changed since main branch
-/refactor xxx.ts is too long and needs splitting
-/refactor this function has duplicate code
-/refactor complex nested conditions in auth.py
-```
 
 ## Safety Requirements
 

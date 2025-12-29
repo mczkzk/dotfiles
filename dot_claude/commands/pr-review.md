@@ -1,5 +1,6 @@
 ---
 description: Review GitHub PR <number> and identify issues and improvements
+argument-hint: <number: GitHub PR number like 123>
 allowed-tools:
   - Bash(gh:*)
   - Bash(git:*)
@@ -9,12 +10,6 @@ allowed-tools:
 ---
 
 Review GitHub PR and identify issues.
-
-## Usage
-
-```
-/pr-review <PR number>
-```
 
 ## Process
 

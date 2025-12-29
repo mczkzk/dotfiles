@@ -1,5 +1,6 @@
 ---
 description: Create investigation checklist for <feature-name> and gather requirements
+argument-hint: <feature-name: identifier like "user-auth" or "api-v2">
 allowed-tools:
   - Read
   - Write
@@ -12,13 +13,6 @@ allowed-tools:
 # Plan Search Command
 
 Creates investigation checklist and gathers requirements before plan document creation.
-
-## Usage
-
-```
-/plan-search [feature-name]
-# Creates investigation checklist and starts requirements gathering
-```
 
 ## Command Flow
 

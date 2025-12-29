@@ -1,5 +1,6 @@
 ---
 description: Estimate code complexity and effort using Scrum poker scale (0, 1, 2, 3, 5, 8, 13, 20, 40, 100)
+argument-hint: [optional: task ID like "PROJECT-123", feature name like "user-auth", or description like "implement OAuth login", omit to estimate from conversation context]
 allowed-tools:
   - Read
   - Glob
@@ -10,16 +11,6 @@ allowed-tools:
 # Scrum Poker Estimation Command
 
 Analyzes code complexity and provides effort estimates using standard Scrum poker scale: **0, 1, 2, 3, 5, 8, 13, 20, 40, 100, ?**.
-
-## Usage
-
-```
-/scrum-poker [file-path-or-feature-description]
-# Estimates effort for specific file or feature
-
-/scrum-poker
-# Estimates effort for current context or recent changes
-```
 
 ## Effort Scale Mapping
 

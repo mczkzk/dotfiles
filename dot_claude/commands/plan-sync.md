@@ -1,5 +1,6 @@
 ---
 description: Sync plan document with actual implementation progress
+argument-hint: [optional: feature-name like "user-auth" or "api-v2", auto-detected from context if omitted]
 allowed-tools:
   - Read
   - Write
@@ -13,16 +14,6 @@ allowed-tools:
 # Plan Sync Command
 
 Automatically syncs plan.md with actual implementation state using conversation context and codebase analysis.
-
-## Usage
-
-```
-/plan-sync [feature-name]
-# Sync plan.md for specified feature
-
-/plan-sync
-# Auto-detect target from context
-```
 
 ## Command Execution Steps
 

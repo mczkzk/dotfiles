@@ -1,5 +1,6 @@
 ---
 description: Respond to PR review comments <number> with fixes and reply drafts
+argument-hint: <number: GitHub PR number like 123>
 allowed-tools:
   - Bash(gh:*)
   - Bash(git:*)
@@ -11,12 +12,6 @@ allowed-tools:
 ---
 
 Respond to PR review comments by fixing issues and generating reply drafts.
-
-## Usage
-
-```
-/pr-review-respond <PR number>
-```
 
 ## Process
 

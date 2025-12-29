@@ -1,5 +1,6 @@
 ---
 description: Generate PR title and description from GitHub PR <number> diff
+argument-hint: <number: GitHub PR number like 123>
 allowed-tools:
   - Bash(gh:*)
   - Bash(git:*)
@@ -10,12 +11,6 @@ allowed-tools:
 ---
 
 Generate PR title and description from PR diff. Confirm before updating with `gh pr edit`.
-
-## Usage
-
-```
-/pr-template <PR number>
-```
 
 ## Process
 
