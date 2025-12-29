@@ -1,6 +1,6 @@
 ---
 description: Create investigation checklist for <feature-name> and gather requirements
-argument-hint: <feature-name: identifier like "user-auth" or "api-v2">
+argument-hint: <identifier: task ID like "PROJECT-123" or feature-name like "user-auth">
 allowed-tools:
   - Read
   - Write

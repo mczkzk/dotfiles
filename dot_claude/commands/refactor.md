@@ -1,6 +1,6 @@
 ---
 description: Perform Martin Fowler style refactoring on <target>
-argument-hint: <target: what to refactor like "files changed since main", "xxx.ts too long", or "this function has duplicate code">
+argument-hint: <target: what to refactor like "files changed since main" or "xxx.ts too long">
 allowed-tools:
   - Read
   - Edit

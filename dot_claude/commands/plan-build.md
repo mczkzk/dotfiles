@@ -1,6 +1,6 @@
 ---
 description: Create plan document for structured development
-argument-hint: [optional: feature-name like "user-auth" or "api-v2", auto-detected from context if omitted]
+argument-hint: [optional: task ID like "PROJECT-123" or feature-name like "user-auth", auto-detected if omitted]
 allowed-tools:
   - Task
   - Read

@@ -1,6 +1,6 @@
 ---
 description: Think deeply and investigate thoroughly about <topic>
-argument-hint: <topic: subject to investigate like "authentication flow" or "performance bottleneck">
+argument-hint: <topic: subject like "authentication flow" or "performance bottleneck">
 allowed-tools:
   - Read
   - Write
