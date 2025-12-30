@@ -9,16 +9,16 @@ description: dotfileの編集・修正を依頼されたとき、ホームディ
 
 ## 最初のアクション
 
-dotfile編集要求を受けたら、**必ず最初に** `/Users/mczkzk/.local/share/chezmoi/` 配下のファイルを検索・確認する。
+dotfile編集要求を受けたら、**必ず最初に** `~/.local/share/chezmoi/` 配下のファイルを検索・確認する。
 
 ## パスマッピング
 
-- `~/.zshrc` → `/Users/mczkzk/.local/share/chezmoi/dot_zshrc`
-- `~/.rsync-exclude` → `/Users/mczkzk/.local/share/chezmoi/dot_rsync-exclude`
-- `~/.config/zsh/aliases/*.zsh` → `/Users/mczkzk/.local/share/chezmoi/dot_config/zsh/aliases/*.zsh`
-- `~/.config/zsh/functions/*.zsh` → `/Users/mczkzk/.local/share/chezmoi/dot_config/zsh/functions/*.zsh`
-- `~/.claude/CLAUDE.md` → `/Users/mczkzk/.local/share/chezmoi/dot_claude/CLAUDE.md`
-- `~/.claude/skills/*/SKILL.md` → `/Users/mczkzk/.local/share/chezmoi/dot_claude/skills/*/SKILL.md`
+- `~/.zshrc` → `~/.local/share/chezmoi/dot_zshrc`
+- `~/.rsync-exclude` → `~/.local/share/chezmoi/dot_rsync-exclude`
+- `~/.config/zsh/aliases/*.zsh` → `~/.local/share/chezmoi/dot_config/zsh/aliases/*.zsh`
+- `~/.config/zsh/functions/*.zsh` → `~/.local/share/chezmoi/dot_config/zsh/functions/*.zsh`
+- `~/.claude/CLAUDE.md` → `~/.local/share/chezmoi/dot_claude/CLAUDE.md`
+- `~/.claude/skills/*/SKILL.md` → `~/.local/share/chezmoi/dot_claude/skills/*/SKILL.md`
 
 ## Zsh: エイリアス vs 関数
 
