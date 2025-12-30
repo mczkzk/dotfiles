@@ -26,5 +26,9 @@ coverage/
 
 # ===== 一時・キャッシュ系（将来増えがち） =====
 .cache/
+cache/
 tmp/
 temp/
+*.temp.*
+*.tmp
+.env
