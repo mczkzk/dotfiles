@@ -31,4 +31,3 @@ tmp/
 temp/
 *.temp.*
 *.tmp
-.env
