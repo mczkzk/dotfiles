@@ -27,8 +27,9 @@ Creates detailed plan documents from completed plan-search investigations.
    - Only proceed if 100% verified complete
    - Run verification command: `grep '\- \[ \]' "plans/[feature-name]/search.md"` to confirm zero results
 
-3. 📋 **Guidelines & Standards Review**: 
+3. 📋 **Guidelines & Standards Review**:
    - Re-read CLAUDE.md and ~/.claude/CLAUDE.md for development standards and behavioral guidelines
+   - Re-read .claude/skills/ and ~/.claude/skills/ for specialized workflows and patterns
 
 4. 📝 **Create Plan Document**: 
    - Generate `plans/[feature-name]/plan.md` using template below ONLY after verification and guidelines review complete
