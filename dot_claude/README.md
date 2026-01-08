@@ -9,6 +9,7 @@ This repository manages user configuration and documentation for AI.
   - **Core Commands**
     - [`commit.md`](commands/commit.md) - Create a git commit with proper format following repository conventions
     - [`deepthink.md`](commands/deepthink.md) - Think deeply and investigate thoroughly about `<topic>`
+    - [`reload-config.md`](commands/reload-config.md) - Reload Claude configuration files
   - **Planning Commands**
     - [`plan-search.md`](commands/plan-search.md) - Create investigation checklist for `<feature-name>` and gather requirements
     - [`plan-build.md`](commands/plan-build.md) - Create plan document for structured development
@@ -48,6 +49,9 @@ For larger implementations, use this structured approach:
 - Run `/plan-sync [feature-name]` periodically to sync plan with actual progress
   - Update completed/added/modified/removed tasks
   - Correct incorrect assumptions discovered during implementation
+- Run `/reload-config` after modifying configuration files to refresh settings
+  - Reloads `~/.claude/CLAUDE.md`, `~/.claude/skills`, `.claude/CLAUDE.md`, `.claude/skills`
+  - Useful after updating project-specific guidelines or custom commands
 - **Note**: Consider splitting tasks/PRs when plan documents exceed 1000 lines for better maintainability
 
 ### 4. Archive
