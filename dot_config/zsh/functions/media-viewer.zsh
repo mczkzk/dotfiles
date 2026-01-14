@@ -3,7 +3,7 @@
 # ===============================
 
 media-viewer() {
-    cd "/Volumes/Extreme SSD/00_Memories/Selected_Media/media-viewer"
+    cd "/Volumes/ExtremeSSD/00_Memories/Selected_Media/media-viewer"
     node server.js &
     local server_pid=$!
 

@@ -63,9 +63,9 @@ export PATH="$PATH:/opt/homebrew/bin/"
 # ===============================
 
 # Set frequently used directories to navigate with ~hash (e.g., ~n)
-hash -d n="/Volumes/Extreme SSD/01_Notes"
-hash -d o="/Volumes/Extreme SSD/01_Notes/github/obsidian-vault0"
-hash -d g="/Volumes/Extreme SSD/01_Notes/github"
+hash -d n="/Volumes/ExtremeSSD/01_Notes"
+hash -d o="/Volumes/ExtremeSSD/01_Notes/github/obsidian-vault0"
+hash -d g="/Volumes/ExtremeSSD/01_Notes/github"
 hash -d c=$HOME/.claude
 
 # ===============================
