@@ -8,6 +8,7 @@ allowed-tools:
   - Grep
   - LS
   - Task
+  - Bash
 ---
 
 # Plan Search Command
@@ -15,6 +16,28 @@ allowed-tools:
 Creates investigation checklist and gathers requirements before plan document creation.
 
 ## Command Flow
+
+### 0. JIRA Information Fetch (Automatic for Task IDs)
+**Identifier Pattern Detection**:
+- Task ID pattern: Contains hyphen followed by numbers (e.g., "PROJECT-123", "SIM-826")
+- Feature name pattern: Hyphen followed by letters (e.g., "user-auth", "payment-flow")
+
+**If identifier is a task ID**, execute JIRA fetch:
+1. **Check for existing JIRA data**:
+   - Look for `.agent/plans/[identifier]/jira.md`
+   - If exists → Skip to step 4
+2. **Locate JIRA fetch script**:
+   - Search for `.agent/scripts/jira-fetch.sh` in project root
+   - If not found → Skip JIRA fetch, proceed to step 1
+3. **Execute JIRA fetch**:
+   - Run `.agent/scripts/jira-fetch.sh [identifier]`
+   - Script creates `.agent/plans/[identifier]/jira.md` with ticket information
+   - If script fails → Log warning and proceed to step 1 (non-blocking)
+4. **Read JIRA data** (if available):
+   - Read `.agent/plans/[identifier]/jira.md`
+   - Use JIRA ticket information in Requirements Gathering
+
+**If identifier is a feature name** (no hyphen), skip this step entirely.
 
 ### 1. Create Investigation File
 - Generate `.agent/plans/[feature-name]/search.md`
