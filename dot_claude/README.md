@@ -37,7 +37,6 @@ For larger implementations, use this structured approach:
 - System prompts for specifications, screenshots, requirements
 - Complete all investigation items through interactive conversation
 - Thorough codebase, database, and dependency analysis
-- **Tip**: Save screenshots in `plans/` directory for easy reference during search phase
 
 ### 2. Plan Creation  
 - Run `/plan-build [feature-name]` (requires completed plan-search)
@@ -55,7 +54,7 @@ For larger implementations, use this structured approach:
 - **Note**: Consider splitting tasks/PRs when plan documents exceed 1000 lines for better maintainability
 
 ### 4. Archive
-- Move completed or shelved plan documents to `plans/archive/` directory
+- Move completed or shelved plan documents to `.agent/plans/archive/` directory
 - Keeps active workspace clean while preserving work for reference
 
 

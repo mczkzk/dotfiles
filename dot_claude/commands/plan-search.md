@@ -17,7 +17,7 @@ Creates investigation checklist and gathers requirements before plan document cr
 ## Command Flow
 
 ### 1. Create Investigation File
-- Generate `plans/[feature-name]/search.md`
+- Generate `.agent/plans/[feature-name]/search.md`
 - Include comprehensive investigation checklist
 - All items must be completed before `/plan-build` command
 

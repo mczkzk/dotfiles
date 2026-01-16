@@ -19,7 +19,7 @@ Generate PR title and description from PR diff. Confirm before updating with `gh
    - `gh pr diff <PR number>`
 
 2. **Check for Plan Document**
-   - Search: current session plan → `plans/*/plan.md`
+   - Search: current session plan → `.agent/plans/*/plan.md`
    - Read for requirements, architecture, tests
 
 3. **Analyze Changes**
