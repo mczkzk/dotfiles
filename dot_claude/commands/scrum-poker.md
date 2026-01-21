@@ -1,6 +1,6 @@
 ---
 description: Estimate code complexity and effort using Scrum poker scale (0, 1, 2, 3, 5, 8, 13, 20, 40, 100)
-argument-hint: [optional: task ID like "PROJECT-123" or feature name like "user-auth", omit for current context]
+argument-hint: "<optional: task ID or feature name>"
 allowed-tools:
   - Read
   - Glob
