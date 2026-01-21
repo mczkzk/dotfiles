@@ -1,5 +1,5 @@
 ---
-description: Perform Martin Fowler style refactoring on <target>
+description: Perform refactoring on <target>
 argument-hint: <target: what to refactor like "files changed since main" or "xxx.ts too long">
 allowed-tools:
   - Read
@@ -13,7 +13,7 @@ allowed-tools:
 
 # Refactor Command
 
-Apply Martin Fowler refactoring techniques through natural language requests.
+Apply refactoring techniques through natural language requests.
 
 ## Safety Requirements
 
@@ -78,6 +78,9 @@ Select appropriate technique(s) based on the description:
 - Replace Loop Lookup with Map/Set - ループ内の線形探索をO(1)アクセスに
 - Cache Repeated Queries - 繰り返し計算される値をキャッシュ
 
+**Type Safety**
+- Add Type Definitions - 型定義が可能なら追加（JS→TS、any→具体型、JSDoc型注釈など）
+
 **Comments & Documentation**
 - Remove Unnecessary Comments - What説明・自明なコメント・コメントアウトは削除、Whyのみ残す
 - Verify Doc Accuracy - ドキュメントと実装の整合性を検証
@@ -102,4 +105,3 @@ Select appropriate technique(s) based on the description:
 - **Reversible** - Easy rollback at any point
 - **Behavior preservation** - External behavior unchanged
 
-> 💡 **Fowler's Rule**: "If you make a mistake, it's easy to find the bug"
