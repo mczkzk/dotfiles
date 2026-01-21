@@ -78,9 +78,9 @@ Select appropriate technique(s) based on the description:
 - Replace Loop Lookup with Map/Set - ループ内の線形探索をO(1)アクセスに
 - Cache Repeated Queries - 繰り返し計算される値をキャッシュ
 
-**Documentation & Types**
+**Comments & Documentation**
+- Remove Unnecessary Comments - What説明・自明なコメント・コメントアウトは削除、Whyのみ残す
 - Verify Doc Accuracy - ドキュメントと実装の整合性を検証
-- Update Stale Comments - 実装と乖離したコメントを更新
 
 **Git-Based**
 - Analyze git diff - ブランチ間の差分を分析してリファクタ
