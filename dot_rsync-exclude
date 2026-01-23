@@ -14,9 +14,6 @@ dist/
 build/
 coverage/
 
-# ===== GitHub / コード保管はクラウドに任せる =====
-01_Notes/github/
-
 # ===== 使っていないクラウド・メモ系 =====
 01_Notes/AppleNotes/
 01_Notes/Evernote/
