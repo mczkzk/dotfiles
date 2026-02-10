@@ -14,6 +14,8 @@ Review GitHub PR and identify issues.
 ## Process
 
 1. **Get PR Details**
+   - Check working tree: `git status --short` → if uncommitted changes exist, warn and abort
+   - `gh pr checkout <PR number>`
    - `gh pr diff <PR number>`
    - `gh pr view <PR number> --comments`
    - `gh api repos/{owner}/{repo}/pulls/{number}/comments`
