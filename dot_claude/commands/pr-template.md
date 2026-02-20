@@ -29,7 +29,7 @@ Generate PR title and description from PR diff. Confirm before updating with `gh
 4. **Generate Template**
    - Follow existing structure or use minimal:
      - **Summary**: What changed and why (reference plan)
-     - **Test Plan**: Verification steps (reference plan)
+     - **Test Plan**: Steps reviewers can follow to verify changes (reference plan)
    - **Title**: Concise summary
 
 5. **Confirm Update**
@@ -40,5 +40,6 @@ Generate PR title and description from PR diff. Confirm before updating with `gh
 ## Notes
 
 - English title and summary
+- **Prioritize over enumerate**: Only include high-impact changes. Skip trivial details
 - Leverages plan for context
 - User confirms before update
