@@ -47,7 +47,7 @@ Review GitHub PR and identify issues.
 - **Quality**: Naming, error handling, comments
 - **Logic**: Implementation, edge cases, performance
 - **Security**: Authorization in call chain, data access checks, cross-resource ownership, entry point validation
-- **Smells**: Duplication, dead code, hardcoded values
+- **Smells**: Duplication, dead code, hardcoded values, reinventing existing definitions
 - **Architecture**: Pattern violations, separation of concerns
 - **Testing**: Coverage, quality
 

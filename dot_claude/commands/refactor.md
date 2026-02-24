@@ -73,6 +73,7 @@ Select appropriate technique(s) based on the description:
 - Replace Temp with Query - 一時変数をメソッド呼び出しに
 - Separate Query from Modifier - 副作用と参照を分離
 - Avoid Unnecessary Complexity - 冗長な間接参照や不要なステップを避ける
+- Consolidate Duplicate Definitions - 既存の定義と重複するものを統合
 
 **Performance Optimization**
 - Replace Loop Lookup with Map/Set - ループ内の線形探索をO(1)アクセスに
