@@ -21,7 +21,6 @@ dot_claude/
 │   ├── pr-review-respond/ # Respond to PR review comments
 │   ├── pr-template/       # Generate PR title and description
 │   ├── refactor/          # Martin Fowler style refactoring
-│   ├── reload-config/     # Reload configuration files
 │   └── scrum-poker/       # Estimate complexity (Scrum poker)
 └── scripts/
     └── deny-check.sh      # Pre-tool use hook for command validation
@@ -31,7 +30,7 @@ dot_claude/
 
 | Auto (Claude invokes when relevant) | Manual only (`/name`) |
 |---|---|
-| commit, deepthink, refactor, reload-config, edit-dotfile | plan-search, plan-build, plan-sync, pr-review, pr-review-respond, pr-template, scrum-poker |
+| commit, deepthink, refactor, edit-dotfile | plan-search, plan-build, plan-sync, pr-review, pr-review-respond, pr-template, scrum-poker |
 
 Manual skills have `disable-model-invocation: true` in frontmatter.
 
