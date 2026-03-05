@@ -1,6 +1,6 @@
 ---
-name: ts-guidelines
-description: TypeScriptコードを書く際のコーディングガイドライン。型安全性、モダンな構文、可読性を重視したベストプラクティス。
+paths:
+  - "**/*.{ts,tsx}"
 ---
 
 # TypeScript Coding Guidelines

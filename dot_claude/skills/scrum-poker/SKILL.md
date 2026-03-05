@@ -1,6 +1,8 @@
 ---
+name: scrum-poker
 description: Estimate code complexity and effort using Scrum poker scale (0, 1, 2, 3, 5, 8, 13, 20, 40, 100)
 argument-hint: "<optional: task ID or feature name>"
+disable-model-invocation: true
 allowed-tools:
   - Read
   - Glob
@@ -37,7 +39,7 @@ Analyzes code complexity and provides effort estimates using standard Scrum poke
 - **Documentation requirements** - API docs, comments
 - **Risk factors** - Potential blockers and unknowns
 
-## ⚠️ Estimation Adjustment Rules (MUST Apply)
+## Estimation Adjustment Rules (MUST Apply)
 
 Apply the following adjustments to the base estimate. Cumulative when multiple factors apply.
 
@@ -60,22 +62,22 @@ Apply the following adjustments to the base estimate. Cumulative when multiple f
 ## Output Format
 
 ```
-## 🎯 Scrum Poker Estimate: [NUMBER or ?]
+## Scrum Poker Estimate: [NUMBER or ?]
 
-### 📊 Complexity Analysis
+### Complexity Analysis
 - **Files affected**: X files
 - **Lines of code**: ~X LOC
 - **Dependencies**: [list]
 - **Risk factors**: [list]
 
-### 🔍 Reasoning
+### Reasoning
 [Detailed explanation of estimate]
 
-### ⚠️ Assumptions & Risks
+### Assumptions & Risks
 - [Key assumptions made]
 - [Potential blockers or unknowns]
 
-### 📋 Next Steps (if estimate is ?)
+### Next Steps (if estimate is ?)
 - [Specific investigation needed to clarify requirements]
 - [Questions that need answers before estimation]
 ```
@@ -95,4 +97,3 @@ After outputting the estimate, check for `.agent/plans/` directory and save resu
 3. **Save result**:
    - Write the estimate output to `scrum-poker-result.md` in the determined location
    - Confirm save location to user
-

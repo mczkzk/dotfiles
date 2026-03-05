@@ -1,6 +1,8 @@
 ---
+name: pr-review
 description: Review GitHub PR <number> and identify issues and improvements
 argument-hint: <number: GitHub PR number like 123>
+disable-model-invocation: true
 allowed-tools:
   - Bash(gh:*)
   - Bash(git:*)

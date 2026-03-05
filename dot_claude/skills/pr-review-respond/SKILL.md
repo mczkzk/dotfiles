@@ -1,6 +1,8 @@
 ---
+name: pr-review-respond
 description: Respond to PR review comments <number> with fixes and reply drafts
 argument-hint: <number: GitHub PR number like 123>
+disable-model-invocation: true
 allowed-tools:
   - Bash(gh:*)
   - Bash(git:*)

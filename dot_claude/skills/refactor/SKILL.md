@@ -1,4 +1,5 @@
 ---
+name: refactor
 description: Perform refactoring on <target>
 argument-hint: <target: what to refactor like "files changed since main" or "xxx.ts too long">
 allowed-tools:
@@ -17,7 +18,7 @@ Apply refactoring techniques through natural language requests.
 
 ## Safety Requirements
 
-⚠️ **MANDATORY before refactoring:**
+**MANDATORY before refactoring:**
 - Tests exist and pass (`npm test`, `pytest`, etc.)
 - Clean git status (committed changes)
 - Can rollback easily
@@ -102,7 +103,6 @@ Select appropriate technique(s) based on the description:
 ## Key Principles
 
 - **Small steps** - One change at a time
-- **Always green** - Tests pass after each step  
+- **Always green** - Tests pass after each step
 - **Reversible** - Easy rollback at any point
 - **Behavior preservation** - External behavior unchanged
-

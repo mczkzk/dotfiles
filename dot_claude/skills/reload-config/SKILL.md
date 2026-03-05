@@ -1,4 +1,5 @@
 ---
+name: reload-config
 description: Reload Claude configuration files
 allowed-tools:
   - Read

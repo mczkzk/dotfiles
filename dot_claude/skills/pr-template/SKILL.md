@@ -1,6 +1,8 @@
 ---
+name: pr-template
 description: Generate PR title and description from GitHub PR <number> diff
 argument-hint: <number: GitHub PR number like 123>
+disable-model-invocation: true
 allowed-tools:
   - Bash(gh:*)
   - Bash(git:*)

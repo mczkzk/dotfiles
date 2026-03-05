@@ -1,6 +1,7 @@
 ---
+name: commit
 description: Create a git commit with proper format following repository conventions
-allowed-tools: 
+allowed-tools:
   - Bash(git:*)
 ---
 

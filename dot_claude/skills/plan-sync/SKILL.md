@@ -1,6 +1,8 @@
 ---
+name: plan-sync
 description: Sync plan document with actual implementation progress
 argument-hint: "<optional: task ID or feature-name>"
+disable-model-invocation: true
 allowed-tools:
   - Read
   - Write
@@ -17,13 +19,13 @@ Automatically syncs plan.md with actual implementation state using conversation 
 
 ## Command Execution Steps
 
-### 1. 🔍 Identify Target Files
+### 1. Identify Target Files
 - **If feature-name provided**: Use `.agent/plans/[feature-name]/plan.md`
 - **Otherwise**:
   1. Check current session's plan
   2. If not found, infer feature-name from context and check `.agent/plans/*/plan.md` (excluding `archive/`)
 
-### 2. 📊 Gather Evidence (No User Prompts)
+### 2. Gather Evidence (No User Prompts)
 
 **From Conversation Context:**
 - What tasks were discussed as completed
@@ -38,7 +40,7 @@ Automatically syncs plan.md with actual implementation state using conversation 
 - Review recent changes (git diff)
 - Read relevant source files to confirm implementation
 
-### 3. ✏️ Apply Updates Directly
+### 3. Apply Updates Directly
 
 Update plan.md immediately without confirmation:
 
@@ -48,7 +50,7 @@ Update plan.md immediately without confirmation:
 - **Removed tasks**: Delete or strikethrough
 - **Assumption corrections**: Update search.md if exists
 
-### 4. 📝 Append to Implementation Notes
+### 4. Append to Implementation Notes
 
 Add sync log:
 
@@ -66,7 +68,7 @@ Add sync log:
 - Codebase: verified in src/*, git diff shows 15 files changed
 ```
 
-### 5. 📋 Output Summary
+### 5. Output Summary
 
 After applying changes, output brief summary:
 
@@ -74,10 +76,10 @@ After applying changes, output brief summary:
 ## Plan Sync Complete
 
 **Applied:**
-- ✅ Completed: X tasks
-- ✏️ Modified: X tasks
-- ➕ Added: X tasks
-- 🗑️ Removed: X tasks
+- Completed: X tasks
+- Modified: X tasks
+- Added: X tasks
+- Removed: X tasks
 
 **Updated files:**
 - .agent/plans/[feature-name]/plan.md

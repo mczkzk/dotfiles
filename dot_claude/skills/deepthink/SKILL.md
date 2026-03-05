@@ -1,4 +1,5 @@
 ---
+name: deepthink
 description: Think deeply and investigate thoroughly about <topic>
 argument-hint: <topic: subject like "authentication flow" or "performance bottleneck">
 allowed-tools:
