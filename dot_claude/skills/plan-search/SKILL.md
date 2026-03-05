@@ -28,14 +28,11 @@ Creates investigation checklist and gathers requirements before plan document cr
 1. **Check for existing JIRA data**:
    - Look for `.agent/plans/[identifier]/jira.md`
    - If exists → Skip to step 4
-2. **Locate JIRA fetch script**:
-   - Search for `.agent/scripts/jira-fetch.sh` in project root
-   - If not found → Skip JIRA fetch, proceed to step 1
-3. **Execute JIRA fetch**:
-   - Run `.agent/scripts/jira-fetch.sh [identifier]`
-   - Script creates `.agent/plans/[identifier]/jira.md` with ticket information
-   - If script fails → Log warning and proceed to step 1 (non-blocking)
-4. **Read JIRA data** (if available):
+2. **Fetch JIRA data**:
+   - If `jira-fetch` skill is available → invoke `/jira-fetch [identifier]`
+   - If skill not available → Skip JIRA fetch, proceed to step 1
+   - If fetch fails → Log warning and proceed to step 1 (non-blocking)
+3. **Read JIRA data** (if available):
    - Read `.agent/plans/[identifier]/jira.md`
    - Use JIRA ticket information in Requirements Gathering
 
