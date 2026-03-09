@@ -20,6 +20,7 @@ dot_claude/
 │   ├── pr-review/         # Review GitHub PR
 │   ├── pr-review-respond/ # Respond to PR review comments
 │   ├── pr-template/       # Generate PR title and description
+│   ├── codex-review/      # Delegate review to OpenAI Codex CLI
 │   ├── refactor/          # Martin Fowler style refactoring
 │   └── scrum-poker/       # Estimate complexity (Scrum poker)
 └── scripts/
@@ -30,7 +31,7 @@ dot_claude/
 
 | Auto (Claude invokes when relevant) | Manual only (`/name`) |
 |---|---|
-| commit, deepthink, refactor, edit-dotfile | plan-search, plan-build, plan-sync, pr-review, pr-review-respond, pr-template, scrum-poker |
+| commit, deepthink, refactor, edit-dotfile | codex-review, plan-search, plan-build, plan-sync, pr-review, pr-review-respond, pr-template, scrum-poker |
 
 Manual skills have `disable-model-invocation: true` in frontmatter.
 
