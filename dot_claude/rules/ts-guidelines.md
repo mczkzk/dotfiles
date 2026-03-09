@@ -15,10 +15,17 @@ paths:
 
 ### any を避け、unknown で絞り込む
 
+ただし具体的な型が分かっている場合は `unknown` ではなくその型を使う。`unknown` は「本当に型が不明」な場合のみ:
+
 ```typescript
-// Bad
+// Bad - any
 catch (error: any) {
   console.log(error.message)
+}
+
+// Bad - 型が明確なのに unknown を使う
+interface State {
+  ids: unknown[]  // number[] と分かっているのに怠惰に unknown
 }
 
 // Good
@@ -109,14 +116,22 @@ function isKeyboardEvent(event: Event): event is KeyboardEvent {
 
 ### 非Nullアサーション
 
-`!` はやむを得ない場合のみ。適切なnullチェックを優先:
+`!` は原則避け、適切なnullチェックを優先。ただしガード済み（`if` で存在確認後）の場合は `!` を使い、冗長なfallbackを書かない:
 
 ```typescript
-// Avoid
+// Bad - ガードなしの !
 const name = user!.name
 
-// Good
+// Good - nullチェック
 const name = user?.name ?? "Anonymous"
+
+// Good - ガード済みなら ! で簡潔に
+if (data.items == null) return;
+const items = data.items!;  // fallback 不要
+
+// Bad - ガード済みなのに冗長なfallback
+if (data.items == null) return;
+const items = data.items || { ids: [], byId: {} };  // 到達しない分岐
 ```
 
 ## enum を避ける
