@@ -1,7 +1,7 @@
 ---
 name: jira-fetch
 description: JIRAチケット情報を取得して .claude/plans/{ISSUE_KEY}/ に保存
-disable-model-invocation: true
+disable-model-invocation: false
 allowed-tools:
   - Bash(${CLAUDE_SKILL_DIR}/jira-fetch.sh:*)
 ---
