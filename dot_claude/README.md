@@ -21,6 +21,7 @@ dot_claude/
 │   ├── pr-review-respond/ # Respond to PR review comments
 │   ├── pr-template/       # Generate PR title and description
 │   ├── codex-review/      # Delegate review to OpenAI Codex CLI
+│   ├── jira-fetch/        # Fetch JIRA issues (requires .jira.env)
 │   ├── refactor/          # Martin Fowler style refactoring
 │   └── scrum-poker/       # Estimate complexity (Scrum poker)
 └── scripts/

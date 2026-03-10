@@ -16,3 +16,6 @@ $RECYCLE.BIN/
 # Linux
 *~
 .directory
+
+# env
+*.env
