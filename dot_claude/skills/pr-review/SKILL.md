@@ -23,7 +23,7 @@ Review GitHub PR and identify issues.
    - `gh api repos/{owner}/{repo}/pulls/{number}/comments`
 
 2. **Check for Plan Document**
-   - Search: current session plan → `.agent/plans/*/plan.md`
+   - Search: current session plan → `.claude/plans/*/plan.md`
    - If found, verify alignment with requirements, architecture, tests
 
 3. **Understand Context**

@@ -55,18 +55,11 @@ For larger implementations, use this structured approach:
 - Consider splitting tasks/PRs when plan documents exceed 1000 lines
 
 ### 4. Archive
-- Move completed plans to `.agent/plans/archive/`
+- Move completed plans to `.claude/plans/archive/`
 
 ## CLAUDE.md Best Practices
 
 See: https://code.claude.com/docs/en/best-practices
-
-## Project Tips
-
-### AI Context Documentation
-For individual projects, create an `agent-docs/` directory for architecture overview, domain glossary, API patterns, coding conventions, database schema, etc.
-
-Reference with `@agent-docs/` in your project's CLAUDE.md.
 
 ## MCP
 

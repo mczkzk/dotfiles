@@ -21,7 +21,7 @@ Generate PR title, description, and recommended labels from PR diff.
    - `gh pr diff <PR number>`
 
 2. **Check for Plan Document**
-   - Search: current session plan → `.agent/plans/*/plan.md`
+   - Search: current session plan → `.claude/plans/*/plan.md`
    - Read for requirements, architecture, tests
 
 3. **Analyze Changes**

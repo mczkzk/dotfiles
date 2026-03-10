@@ -26,20 +26,20 @@ Creates investigation checklist and gathers requirements before plan document cr
 
 **If identifier is a task ID**, execute JIRA fetch:
 1. **Check for existing JIRA data**:
-   - Look for `.agent/plans/[identifier]/jira.md`
+   - Look for `.claude/plans/[identifier]/jira.md`
    - If exists → Skip to step 4
 2. **Fetch JIRA data**:
    - If `jira-fetch` skill is available → invoke `/jira-fetch [identifier]`
    - If skill not available → Skip JIRA fetch, proceed to step 1
    - If fetch fails → Log warning and proceed to step 1 (non-blocking)
 3. **Read JIRA data** (if available):
-   - Read `.agent/plans/[identifier]/jira.md`
+   - Read `.claude/plans/[identifier]/jira.md`
    - Use JIRA ticket information in Requirements Gathering
 
 **If identifier is a feature name** (no hyphen), skip this step entirely.
 
 ### 1. Create Investigation File
-- Generate `.agent/plans/[feature-name]/search.md`
+- Generate `.claude/plans/[feature-name]/search.md`
 - Include comprehensive investigation checklist
 - All items must be completed before `/plan-build` command
 

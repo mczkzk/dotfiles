@@ -84,15 +84,15 @@ Apply the following adjustments to the base estimate. Cumulative when multiple f
 
 ## Result Saving
 
-After outputting the estimate, check for `.agent/plans/` directory and save results:
+After outputting the estimate, check for `.claude/plans/` directory and save results:
 
 1. **Check for plans directory**:
-   - Run `ls -d .agent/plans/*/` to check if `.agent/plans/[feature-name]/` directories exist
-   - If no `.agent/plans/` directory exists → Skip saving (output only)
+   - Run `ls -d .claude/plans/*/` to check if `.claude/plans/[feature-name]/` directories exist
+   - If no `.claude/plans/` directory exists → Skip saving (output only)
 
 2. **Determine save location**:
-   - If argument (feature-name) provided: Save to `.agent/plans/[feature-name]/scrum-poker-result.md`
-   - If no argument: Find most recently modified `.agent/plans/*/` directory and save there
+   - If argument (feature-name) provided: Save to `.claude/plans/[feature-name]/scrum-poker-result.md`
+   - If no argument: Find most recently modified `.claude/plans/*/` directory and save there
 
 3. **Save result**:
    - Write the estimate output to `scrum-poker-result.md` in the determined location

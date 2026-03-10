@@ -20,10 +20,10 @@ Automatically syncs plan.md with actual implementation state using conversation 
 ## Command Execution Steps
 
 ### 1. Identify Target Files
-- **If feature-name provided**: Use `.agent/plans/[feature-name]/plan.md`
+- **If feature-name provided**: Use `.claude/plans/[feature-name]/plan.md`
 - **Otherwise**:
   1. Check current session's plan
-  2. If not found, infer feature-name from context and check `.agent/plans/*/plan.md` (excluding `archive/`)
+  2. If not found, infer feature-name from context and check `.claude/plans/*/plan.md` (excluding `archive/`)
 
 ### 2. Gather Evidence (No User Prompts)
 
@@ -82,7 +82,7 @@ After applying changes, output brief summary:
 - Removed: X tasks
 
 **Updated files:**
-- .agent/plans/[feature-name]/plan.md
+- .claude/plans/[feature-name]/plan.md
 ```
 
 ## Analysis Techniques
