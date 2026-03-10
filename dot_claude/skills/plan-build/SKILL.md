@@ -1,7 +1,7 @@
 ---
 name: plan-build
 description: Create plan document for structured development
-argument-hint: "<optional: task ID or feature-name>"
+argument-hint: "[task ID or feature-name]"
 disable-model-invocation: true
 allowed-tools:
   - Task

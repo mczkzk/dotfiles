@@ -1,7 +1,7 @@
 ---
 name: plan-sync
 description: Sync plan document with actual implementation progress
-argument-hint: "<optional: task ID or feature-name>"
+argument-hint: "[task ID or feature-name]"
 disable-model-invocation: true
 allowed-tools:
   - Read
