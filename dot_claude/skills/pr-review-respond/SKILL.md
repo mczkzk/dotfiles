@@ -1,7 +1,7 @@
 ---
 name: pr-review-respond
-description: Respond to PR review comments <number> with fixes and reply drafts
-argument-hint: <number: GitHub PR number like 123>
+description: Respond to PR review comments with fixes and reply drafts
+argument-hint: "[number: GitHub PR number like 123] (empty = auto-detect from current branch)"
 disable-model-invocation: true
 allowed-tools:
   - Bash(gh:*)

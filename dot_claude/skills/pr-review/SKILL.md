@@ -1,7 +1,7 @@
 ---
 name: pr-review
-description: Review GitHub PR <number> and identify issues and improvements
-argument-hint: <number: GitHub PR number like 123>
+description: Review GitHub PR and identify issues and improvements
+argument-hint: "[number: GitHub PR number like 123] (empty = auto-detect from current branch)"
 disable-model-invocation: true
 allowed-tools:
   - Bash(gh:*)

@@ -1,7 +1,7 @@
 ---
 name: pr-template
-description: Generate PR title and description from GitHub PR <number> diff
-argument-hint: <number: GitHub PR number like 123>
+description: Generate PR title and description from GitHub PR diff
+argument-hint: "[number: GitHub PR number like 123] (empty = auto-detect from current branch)"
 disable-model-invocation: true
 allowed-tools:
   - Bash(gh:*)
