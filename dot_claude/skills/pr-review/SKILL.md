@@ -15,6 +15,10 @@ Review GitHub PR and identify issues.
 
 ## Process
 
+0. **Resolve PR Number**
+   - If `$ARGUMENTS` is empty or not a number, auto-detect: `gh pr view --json number -q .number`
+   - If auto-detect fails (no PR for current branch), warn and abort
+
 1. **Get PR Details**
    - Check working tree: `git status --short` → if uncommitted changes exist, warn and abort
    - `gh pr checkout <PR number>`

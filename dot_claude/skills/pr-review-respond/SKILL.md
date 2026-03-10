@@ -17,6 +17,10 @@ Respond to PR review comments by fixing issues and generating reply drafts.
 
 ## Process
 
+0. **Resolve PR Number**
+   - If `$ARGUMENTS` is empty or not a number, auto-detect: `gh pr view --json number -q .number`
+   - If auto-detect fails (no PR for current branch), warn and abort
+
 1. **Get Review Comments**
    - `gh pr view <PR number> --comments`
    - `gh api repos/{owner}/{repo}/pulls/{number}/comments`

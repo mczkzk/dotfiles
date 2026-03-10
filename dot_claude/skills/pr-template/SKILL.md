@@ -16,6 +16,10 @@ Generate PR title, description, and recommended labels from PR diff.
 
 ## Process
 
+0. **Resolve PR Number**
+   - If `$ARGUMENTS` is empty or not a number, auto-detect: `gh pr view --json number -q .number`
+   - If auto-detect fails (no PR for current branch), warn and abort
+
 1. **Get PR Information**
    - `gh pr view <PR number> --json number,title,body,labels,baseRefName,headRefName`
    - `gh pr diff <PR number>`
