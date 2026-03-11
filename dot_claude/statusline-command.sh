@@ -41,6 +41,8 @@ if [ -n "$model" ]; then
 fi
 
 # Usage limits (cached 60s)
+# NOTE: /api/oauth/usage is an undocumented API. May break without notice.
+# Official support is tracked at: https://github.com/anthropics/claude-code/issues/27915
 usage_info=""
 CACHE=/tmp/claude-usage-cache
 if [ ! -f "$CACHE" ] || [ $(( $(date +%s) - $(stat -f%m "$CACHE") )) -gt 60 ]; then
