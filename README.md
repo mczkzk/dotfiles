@@ -62,7 +62,7 @@ echo '[user]
 ```bash
 echo 'JIRA_DOMAIN=your-domain.atlassian.net
 JIRA_EMAIL=your-email@example.com
-JIRA_API_TOKEN=your-api-token' > ~/.claude/skills/jira-fetch/.jira.env
+JIRA_API_TOKEN=your-api-token' > ~/.claude/.jira.env
 ```
 
 **5. Install packages:**

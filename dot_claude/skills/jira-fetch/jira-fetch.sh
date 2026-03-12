@@ -16,8 +16,8 @@ if [[ -z "$PROJECT_ROOT" ]]; then
     exit 1
 fi
 
-# 環境変数読み込み (グローバル)
-ENV_FILE="$SCRIPT_DIR/.jira.env"
+# 環境変数読み込み (~/.claude/.jira.env を共通で使用)
+ENV_FILE="$HOME/.claude/.jira.env"
 if [[ ! -f "$ENV_FILE" ]]; then
     echo "Error: $ENV_FILE not found"
     echo "Create it with:"

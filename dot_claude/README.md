@@ -7,6 +7,7 @@ Global configuration for Claude Code (`~/.claude/`), managed via chezmoi.
 ```
 dot_claude/
 ├── CLAUDE.md              # Global instructions (loaded every session)
+├── .jira.env              # JIRA API credentials (shared by jira-fetch, deploy etc.)
 ├── settings.json          # Permission and tool settings
 ├── rules/                 # Path-scoped rules (loaded when matching files)
 │   └── ts-guidelines.md   # TypeScript coding guidelines (*.ts, *.tsx)
@@ -21,7 +22,7 @@ dot_claude/
 │   ├── pr-review-respond/ # Respond to PR review comments
 │   ├── pr-template/       # Generate PR title and description
 │   ├── codex-review/      # Delegate review to OpenAI Codex CLI
-│   ├── jira-fetch/        # Fetch JIRA issues (requires .jira.env)
+│   ├── jira-fetch/        # Fetch JIRA issues (requires ~/.claude/.jira.env)
 │   ├── refactor/          # Martin Fowler style refactoring
 │   └── scrum-poker/       # Estimate complexity (Scrum poker)
 └── scripts/
