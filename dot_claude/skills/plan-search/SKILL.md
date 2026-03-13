@@ -11,6 +11,11 @@ allowed-tools:
   - LS
   - Task
   - Bash
+  - mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql
+  - mcp__claude_ai_Atlassian__getJiraIssue
+  - mcp__claude_ai_Atlassian__search
+  - mcp__claude_ai_Slack__slack_search_public_and_private
+  - mcp__claude_ai_Slack__slack_read_thread
 ---
 
 # Plan Search Command
@@ -28,15 +33,25 @@ Creates investigation checklist and gathers requirements before plan document cr
 1. **Check for existing JIRA data**:
    - Look for `.claude/plans/[identifier]/jira.md`
    - If exists → Skip to step 4
-2. **Fetch JIRA data**:
-   - If `jira-fetch` skill is available → invoke `/jira-fetch [identifier]`
-   - If skill not available → Skip JIRA fetch, proceed to step 1
-   - If fetch fails → Log warning and proceed to step 1 (non-blocking)
+2. **Fetch JIRA data** (try in order until one succeeds):
+   - **Primary**: If `jira-fetch` skill is available → invoke `/jira-fetch [identifier]`
+   - **Fallback (MCP)**: If skill not available or fetch fails → use MCP tools:
+     a. `mcp__claude_ai_Atlassian__getJiraIssue` to fetch the ticket directly
+     b. If direct fetch fails → `mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql` with `key = [identifier]`
+   - If all methods fail → Log warning and proceed to step 1 (non-blocking)
 3. **Read JIRA data** (if available):
    - Read `.claude/plans/[identifier]/jira.md`
    - Use JIRA ticket information in Requirements Gathering
+4. **Search related discussions in Slack**:
+   - Use `mcp__claude_ai_Slack__slack_search_public_and_private` to search for the identifier (e.g., "PROJECT-123")
+   - If relevant threads found → use `mcp__claude_ai_Slack__slack_read_thread` to read full context
+   - Record key discussions, decisions, and context in Investigation Notes
+   - This step is non-blocking: if Slack MCP is unavailable or returns no results, proceed
 
-**If identifier is a feature name** (no hyphen), skip this step entirely.
+**If identifier is a feature name** (no hyphen):
+- Skip JIRA fetch
+- Still search Slack using `mcp__claude_ai_Slack__slack_search_public_and_private` for the feature name
+- Record any relevant discussions found in Investigation Notes
 
 ### 1. Create Investigation File
 - Generate `.claude/plans/[feature-name]/search.md`
