@@ -53,7 +53,7 @@ fetch_issue() {
     RESPONSE=$(curl -s -w "\n%{http_code}" \
         -H "Authorization: Basic ${AUTH}" \
         -H "Accept: application/json" \
-        "${BASE_URL}/issue/${ISSUE_KEY}?fields=summary,status,assignee,description,created,updated,attachment,comment")
+        "${BASE_URL}/issue/${ISSUE_KEY}?fields=summary,status,assignee,description,created,updated,attachment,comment,issuelinks,subtasks,parent")
 
     HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
     BODY=$(echo "$RESPONSE" | sed '$d')
@@ -265,6 +265,55 @@ end
         [.fields.comment.comments[]?.body | .. | objects | select(.type == "media") | {id: .attrs.id, alt: (.attrs.alt // "")}] | .[] | "\(.id)\t\(.alt)"
     ')
 
+    # 親チケット
+    PARENT=$(echo "$BODY" | jq -r '
+        if .fields.parent then
+            "- **親チケット**: [" + .fields.parent.key + "] " + (.fields.parent.fields.summary // "N/A") + " (" + (.fields.parent.fields.status.name // "N/A") + ")"
+        else
+            ""
+        end
+    ')
+
+    # サブタスク
+    SUBTASKS=$(echo "$BODY" | jq -r '
+        if .fields.subtasks and (.fields.subtasks | length) > 0 then
+            [.fields.subtasks[] |
+                "- [" + .key + "] " + (.fields.summary // "N/A") + " (" + (.fields.status.name // "N/A") + ")"
+            ] | join("\n")
+        else
+            ""
+        end
+    ')
+
+    # 関連チケット (issuelinks)
+    ISSUELINKS=$(echo "$BODY" | jq -r '
+        if .fields.issuelinks and (.fields.issuelinks | length) > 0 then
+            [.fields.issuelinks[] |
+                if .outwardIssue then
+                    "- **" + .type.outward + "**: [" + .outwardIssue.key + "] " + (.outwardIssue.fields.summary // "N/A") + " (" + (.outwardIssue.fields.status.name // "N/A") + ")"
+                elif .inwardIssue then
+                    "- **" + .type.inward + "**: [" + .inwardIssue.key + "] " + (.inwardIssue.fields.summary // "N/A") + " (" + (.inwardIssue.fields.status.name // "N/A") + ")"
+                else
+                    empty
+                end
+            ] | join("\n")
+        else
+            ""
+        end
+    ')
+
+    # 関連情報セクション構築
+    RELATIONS=""
+    if [[ -n "$PARENT" ]]; then
+        RELATIONS="${PARENT}"$'\n'
+    fi
+    if [[ -n "$SUBTASKS" ]]; then
+        RELATIONS="${RELATIONS}"$'\n'"### サブタスク"$'\n'"${SUBTASKS}"$'\n'
+    fi
+    if [[ -n "$ISSUELINKS" ]]; then
+        RELATIONS="${RELATIONS}"$'\n'"### リンク"$'\n'"${ISSUELINKS}"$'\n'
+    fi
+
     # Markdown出力
     OUTPUT_FILE="$OUTPUT_DIR/jira.md"
     cat > "$OUTPUT_FILE" << EOF
@@ -278,6 +327,9 @@ end
 
 ## タイトル
 ${SUMMARY}
+
+## 関連チケット
+${RELATIONS:-関連チケットなし}
 
 ## 説明
 ${DESCRIPTION}
