@@ -52,13 +52,15 @@ Generate PR title, description, and recommended labels from PR diff.
    - Display generated title/body/label plan and summarize body diff (add/change/remove)
    - Ask: "Update PR title/body and labels with `gh pr edit`?"
    - If approved:
-     1. Update PR title/body: `gh pr edit <PR number> --title "<new title>" --body-file <temp file>`
-     2. Sync labels to recommendation:
+     1. **Re-fetch the latest PR body** (`gh pr view <PR number> --json body -q .body`) right before editing. Compare it with the body you based your draft on. If the remote body has changed (e.g., someone added images, videos, or comments), merge those additions into your draft — never silently discard them.
+     2. Update PR title/body: `gh pr edit <PR number> --title "<new title>" --body-file <temp file>`
+     3. Sync labels to recommendation:
         - Read current labels from `gh pr view <PR number> --json labels`
         - Compute delta:
           - Add missing recommended labels with `--add-label`
           - Remove non-recommended labels with `--remove-label` (except labels user says to keep)
         - Execute label update via `gh pr edit <PR number> --add-label ... --remove-label ...`
+   - **Same-conversation shortcut**: If you already updated this PR body earlier in the same conversation, you MUST re-fetch the remote body before the second update. The user or CI may have modified it between your updates.
    - If not approved, provide copy-paste output only
 
 ## Mandatory Rules
