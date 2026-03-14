@@ -56,14 +56,15 @@ Consider splitting tasks/PRs when plan documents exceed 1000 lines.
 ## Plugins / MCP
 
 ### Required by skills
-- Slack MCP — Used by `/plan-search` for discussion context
-- Atlassian MCP — Used by `/plan-search`
+- Slack MCP — Used by `/plan-search` for discussion context (MCP registry)
+- Atlassian MCP — Used by `/plan-search` (MCP registry)
 
-### Recommended
-- [context7](https://github.com/upstash/context7) — Library docs lookup (MCP registry listed, by Upstash)
-- code-review — PR code review (Claude Code official plugin)
-  - For local detailed review, use custom `/pr-review` instead
-- skill-creator — Create, modify, and eval custom skills (Claude Code official plugin)
+### Recommended — Claude Code official plugins
+- code-review — PR code review. For local detailed review, use custom `/pr-review` instead
+- skill-creator — Create, modify, and eval custom skills
+
+### Recommended — MCP servers
+- [context7](https://github.com/upstash/context7) — Library docs lookup (MCP registry, by Upstash)
 - [playwright](https://github.com/microsoft/playwright-mcp) — Browser automation and testing (by Microsoft)
 - [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) — Chrome DevTools debugging (by Google Chrome team)
 
