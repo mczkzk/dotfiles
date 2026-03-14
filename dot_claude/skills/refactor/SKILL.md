@@ -1,14 +1,17 @@
 ---
 name: refactor
 description: Perform refactoring on <target>
-argument-hint: <target: what to refactor like "files changed since main" or "xxx.ts too long">
+argument-hint: "[target: what to refactor like 'files changed since main' or 'xxx.ts too long'] (empty = auto-detect from PR or main diff)"
 allowed-tools:
   - Read
   - Edit
   - MultiEdit
   - Glob
   - Grep
+  - Bash(gh:*)
+  - Bash(git:*)
   - Bash(test:*, lint:*, build:*)
+  - AskUserQuestion
   - mcp__ide__getDiagnostics
 ---
 
@@ -24,6 +27,13 @@ Apply refactoring techniques through natural language requests.
 - Can rollback easily
 
 ## Process
+
+### 0. Resolve Target
+- If `$ARGUMENTS` is provided, use it as the refactoring target
+- If `$ARGUMENTS` is empty, auto-detect in order:
+  1. **PR detection**: `gh pr view --json number -q .number` — if a PR exists for the current branch, use its changed files (`gh pr diff <number> --name-only`)
+  2. **Main branch diff**: `git diff main...HEAD --name-only` — if files differ from main, use those as target
+  3. **Ask user**: If both above produce no results, ask the user what to refactor
 
 ### 1. Pre-Check
 - Read target files

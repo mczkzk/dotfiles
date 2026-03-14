@@ -4,7 +4,9 @@ description: Respond to PR review comments with fixes and reply drafts
 argument-hint: "[number: GitHub PR number like 123] (empty = auto-detect from current branch)"
 disable-model-invocation: true
 allowed-tools:
-  - Bash(gh:*)
+  - Bash(gh pr view:*)
+  - Bash(gh pr diff:*)
+  - Bash(gh api:*)
   - Bash(git:*)
   - Read
   - Edit

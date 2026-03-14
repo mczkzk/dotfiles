@@ -1,4 +1,4 @@
 interface:
   display_name: "Refactor"
-  short_description: "Refactor code while preserving behavior"
-  default_prompt: "Use $refactor to improve code structure in small safe steps while preserving external behavior."
+  short_description: "Refactor code in small safe steps with auto-detection"
+  default_prompt: "Use $refactor to improve code structure in small behavior-preserving steps. Auto-detects target from PR, main diff, or asks the user."

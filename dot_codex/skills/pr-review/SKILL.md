@@ -1,75 +1,81 @@
 ---
 name: pr-review
-description: Review a GitHub pull request or PR-like diff and identify concrete bugs, regressions, security risks, and missing tests. Use when the user asks to review a PR, audit a proposed change before merge, inspect `gh pr diff` output, or produce actionable review findings with severity and file references.
+description: Review GitHub PR and identify issues and improvements. Use when the user asks to review a PR, audit a proposed change before merge, inspect `gh pr diff` output, or produce actionable review findings with severity and file references.
 ---
 
 # PR Review
 
-## Overview
-
 Review code with a code-review mindset. Prioritize verifiable findings over summaries, and focus on correctness, behavior changes, edge cases, security, and test gaps.
 
-## Workflow
+## Process
 
-1. Determine the review target.
-   - If the user gives a PR number and the repository is clean, inspect the PR with `gh`.
-   - If the worktree is dirty or `gh` is unavailable, review the current branch diff or the files the user points to instead of forcefully changing branches.
-   - Never discard or overwrite unrelated local changes.
+### 0. Resolve PR Number
+- If the user gives a PR number, use it
+- Otherwise auto-detect: `gh pr view --json number -q .number`
+- If auto-detect fails (no PR for current branch), warn and abort
 
-2. Gather review context before judging the patch.
-   - Check `git status --short` to see whether checkout is safe.
-   - Read the diff with `gh pr diff <number>` or `git diff`.
-   - Read the PR description and review comments with `gh pr view <number> --comments` when available.
-   - Open the changed files and enough surrounding code to understand call sites, data flow, and existing patterns.
+### 1. Get PR Details
+- Check working tree: `git status --short` → if dirty, warn and review via `git diff` instead of checking out
+- `gh pr diff <PR number>`
+- `gh pr view <PR number> --comments`
+- `gh api repos/{owner}/{repo}/pulls/{number}/comments`
 
-3. Verify behavior, not style.
-   - Look for logic bugs, missing validation, broken invariants, incorrect assumptions, authorization gaps, performance traps, migration risks, and incomplete error handling.
-   - Check tests for coverage of the changed behavior, especially unhappy paths and compatibility edges.
-   - Prefer findings that can be defended from the code or from a reproducible verification step.
+### 2. Check for Plan Document
+- Search `.codex/plans/*/plan.md` or `.claude/plans/*/plan.md`
+- If found, verify alignment with requirements, architecture, tests
 
-4. Validate suspicious areas.
-   - Run targeted tests, linters, or type checks when they materially increase confidence and the environment allows it.
-   - If you cannot run verification, say so and downgrade confidence accordingly.
+### 3. Understand Context
+- Read changed and related files (call sites, data flow, existing patterns)
+- Check config, dependencies, architecture
 
-5. Report findings first.
-   - Order findings by severity.
-   - Include file references and the reason the behavior is risky.
-   - Keep summaries brief and secondary.
+### 4. Review Changes
+- Logic bugs, missing validation, broken invariants, incorrect assumptions
+- Authorization gaps across the full call chain
+- Performance traps, migration risks, incomplete error handling
+- Test coverage for changed behavior, especially unhappy paths
 
-## Review Criteria
+### 5. Validate Suspicious Areas
+- Run targeted tests, linters, or type checks when possible
+- If verification cannot be run, state so and downgrade confidence
 
-- Correctness and behavioral regressions
-- Security and authorization checks across the full call chain
-- Data integrity, schema, and migration risks
-- Error handling and fallback behavior
-- Performance issues caused by the change
-- Missing or weak tests for the changed behavior
-- Architectural inconsistencies only when they create real risk
+### 6. Create Verification Plan
+- Prerequisites and setup
+- Test scenarios and expected results
 
-## Output Format
+## Principles
 
-Present findings first. Use this shape unless the user requests something else:
+- Flag verifiable problems only — do not invent issues you cannot justify from the patch
+- Ask questions when uncertain
+- Don't criticize unfamiliar patterns or optimize for style nits over correctness
+- Never discard or overwrite unrelated local changes
+- Never use destructive git commands to prepare the review
 
-```markdown
-[severity] Short finding title
-- Why it is a problem.
-- Where it appears.
-- What condition triggers it or how to verify it.
-```
+## Criteria
 
-Severity labels to use:
-- `[BLOCKER]` for merge-stopping issues
-- `[MUST]` for required fixes
-- `[SHOULD]` for important but negotiable issues
-- `[SUGGESTION]` for non-critical improvements
-- `[QUESTION]` when intent is unclear and risk depends on that answer
-- `[FYI]` for useful context without an action request
+- **Correctness**: Behavioral regressions, logic errors, edge cases
+- **Security**: Authorization in call chain, data access checks, cross-resource ownership, entry point validation
+- **Data Integrity**: Schema and migration risks
+- **Error Handling**: Fallback behavior, incomplete handling
+- **Performance**: Issues caused by the change
+- **Testing**: Coverage and quality for changed behavior
+- **Smells**: Duplication, dead code, hardcoded values, reinventing existing definitions
+- **Architecture**: Pattern violations, separation of concerns (only when they create real risk)
+
+## Output
+
+Present findings first, ordered by severity.
+
+1. **Summary**: Changed files and scope
+
+2. **Verification Steps** (if any): Prerequisites, setup, test scenarios, expected results, edge cases
+
+3. **Findings**: Label each with severity
+   - `[BLOCKER]`: Must fix before merge
+   - `[MUST]`: Required changes
+   - `[SHOULD]`: Important but negotiable
+   - `[SUGGESTION]`: Improvements and alternatives
+   - `[NIT]`: Minor issues (naming, formatting)
+   - `[QUESTION]`: Clarifications needed
+   - `[FYI]`: Notes and references
 
 If there are no findings, say that explicitly, then note residual risks or testing gaps.
-
-## Guardrails
-
-- Do not invent issues you cannot justify from the patch and surrounding code.
-- Do not optimize for style nits when there are higher-risk correctness issues.
-- Do not checkout another branch if the worktree is dirty unless the user explicitly wants that and the action is safe.
-- Do not use destructive git commands to prepare the review.

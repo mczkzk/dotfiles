@@ -1,4 +1,4 @@
 interface:
   display_name: "PR Review"
-  short_description: "Review pull requests and report risks"
-  default_prompt: "Use $pr-review to inspect a pull request, identify concrete risks, and produce a prioritized review."
+  short_description: "Review pull requests with severity-labeled findings"
+  default_prompt: "Use $pr-review to inspect a pull request, gather PR comments and plan context, identify concrete risks, and produce a prioritized review with severity labels."

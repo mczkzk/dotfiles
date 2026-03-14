@@ -21,7 +21,6 @@ dot_claude/
 │   ├── pr-review/         # Review GitHub PR
 │   ├── pr-review-respond/ # Respond to PR review comments
 │   ├── pr-template/       # Generate PR title and description
-│   ├── codex-review/      # Delegate review to OpenAI Codex CLI
 │   ├── jira-fetch/        # Fetch JIRA issues (requires ~/.claude/.jira.env)
 │   ├── refactor/          # Martin Fowler style refactoring
 │   └── scrum-poker/       # Estimate complexity (Scrum poker)
@@ -35,11 +34,12 @@ dot_claude/
 ### Common flow
 1. **Implement** — Write code
 2. **Refactor** — `/simplify` then `/refactor [target]` if needed
+   - Optional: `codex /refactor` in a separate terminal for second opinion, paste results into Claude Code
 3. **Commit** — `/commit` (git push is always done manually)
 4. **PR** — `/pr-template` to generate title and description
-5. **Review** — `/pr-review` (main: local detailed review with security, plan alignment)
-   - `/code-review` — Optional: posts to GitHub PR, confidence-scored
-   - `/codex-review` — Optional: second opinion via OpenAI Codex
+5. **Review** — `/pr-review` (local detailed review with security, plan alignment)
+   - Optional: `/code-review` plugin — posts to GitHub PR, confidence-scored
+   - Optional: `codex /pr-review` — second opinion in a separate terminal, paste results into Claude Code
 6. **Respond** — `/pr-review-respond` to address review comments
 
 ### Large feature flow
