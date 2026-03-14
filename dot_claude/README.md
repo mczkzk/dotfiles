@@ -57,7 +57,7 @@ Consider splitting tasks/PRs when plan documents exceed 1000 lines.
 
 ### Required by skills
 - Slack MCP — Used by `/plan-search` for discussion context
-- Atlassian MCP — Used by `/plan-search`, `/jira-fetch`
+- Atlassian MCP — Used by `/plan-search`
 
 ### Recommended
 - [context7](https://github.com/upstash/context7) — Library docs lookup (plugin)
