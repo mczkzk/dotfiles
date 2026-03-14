@@ -10,6 +10,30 @@ if [ "$tool_name" != "Bash" ]; then
   exit 0
 fi
 
+# Deny recursive rm (rm -r, rm -rf, rm --recursive, etc.)
+# Checks each subcommand split by ; && ||
+check_recursive_rm() {
+  local cmd="$1"
+  cmd="${cmd#"${cmd%%[![:space:]]*}"}"
+  # Match: rm followed by flags containing -r or --recursive
+  if [[ "$cmd" =~ ^rm[[:space:]] ]] && [[ "$cmd" =~ (^|[[:space:]])(--recursive|-[a-zA-Z]*r[a-zA-Z]*) ]]; then
+    echo "Error: Command denied: recursive rm is not allowed: '$cmd'" >&2
+    exit 2
+  fi
+}
+
+# Check full command and each subcommand for recursive rm
+check_recursive_rm "$command"
+temp_rm="${command//;/$'\n'}"
+temp_rm="${temp_rm//&&/$'\n'}"
+temp_rm="${temp_rm//\|\|/$'\n'}"
+IFS=$'\n'
+for part in $temp_rm; do
+  [ -z "$(echo "$part" | tr -d '[:space:]')" ] && continue
+  check_recursive_rm "$part"
+done
+unset IFS
+
 # Read deny patterns from settings.json
 settings_file="$HOME/.claude/settings.json"
 

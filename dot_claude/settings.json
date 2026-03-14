@@ -36,7 +36,9 @@
     ],
     "deny": [
       "Bash(rm -r:*)",
+      "Bash(rm -rf:*)",
       "Bash(rm -fr:*)",
+      "Bash(rm --recursive:*)",
       "Bash(git push:*)",
       "Bash(git add -f:*)",
       "Bash(git add --force:*)",
