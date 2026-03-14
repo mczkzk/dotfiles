@@ -29,60 +29,37 @@ dot_claude/
     └── deny-check.sh      # Pre-tool use hook for command validation
 ```
 
-### Skills: Auto vs Manual
-
-| Auto (Claude invokes when relevant) | Manual only (`/name`) |
-|---|---|
-| commit, deepthink, refactor, edit-dotfile | codex-review, plan-search, plan-build, plan-sync, pr-review, pr-review-respond, pr-template, scrum-poker |
-
-Manual skills have `disable-model-invocation: true` in frontmatter.
 
 ## Development Workflow
 
-For larger implementations, use this structured approach:
+### Common flow
+1. **Implement** — Write code
+2. **Refactor** — `/simplify` then `/refactor [target]` if needed
+3. **Commit** — `/commit` (git push is always done manually)
+4. **PR** — `/pr-template` to generate title and description
+5. **Review** — `/pr-review` (main: local detailed review with security, plan alignment)
+   - `/code-review` — Optional: posts to GitHub PR, confidence-scored
+   - `/codex-review` — Optional: second opinion via OpenAI Codex
+6. **Respond** — `/pr-review-respond` to address review comments
 
-### 1. Investigation & Requirements
-- `/plan-search [feature-name]` — Create investigation checklist
-- Gather specifications, screenshots, requirements interactively
-- Complete all investigation items through codebase/DB/dependency analysis
+### Large feature flow
+For implementations that need upfront planning:
 
-### 2. Plan Creation
-- `/plan-build [feature-name]` — Requires completed plan-search
-- Creates plan document with section completeness verification
-- Includes: architecture, file changes, testing strategy, implementation plan
+1. **Investigation** — `/plan-search [feature-name]` to create checklist, gather specs
+2. **Plan** — `/plan-build [feature-name]` to create architecture and implementation plan
+3. **Implement** — `/plan-sync [feature-name]` to track progress against plan
+4. **Refactor → Commit → PR → Review** — Same as common flow
+5. **Archive** — Move completed plans to `.claude/plans/archive/`
 
-### 3. Implementation
-- `/plan-sync [feature-name]` — Periodically sync plan with actual progress
-- `/reload-config` — After modifying CLAUDE.md or skills
-- Consider splitting tasks/PRs when plan documents exceed 1000 lines
+Consider splitting tasks/PRs when plan documents exceed 1000 lines.
 
-### 4. Archive
-- Move completed plans to `.claude/plans/archive/`
+## Plugins / MCP
 
-## CLAUDE.md Best Practices
-
-See: https://code.claude.com/docs/en/best-practices
-
-## MCP
-
-### context7
-https://github.com/upstash/context7
-
-```
-claude mcp add --transport http context7 https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: YOUR_API_KEY"
-```
-
-### container-use
-
-(Optional) Run in your project repository:
-
-```bash
-claude mcp add -s project container-use -- container-use stdio
-```
-
-Creates `.mcp.json` in the project. After Docker is running, run `/mcp` to test.
-
-> Ideally MCP would be managed globally, but global MCP gets recorded in `~/.claude.json` instead of `~/.claude/mcp.json`. (see anthropics/claude-code#3098)
+- [context7](https://github.com/upstash/context7) — Up-to-date library docs lookup (plugin)
+- [code-review](https://github.com/anthropics/claude-code-marketplace/blob/main/code-review/README.md) — Automated PR code review (plugin)
+  - Posts review comments to GitHub PR. 5 parallel agents + confidence scoring to filter false positives
+  - For local detailed review (security, plan alignment, verification plan), use custom `/pr-review` instead
+- [container-use](https://github.com/dagger/container-use) — Run containers from Claude Code (MCP)
 
 ## References
 

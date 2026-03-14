@@ -1,7 +1,7 @@
 ---
 name: codex-review
 description: Pass context to OpenAI Codex CLI for code review, then process the results back in Claude Code
-argument-hint: "[file path | diff description | feature name] (empty = use conversation context)"
+argument-hint: "[file path | diff description | feature name] (empty = review current branch PR)"
 disable-model-invocation: true
 allowed-tools: Bash(codex *), Bash(cat *), Bash(git *), Read, Write, Edit, Grep, Glob
 ---
@@ -26,7 +26,15 @@ Codex 自身がファイルを読んでレビューする。
 codex exec --full-auto --ephemeral -o /tmp/codex-review-output.txt "$ARGUMENTS"
 ```
 
-Bash の timeout は 600000 を指定。引数なしの場合は会話の文脈から指示文を組み立てて渡す。
+Bash の timeout は 600000 を指定。引数なしの場合の優先順位:
+
+1. 会話に文脈があればそこから指示文を組み立てて渡す
+2. 文脈もなければ（セッション開始直後など）、現在ブランチの PR diff をフォールバックとして使う:
+   ```bash
+   DIFF=$(gh pr diff 2>/dev/null)
+   ```
+   PR が存在しない場合はユーザーに報告して終了。
+   diff が取得できたら: `"Review the following PR diff for bugs, security issues, and code quality:\n$DIFF"`
 
 Codex が失敗した場合はエラー内容をユーザーに報告して終了。
 

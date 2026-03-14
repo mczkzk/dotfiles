@@ -101,6 +101,10 @@ Before marking ANY item complete:
 - [ ] **Stakeholder alignment**: All parties agree on requirements and expectations
 
 ## Codebase Analysis
+
+**REUSE DISCOVERY PROTOCOL**:
+For each new type, function, or component planned, `Grep`/`Glob` the codebase for existing equivalents before assuming it needs to be created. Prefer reusing or extending existing definitions over creating new ones.
+
 - [ ] **Entry points & impact scope**: Classes/modules where changes start, sync/async downstream impacts mapped
 - [ ] **Similar features identified**: Existing patterns and implementations found for reference
 - [ ] **Reusable components**: Available components and utilities documented

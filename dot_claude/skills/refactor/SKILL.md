@@ -30,7 +30,16 @@ Apply refactoring techniques through natural language requests.
 - Run tests (must be green)
 - Check git status (must be clean)
 
-### 2. Refactoring Techniques
+### 2. Reuse Discovery
+
+Scan new definitions (types, functions, constants, interfaces) in target files and search the existing codebase for reusable equivalents:
+
+1. List all newly added definitions in the target diff
+2. For each, `Grep` / `Glob` the codebase for similar names, signatures, or shapes
+3. If a match is found, replace the new definition with a reference to the existing one
+4. If partially overlapping, consider extracting a shared abstraction
+
+### 3. Refactoring Techniques
 
 Select appropriate technique(s) based on the description:
 
@@ -90,12 +99,12 @@ Select appropriate technique(s) based on the description:
 **Git-Based**
 - Analyze git diff - ブランチ間の差分を分析してリファクタ
 
-### 3. Micro-Cycle (Repeat)
+### 4. Micro-Cycle (Repeat)
 1. **Small change** (one technique, one location)
 2. **Test** (must stay green)
 3. **Commit** (enable rollback)
 
-### 4. Complete
+### 5. Complete
 - Run full test suite
 - Run linting/type check
 - Verify improved readability
