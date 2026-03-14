@@ -55,11 +55,16 @@ Consider splitting tasks/PRs when plan documents exceed 1000 lines.
 
 ## Plugins / MCP
 
-- [context7](https://github.com/upstash/context7) — Up-to-date library docs lookup (plugin)
-- [code-review](https://github.com/anthropics/claude-code-marketplace/blob/main/code-review/README.md) — Automated PR code review (plugin)
-  - Posts review comments to GitHub PR. 5 parallel agents + confidence scoring to filter false positives
-  - For local detailed review (security, plan alignment, verification plan), use custom `/pr-review` instead
-- [container-use](https://github.com/dagger/container-use) — Run containers from Claude Code (MCP)
+### Required by skills
+- Slack MCP — Used by `/plan-search` for discussion context
+- Atlassian MCP — Used by `/plan-search`, `/jira-fetch`
+
+### Recommended
+- [context7](https://github.com/upstash/context7) — Library docs lookup (plugin)
+- [code-review](https://github.com/anthropics/claude-code-marketplace/blob/main/code-review/README.md) — PR code review (plugin)
+  - For local detailed review, use custom `/pr-review` instead
+- [skill-creator](https://github.com/anthropics/claude-code-marketplace/blob/main/skill-creator/README.md) — Create, modify, and eval custom skills (plugin)
+- [container-use](https://github.com/dagger/container-use) — Run containers (MCP)
 
 ## References
 
