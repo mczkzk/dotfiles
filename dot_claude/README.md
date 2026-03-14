@@ -64,7 +64,7 @@ Consider splitting tasks/PRs when plan documents exceed 1000 lines.
 - [code-review](https://github.com/anthropics/claude-code-marketplace/blob/main/code-review/README.md) — PR code review (plugin)
   - For local detailed review, use custom `/pr-review` instead
 - [skill-creator](https://github.com/anthropics/claude-code-marketplace/blob/main/skill-creator/README.md) — Create, modify, and eval custom skills (plugin)
-- [container-use](https://github.com/dagger/container-use) — Run containers (MCP)
+
 
 ## References
 
