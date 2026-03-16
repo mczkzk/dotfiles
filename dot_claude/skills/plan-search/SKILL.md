@@ -16,6 +16,7 @@ allowed-tools:
   - mcp__claude_ai_Atlassian__search
   - mcp__claude_ai_Slack__slack_search_public_and_private
   - mcp__claude_ai_Slack__slack_read_thread
+  - Agent
 ---
 
 # Plan Search Command
@@ -71,6 +72,8 @@ Guide user through checklist completion:
 - Database investigation
 - External dependencies validation
 - Technical requirements clarification
+
+**Parallel investigation**: When multiple checklist sections are independent (e.g., Database + External Dependencies), use subagents to investigate in parallel
 
 ## Investigation Checklist Template
 

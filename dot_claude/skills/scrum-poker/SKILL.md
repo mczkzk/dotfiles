@@ -10,6 +10,7 @@ allowed-tools:
   - Task
   - Write
   - Bash
+  - Agent
 ---
 
 # Scrum Poker Estimation Command
@@ -58,6 +59,7 @@ Apply the following adjustments to the base estimate. Cumulative when multiple f
 ### Guidelines
 - **Estimate for "anyone on the team can complete" not "my fastest implementation"**
 - When in doubt, choose the higher estimate (correcting optimism bias)
+- **Multiple tasks**: Estimate each task via subagent in parallel, then aggregate results
 
 ## Output Format
 

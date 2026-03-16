@@ -11,6 +11,7 @@ allowed-tools:
   - Bash(gh:*)
   - Bash(git:*)
   - Bash(test:*, lint:*, build:*)
+  - Agent
   - AskUserQuestion
   - mcp__ide__getDiagnostics
 ---
@@ -37,7 +38,7 @@ Apply refactoring techniques through natural language requests.
 
 ### 1. Pre-Check
 - Read target files
-- Run tests (must be green)
+- Run tests via subagent (must be green) — keeps test output out of main context
 - Check git status (must be clean)
 
 ### 2. Reuse Discovery
@@ -111,12 +112,11 @@ Select appropriate technique(s) based on the description:
 
 ### 4. Micro-Cycle (Repeat)
 1. **Small change** (one technique, one location)
-2. **Test** (must stay green)
+2. **Test via subagent** (must stay green)
 3. **Commit** (enable rollback)
 
 ### 5. Complete
-- Run full test suite
-- Run linting/type check
+- Run full test suite + linting/type check via subagent
 - Verify improved readability
 
 ## Key Principles
