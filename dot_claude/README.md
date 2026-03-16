@@ -13,7 +13,7 @@ dot_claude/
 │   └── ts-guidelines.md   # TypeScript coding guidelines (*.ts, *.tsx)
 ├── skills/                # Custom skills (invoked via /name)
 │   ├── commit/            # Git commit with repo conventions
-│   ├── deepthink/         # Deep investigation on a topic
+│   ├── deep-dive/         # Deep-dive investigation using all available tools
 │   ├── edit-dotfile/      # Edit dotfiles via chezmoi
 │   ├── plan-search/       # Investigation checklist for features
 │   ├── plan-build/        # Create plan document from search
