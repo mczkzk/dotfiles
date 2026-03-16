@@ -13,6 +13,7 @@
 - Never attempt to `git add` a file without first verifying it is not ignored (`git check-ignore -v <file>`)
 
 ## Code Style
+- Before writing code, read existing code in the same file/directory to match its patterns
 - Comments: only write intent (Why), not obvious operations (What)
-- Write documentation and comments in the same language as the existing file
-- Always check current date with `date +%Y-%m-%d` when writing dates in documentation
+- Match the language of existing comments in the file
+- When date/day-of-week matters, always run `date` to get the actual value — never guess
