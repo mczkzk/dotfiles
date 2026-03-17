@@ -60,3 +60,12 @@ Respond to PR review comments by fixing issues and generating reply drafts.
 - Fix first, reply later
 - Casual tone with evidence (file:line refs)
 - No auto-posting
+- **Reply language**: Match the language of each reviewer's comment (override global "Respond in Japanese" setting)
+
+## Plans Integration
+
+After responding, save results to `.claude/plans/`:
+- Look for existing plan directory matching the PR's ticket key (e.g., `.claude/plans/{ISSUE-KEY}/`)
+- If found: create or **update** `review-response.md` in that directory
+- If not found: skip (do not create a new plan directory)
+- On repeated runs: update the existing `review-response.md` (do not create duplicates)
