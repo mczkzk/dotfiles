@@ -33,6 +33,7 @@ dot_claude/
 | `/plan-sync` | manual | main | One-shot, lightweight — no fork needed |
 | `/scrum-poker` | manual | fork | One-shot. Returns estimate only |
 | `/jira-fetch` | manual | main | One-shot, lightweight — no fork needed |
+| `/e2e-verify` | manual | main | Interactive. Verify UI with Playwright, take screenshots |
 | `/deep-dive` | manual | main | Interactive. Discuss based on findings |
 | `/cc-reference` | manual | fork | Check docs before writing config |
 | `edit-dotfile` | auto | main | Auto-resolves chezmoi path when editing dotfiles |
@@ -52,7 +53,8 @@ dot_claude/
 5. **Review** — `/pr-review` (local detailed review with security, plan alignment)
    - Optional: `/code-review` plugin — posts to GitHub PR, confidence-scored
    - Optional: `codex /pr-review` — second opinion in a separate terminal, paste results into Claude Code
-6. **Respond** — `/pr-review-respond` to address review comments
+6. **E2E** — `/e2e-verify` to run Test Plan UI checks with Playwright
+7. **Respond** — `/pr-review-respond` to address review comments
 
 ### Large feature flow
 For implementations that need upfront planning:

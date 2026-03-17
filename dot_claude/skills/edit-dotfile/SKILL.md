@@ -1,6 +1,6 @@
 ---
 name: edit-dotfile
-description: dotfileの編集・修正を依頼されたとき、chezmoi管理下かどうかを確認してから適切なファイルを編集する。対象：~/.bashrc、~/.zshrc、~/.vimrc、~/.rsync-exclude、~/.config/**、~/.ssh/**、~/.claude/**など、ホームディレクトリの`.`で始まるファイル・フォルダ配下の全ファイル。
+description: "dotfileの編集。~/配下のdotfileを編集する前にchezmoi管理チェックを行う。"
 ---
 
 ## 最初のアクション
@@ -40,4 +40,4 @@ chezmoi管理下のファイルを削除するときは `chezmoi forget <target>
 
 ## 最後に
 
-編集後、必ず `chezmoi apply` をユーザーに案内する。
+編集後、必ず `chezmoi apply` を実行してホームディレクトリに反映する。
