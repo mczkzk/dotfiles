@@ -5,27 +5,20 @@ paths:
 
 # TypeScript Coding Guidelines
 
-## 基本方針
+## Core Principles
 
-- JavaScriptが含まれるすべてのコードベースでTypeScriptを使用する
-- **`strict: true`** を必ず有効にする
-- 状態を内包するクラスの使用を避け、関数を優先する（意味のある状態管理や依存注入が必要な場合を除く）
+- Use TypeScript for all codebases that contain JavaScript
+- **`strict: true`** must always be enabled
+- Avoid classes that encapsulate state; prefer functions (unless meaningful state management or dependency injection is needed)
 
-## 型システム
+## Type System
 
-### any を避け、unknown で絞り込む
-
-ただし具体的な型が分かっている場合は `unknown` ではなくその型を使う。`unknown` は「本当に型が不明」な場合のみ:
+### Avoid any, narrow with unknown
 
 ```typescript
 // Bad - any
 catch (error: any) {
   console.log(error.message)
-}
-
-// Bad - 型が明確なのに unknown を使う
-interface State {
-  ids: unknown[]  // number[] と分かっているのに怠惰に unknown
 }
 
 // Good
@@ -42,8 +35,8 @@ catch (error: unknown) {
 
 ### Type vs Interface
 
-- **オブジェクト型**: `interface` を使用
-- **プリミティブ・Union・Tuple**: `type` を使用
+- **Object shapes**: use `interface`
+- **Primitives, Unions, Tuples**: use `type`
 
 ```typescript
 // Object shape -> interface
@@ -57,24 +50,24 @@ type Status = "pending" | "success" | "error"
 type ID = string | number
 ```
 
-### 型推論を活用
+### Leverage Type Inference
 
-推論可能な場所では型注釈を省略:
+Omit type annotations where inference is sufficient:
 
 ```typescript
 // Good
 const items = [1, 2, 3]
 const user = { name: "John", age: 30 }
 
-// Bad - 冗長
+// Bad - redundant
 const items: number[] = [1, 2, 3]
 ```
 
-### Utility Types を活用
+### Leverage Utility Types
 
 `Partial<T>`, `Required<T>`, `Pick<T, K>`, `Omit<T, K>`, `Record<K, V>`, `ReturnType<T>`
 
-使用するプロパティが一部で済む場合は `Pick` で必要なプロパティのみ受け取る:
+When only a subset of properties is needed, use `Pick` to accept only the required ones:
 
 ```typescript
 interface User {
@@ -88,25 +81,25 @@ function findUser({ id }: Pick<User, "id">) {
 }
 ```
 
-## 型アサーション・型ガード
+## Type Assertions & Type Guards
 
-### 型ガードを優先
+### Prefer Type Guards
 
-型アサーション（constアサーションを除く）はやむを得ない場合のみ使う:
+Use type assertions (except const assertions) only when unavoidable:
 
 ```typescript
-// Good - 型ガード
+// Good - type guard
 if (value instanceof Error) {
   // value is Error
 }
 
-// Avoid - 型アサーション
+// Avoid - type assertion
 const error = value as Error
 ```
 
-### 型ガード関数
+### Type Guard Functions
 
-複雑な絞り込みや使い回す場合は関数に纏める:
+Extract complex or reusable narrowing into functions:
 
 ```typescript
 function isKeyboardEvent(event: Event): event is KeyboardEvent {
@@ -114,29 +107,29 @@ function isKeyboardEvent(event: Event): event is KeyboardEvent {
 }
 ```
 
-### 非Nullアサーション
+### Non-Null Assertion
 
-`!` は原則避け、適切なnullチェックを優先。ただしガード済み（`if` で存在確認後）の場合は `!` を使い、冗長なfallbackを書かない:
+Avoid `!` by default; prefer proper null checks. However, after a guard (`if` existence check), use `!` and skip redundant fallbacks:
 
 ```typescript
-// Bad - ガードなしの !
+// Bad - unguarded !
 const name = user!.name
 
-// Good - nullチェック
+// Good - null check
 const name = user?.name ?? "Anonymous"
 
-// Good - ガード済みなら ! で簡潔に
+// Good - after guard, use ! for brevity
 if (data.items == null) return;
-const items = data.items!;  // fallback 不要
+const items = data.items!;  // no fallback needed
 
-// Bad - ガード済みなのに冗長なfallback
+// Bad - redundant fallback after guard
 if (data.items == null) return;
-const items = data.items || { ids: [], byId: {} };  // 到達しない分岐
+const items = data.items || { ids: [], byId: {} };  // unreachable branch
 ```
 
-## enum を避ける
+## Avoid enum
 
-リテラル型と const アサーション、またはユニオン型を使用:
+Use literal types with const assertions, or union types:
 
 ```typescript
 // Good
@@ -148,7 +141,7 @@ const STATUS = {
 
 type Status = (typeof STATUS)[keyof typeof STATUS]
 
-// Also Good - シンプルな場合
+// Also Good - for simple cases
 type Status = "loading" | "success" | "error"
 
 // Bad
@@ -161,7 +154,7 @@ enum Status {
 
 ## Discriminated Unions
 
-ユニオン型の絞り込みが複雑になった際はディスクリミネータで分岐:
+Use a discriminator field when union narrowing becomes complex:
 
 ```typescript
 type Shape =
@@ -178,28 +171,39 @@ function area(shape: Shape): number {
 }
 ```
 
-## 関数
+## Functions
 
-### Options Object パターン
+### Options Object Pattern
 
-複数の引数を渡すときはオブジェクトにまとめる:
+When a function has multiple parameters, group them into an object and extract the type as an interface:
 
 ```typescript
-// Good
-function createUser(options: { name: string; email: string; role?: string }) {
+// Good - extracted type
+interface CreateUserOptions {
+  name: string
+  email: string
+  role?: string
+}
+
+function createUser(options: CreateUserOptions) {
   // ...
 }
 
-// Bad
+// Bad - positional arguments
 function createUser(name: string, email: string, role?: string) {
+  // ...
+}
+
+// Bad - inline type (hard to reuse/extend)
+function createUser(options: { name: string; email: string; role?: string }) {
   // ...
 }
 ```
 
 ### Arrow Functions
 
-- コールバック・短い関数: arrow function
-- メソッド定義: shorthand method syntax
+- Callbacks and short functions: arrow function
+- Method definitions: shorthand method syntax
 
 ```typescript
 // Callbacks
@@ -213,16 +217,16 @@ const service = {
 }
 ```
 
-### 戻り値の型
+### Return Types
 
-- Public API: 明示的に記述
-- 内部関数: 推論に任せる
+- Public API: annotate explicitly
+- Internal functions: let inference handle it
 
-## エラー処理
+## Error Handling
 
 ### Result Pattern
 
-例外の代わりに Result 型を検討:
+Consider a Result type instead of exceptions:
 
 ```typescript
 type Result<T, E = Error> = { ok: true; value: T } | { ok: false; error: E }
@@ -238,15 +242,15 @@ function parseJson(text: string): Result<unknown> {
 
 ## Async/Await
 
-- Promise chain より async/await を優先
-- 並列処理は `Promise.all()` / `Promise.allSettled()`
+- Prefer async/await over Promise chains
+- Use `Promise.all()` / `Promise.allSettled()` for parallel execution
 
 ```typescript
 // Parallel execution
 const [users, posts] = await Promise.all([fetchUsers(), fetchPosts()])
 ```
 
-## モダン構文
+## Modern Syntax
 
 ### Optional Chaining & Nullish Coalescing
 
@@ -261,13 +265,13 @@ const name = user && user.profile && user.profile.name ? user.profile.name : "An
 ### ES Modules
 
 ```typescript
-// Named exports を優先
+// Prefer named exports
 export { UserService, createUser }
 
-// Default export は避ける（リファクタリング時に追跡困難）
+// Avoid default exports (hard to track during refactoring)
 ```
 
-## Import 順序
+## Import Order
 
 1. Node.js built-in modules
 2. External packages
@@ -284,27 +288,18 @@ import { config } from "@/config"
 import { helper } from "./helper"
 ```
 
-## 命名規則
+## Naming Conventions
 
-> **Note**: 新規PJではこれを採用。既存PJではそのPJの規約に従う。
+> **Note**: Adopt these for new projects. For existing projects, follow their established conventions.
 
-| 種類 | 規則 | 例 |
-|------|------|-----|
-| 変数・関数 | camelCase | `getUserById` |
-| クラス・型・interface | PascalCase | `UserService` |
-| 定数 | UPPER_SNAKE_CASE | `MAX_RETRY_COUNT` |
-| Boolean | is/has/can prefix | `isActive`, `hasPermission` |
+| Category | Convention | Example |
+|----------|-----------|---------|
+| Variables & functions | camelCase | `getUserById` |
+| Classes, types & interfaces | PascalCase | `UserService` |
+| Constants | UPPER_SNAKE_CASE | `MAX_RETRY_COUNT` |
+| Booleans | is/has/can prefix | `isActive`, `hasPermission` |
 | Private | `#` prefix (ES2022) | `#cache` |
 
-## 避けるべきもの
-
-- `enum` → Union型 or `as const` オブジェクト
-- `namespace` → ES Modules
-- `!` (non-null assertion) → 適切なnullチェック
-- `any` → `unknown` + 型ガード
-- Class乱用 → 関数で十分な場合が多い
-- Default export → Named export
-
-## 参考
+## References
 
 - https://google.github.io/styleguide/tsguide.html

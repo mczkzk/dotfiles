@@ -36,9 +36,9 @@ Apply refactoring techniques through natural language requests.
   2. **Main branch diff**: `git diff main...HEAD --name-only` — if files differ from main, use those as target
   3. **Ask user**: If both above produce no results, ask the user what to refactor
 
-### 1. Project Rules の確認
-- `.claude/rules/` が存在すれば、対象ファイルのパスに関連する rules を Read で読み込む
-- リファクタ中はこれらの規約に従うこと
+### 1. Check Project Rules
+- Read rules from `~/.claude/rules/` and `.claude/rules/` whose path patterns match the target files
+- Explicitly list each loaded rule and follow them during refactoring
 
 ### 2. Pre-Check
 - Read target files
@@ -59,60 +59,60 @@ Scan new definitions (types, functions, constants, interfaces) in target files a
 Select appropriate technique(s) based on the description:
 
 **Extraction & Splitting**
-- Extract Method - 長いメソッドを分割
-- Extract Class - 責務が多いクラスを分割
-- Extract + Move Method - 重複コードを統合
+- Extract Method - Split long methods into smaller ones
+- Extract Class - Split classes with too many responsibilities
+- Extract + Move Method - Consolidate duplicated code
 
 **Naming & Clarity**
-- Rename Variable/Method/Class - 不明瞭な命名を改善
-- Replace Magic Number with Constant - マジックナンバーに名前をつける
+- Rename Variable/Method/Class - Improve unclear naming
+- Replace Magic Number with Constant - Give names to magic numbers
 
 **Conditionals & Control Flow**
-- Guard Clauses - 早期リターンで条件をフラット化
-- Decompose Conditional - 複雑な条件式を分解
-- Replace Conditional with Polymorphism - 型による分岐をOOPに
-- Remove Flag Argument - フラグ引数を別メソッドに
+- Guard Clauses - Flatten conditions with early returns
+- Decompose Conditional - Break down complex conditional expressions
+- Replace Conditional with Polymorphism - Replace type-based branching with OOP
+- Remove Flag Argument - Replace flag arguments with separate methods
 
 **Parameters & Data**
-- Introduce Parameter Object - 多すぎる引数をオブジェクトに
-- Replace Primitive with Object - プリミティブを値オブジェクトに
-- Extract Class (Data Clump) - 一緒に使うデータをまとめる
+- Introduce Parameter Object - Group excessive arguments into an object
+- Replace Primitive with Object - Replace primitives with value objects
+- Extract Class (Data Clump) - Group data that is always used together
 
 **Encapsulation & Moving**
-- Move Method/Field - 責務が違う場所に移動
-- Encapsulate Field - 直接アクセスをgetter/setterに
-- Move Method (Feature Envy) - 他クラスを多用するメソッドを移動
+- Move Method/Field - Move to where the responsibility belongs
+- Encapsulate Field - Replace direct access with getters/setters
+- Move Method (Feature Envy) - Move methods that heavily use another class
 
 **Visibility & Scope**
-- Remove Unused Public - 外部から使われていないpublic APIを削除
-- Minimize Public Surface - 内部実装の公開を最小化
-- Consolidate Exports - バラバラのexport/publicをまとめる
+- Remove Unused Public - Remove public APIs not used externally
+- Minimize Public Surface - Minimize exposure of internal implementation
+- Consolidate Exports - Consolidate scattered exports/public members
 
 **Inheritance & Abstraction**
-- Extract Superclass/Interface - サブクラス間の共通コードを抽出
-- Replace Inheritance with Delegation - 不適切な継承を委譲に
+- Extract Superclass/Interface - Extract common code from subclasses
+- Replace Inheritance with Delegation - Replace inappropriate inheritance with delegation
 
 **Simplification & Cleanup**
-- Inline Method/Class - 過剰な抽象化を戻す
-- Remove Dead Code - 未使用コードを削除
-- Replace Temp with Query - 一時変数をメソッド呼び出しに
-- Separate Query from Modifier - 副作用と参照を分離
-- Avoid Unnecessary Complexity - 冗長な間接参照や不要なステップを避ける
-- Consolidate Duplicate Definitions - 既存の定義と重複するものを統合
+- Inline Method/Class - Undo over-abstraction
+- Remove Dead Code - Delete unused code
+- Replace Temp with Query - Replace temporary variables with method calls
+- Separate Query from Modifier - Separate side effects from queries
+- Avoid Unnecessary Complexity - Eliminate redundant indirection or unnecessary steps
+- Consolidate Duplicate Definitions - Merge definitions that duplicate existing ones
 
 **Performance Optimization**
-- Replace Loop Lookup with Map/Set - ループ内の線形探索をO(1)アクセスに
-- Cache Repeated Queries - 繰り返し計算される値をキャッシュ
+- Replace Loop Lookup with Map/Set - Replace linear search in loops with O(1) access
+- Cache Repeated Queries - Cache repeatedly computed values
 
 **Type Safety**
-- Add Type Definitions - 型定義が可能なら追加（JS→TS、any→具体型、JSDoc型注釈など）
+- Add Type Definitions - Add types where possible (JS→TS, any→concrete types, JSDoc type annotations, etc.)
 
 **Comments & Documentation**
-- Remove Unnecessary Comments - What説明・自明なコメント・コメントアウトは削除、Whyのみ残す
-- Verify Doc Accuracy - ドキュメントと実装の整合性を検証
+- Remove Unnecessary Comments - Delete what-comments, obvious comments, and commented-out code; keep only why-comments
+- Verify Doc Accuracy - Verify consistency between documentation and implementation
 
 **Git-Based**
-- Analyze git diff - ブランチ間の差分を分析してリファクタ
+- Analyze git diff - Analyze diffs between branches and refactor accordingly
 
 ### 5. Micro-Cycle (Repeat)
 1. **Small change** (one technique, one location)
