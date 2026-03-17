@@ -1,24 +1,30 @@
 ---
 name: edit-dotfile
-description: dotfileの編集・修正を依頼されたとき、ホームディレクトリのファイルではなくchezmoiで管理されているファイルを優先的に確認・編集する。対象：~/.bashrc、~/.zshrc、~/.vimrc、~/.rsync-exclude、~/.config/**、~/.ssh/**、~/.claude/**など、ホームディレクトリの`.`で始まるファイル・フォルダ配下の全ファイル。
+description: dotfileの編集・修正を依頼されたとき、chezmoi管理下かどうかを確認してから適切なファイルを編集する。対象：~/.bashrc、~/.zshrc、~/.vimrc、~/.rsync-exclude、~/.config/**、~/.ssh/**、~/.claude/**など、ホームディレクトリの`.`で始まるファイル・フォルダ配下の全ファイル。
 ---
-
-# CRITICAL: 必ずchezmoi配下のファイルを変更する
-
-**ホームディレクトリ（`~/.zshrc`など）を直接読んだり変更してはいけない。**
 
 ## 最初のアクション
 
-dotfile編集要求を受けたら、**必ず最初に** `~/.local/share/chezmoi/` 配下のファイルを検索・確認する。
+dotfile編集要求を受けたら、**必ず最初に** chezmoi管理下かどうかを確認する:
+
+```bash
+chezmoi managed | grep <filename>
+```
+
+- **管理下の場合**: `~/.local/share/chezmoi/dot_*` のソースファイルを編集する。ホームディレクトリのファイルを直接変更してはいけない
+- **管理外の場合**: ホームディレクトリのファイルを直接編集してよい
 
 ## パスマッピング
 
-- `~/.zshrc` → `~/.local/share/chezmoi/dot_zshrc`
-- `~/.rsync-exclude` → `~/.local/share/chezmoi/dot_rsync-exclude`
-- `~/.config/zsh/aliases/*.zsh` → `~/.local/share/chezmoi/dot_config/zsh/aliases/*.zsh`
-- `~/.config/zsh/functions/*.zsh` → `~/.local/share/chezmoi/dot_config/zsh/functions/*.zsh`
-- `~/.claude/CLAUDE.md` → `~/.local/share/chezmoi/dot_claude/CLAUDE.md`
-- `~/.claude/skills/*/SKILL.md` → `~/.local/share/chezmoi/dot_claude/skills/*/SKILL.md`
+chezmoiのソースパスは `chezmoi source-path <target>` で取得できる。変換ルール:
+- `~/.<name>` → `~/.local/share/chezmoi/dot_<name>`
+- `~/.config/<path>` → `~/.local/share/chezmoi/dot_config/<path>`
+
+よく使う例:
+- `~/.zshrc` → `dot_zshrc`
+- `~/.config/zsh/aliases/*.zsh` → `dot_config/zsh/aliases/*.zsh`
+- `~/.config/zsh/functions/*.zsh` → `dot_config/zsh/functions/*.zsh`
+- `~/.claude/**` → `dot_claude/**`
 
 ## Zsh: エイリアス vs 関数
 
@@ -26,6 +32,11 @@ dotfile編集要求を受けたら、**必ず最初に** `~/.local/share/chezmoi
 - **引数あり** → `dot_config/zsh/functions/` に新規ファイル作成 + `dot_zshrc` にsource行追加
 
 フォーマット: `name() { ... }` （`function`キーワード省略）
+
+## 削除する場合
+
+chezmoi管理下のファイルを削除するときは `chezmoi forget <target>` を実行してからファイルを削除する。
+直接 `rm` だけではchezmoiが次回applyで復元してしまう。
 
 ## 最後に
 

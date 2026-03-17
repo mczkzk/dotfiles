@@ -10,7 +10,7 @@ allowed-tools:
   - Grep
   - Bash(gh:*)
   - Bash(git:*)
-  - Bash(test:*, lint:*, build:*)
+  - Bash
   - Agent
   - AskUserQuestion
   - mcp__ide__getDiagnostics

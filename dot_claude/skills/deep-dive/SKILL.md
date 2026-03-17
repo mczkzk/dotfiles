@@ -2,6 +2,15 @@
 name: deep-dive
 description: Deep-dive investigation using all available tools (codebase, web, MCP, GitHub) to find root causes
 argument-hint: <topic: subject like "authentication flow" or "performance bottleneck">
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
+  - Bash(git:*)
+  - Bash(gh:*)
+  - Agent
+  - WebSearch
+  - WebFetch
 ---
 
 Find the root cause. Do not stop until you find it or exhaust every possible avenue.

@@ -12,6 +12,13 @@
   3. `git config --global core.excludesFile` — global gitignore file
 - Never attempt to `git add` a file without first verifying it is not ignored (`git check-ignore -v <file>`)
 
+## Dotfiles (chezmoi)
+- Before editing any dotfile under `~/`, run `chezmoi managed | grep <filename>` to check
+- If managed: NEVER edit `~/` directly — edit the chezmoi source instead. See `edit-dotfile` skill for path mapping and details
+
+## Claude Code Config
+- When writing hooks, settings.json, MCP config, skills, or agents: if unsure about syntax or field names, run `/cc-reference <topic>` to check official docs first
+
 ## Code Style
 - Before writing code, read existing code in the same file/directory to match its patterns
 - Comments: only write intent (Why), not obvious operations (What)

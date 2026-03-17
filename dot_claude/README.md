@@ -9,25 +9,37 @@ dot_claude/
 ├── CLAUDE.md              # Global instructions (loaded every session)
 ├── .jira.env              # JIRA API credentials (shared by jira-fetch, deploy etc.)
 ├── settings.json          # Permission and tool settings
+├── skills/                # Custom skills (see table below)
 ├── rules/                 # Path-scoped rules (loaded when matching files)
-│   └── ts-guidelines.md   # TypeScript coding guidelines (*.ts, *.tsx)
-├── skills/                # Custom skills (invoked via /name)
-│   ├── commit/            # Git commit with repo conventions
-│   ├── deep-dive/         # Deep-dive investigation using all available tools
-│   ├── edit-dotfile/      # Edit dotfiles via chezmoi
-│   ├── plan-search/       # Investigation checklist for features
-│   ├── plan-build/        # Create plan document from search
-│   ├── plan-sync/         # Sync plan with implementation progress
-│   ├── pr-review/         # Review GitHub PR
-│   ├── pr-review-respond/ # Respond to PR review comments
-│   ├── pr-template/       # Generate PR title and description
-│   ├── jira-fetch/        # Fetch JIRA issues (requires ~/.claude/.jira.env)
-│   ├── refactor/          # Martin Fowler style refactoring
-│   └── scrum-poker/       # Estimate complexity (Scrum poker)
-└── scripts/
-    └── deny-check.sh      # Pre-tool use hook for command validation
+└── scripts/               # Hook scripts
 ```
 
+| File | Description |
+|------|-------------|
+| `rules/ts-guidelines.md` | TypeScript coding guidelines (`*.ts`, `*.tsx`) |
+| `scripts/deny-check.sh` | Pre-tool use hook for command validation |
+
+## Skills
+
+| Skill | Invoke | Context | Usage |
+|-------|--------|---------|-------|
+| `/commit` | manual | fork | 一発完了。コミットして終わり |
+| `/refactor` | manual | main | 対話的。修正結果を見て追加指示 |
+| `/pr-template` | manual | main | 対話的。文章の推敲を繰り返す |
+| `/pr-review` | manual | main | 対話的。レビュー結果から修正指示 |
+| `/pr-review-respond` | manual | main | 対話的。返信テキストを推敲 |
+| `/plan-search` | manual | main | 対話的。ユーザーと調査を進める |
+| `/plan-build` | manual | fork | 一発完了。ファイル生成して終わり |
+| `/plan-sync` | manual | main | 一発完了だが軽量、forkは不要 |
+| `/scrum-poker` | manual | fork | 一発完了。見積結果だけ返る |
+| `/jira-fetch` | manual | main | 一発完了だが軽量、forkは不要 |
+| `/deep-dive` | manual | main | 対話的。調査結果をもとに議論 |
+| `/cc-reference` | manual | fork | 設定を書く前にドキュメント確認 |
+| `edit-dotfile` | auto | main | dotfile編集時に自動でchezmoiパス解決 |
+
+- **fork**: 別コンテキストで実行、メインの会話を汚さない（結果の要約のみ返る）
+- **main**: メインコンテキストで実行、後続の会話で結果を参照できる
+- **auto**: descriptionマッチで自動トリガー（スラッシュコマンド不要）
 
 ## Development Workflow
 
