@@ -30,15 +30,19 @@ Review GitHub PR and identify issues.
    - Search: current session plan → `.claude/plans/*/plan.md`
    - If found, verify alignment with requirements, architecture, tests
 
-3. **Understand Context**
+3. **Project Rules の確認**
+   - `.claude/rules/` が存在すれば、変更ファイルのパスに関連する rules を Read で読み込む
+   - レビュー中はこれらの規約を判断基準に含めること
+
+4. **Understand Context**
    - Read changed and related files
    - Check config, dependencies, architecture
 
-4. **Review Changes**
+5. **Review Changes**
    - Logic, correctness, quality, patterns
    - Bugs, security, performance, edge cases
 
-5. **Create Verification Plan**
+6. **Create Verification Plan**
    - Prerequisites and setup
    - Test scenarios and expected results
 

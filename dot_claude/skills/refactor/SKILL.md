@@ -36,12 +36,16 @@ Apply refactoring techniques through natural language requests.
   2. **Main branch diff**: `git diff main...HEAD --name-only` — if files differ from main, use those as target
   3. **Ask user**: If both above produce no results, ask the user what to refactor
 
-### 1. Pre-Check
+### 1. Project Rules の確認
+- `.claude/rules/` が存在すれば、対象ファイルのパスに関連する rules を Read で読み込む
+- リファクタ中はこれらの規約に従うこと
+
+### 2. Pre-Check
 - Read target files
 - Run tests via subagent (must be green) — keeps test output out of main context
 - Check git status (must be clean)
 
-### 2. Reuse Discovery
+### 3. Reuse Discovery
 
 Scan new definitions (types, functions, constants, interfaces) in target files and search the existing codebase for reusable equivalents:
 
@@ -50,7 +54,7 @@ Scan new definitions (types, functions, constants, interfaces) in target files a
 3. If a match is found, replace the new definition with a reference to the existing one
 4. If partially overlapping, consider extracting a shared abstraction
 
-### 3. Refactoring Techniques
+### 4. Refactoring Techniques
 
 Select appropriate technique(s) based on the description:
 
@@ -110,12 +114,12 @@ Select appropriate technique(s) based on the description:
 **Git-Based**
 - Analyze git diff - ブランチ間の差分を分析してリファクタ
 
-### 4. Micro-Cycle (Repeat)
+### 5. Micro-Cycle (Repeat)
 1. **Small change** (one technique, one location)
 2. **Test via subagent** (must stay green)
 3. **Commit** (enable rollback)
 
-### 5. Complete
+### 6. Complete
 - Run full test suite + linting/type check via subagent
 - Verify improved readability
 
