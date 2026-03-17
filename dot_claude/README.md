@@ -23,23 +23,23 @@ dot_claude/
 
 | Skill | Invoke | Context | Usage |
 |-------|--------|---------|-------|
-| `/commit` | manual | fork | 一発完了。コミットして終わり |
-| `/refactor` | manual | main | 対話的。修正結果を見て追加指示 |
-| `/pr-template` | manual | main | 対話的。文章の推敲を繰り返す |
-| `/pr-review` | manual | main | 対話的。レビュー結果から修正指示 |
-| `/pr-review-respond` | manual | main | 対話的。返信テキストを推敲 |
-| `/plan-search` | manual | main | 対話的。ユーザーと調査を進める |
-| `/plan-build` | manual | fork | 一発完了。ファイル生成して終わり |
-| `/plan-sync` | manual | main | 一発完了だが軽量、forkは不要 |
-| `/scrum-poker` | manual | fork | 一発完了。見積結果だけ返る |
-| `/jira-fetch` | manual | main | 一発完了だが軽量、forkは不要 |
-| `/deep-dive` | manual | main | 対話的。調査結果をもとに議論 |
-| `/cc-reference` | manual | fork | 設定を書く前にドキュメント確認 |
-| `edit-dotfile` | auto | main | dotfile編集時に自動でchezmoiパス解決 |
+| `/commit` | manual | fork | One-shot. Commits and done |
+| `/refactor` | manual | main | Interactive. Review changes, give follow-up instructions |
+| `/pr-template` | manual | main | Interactive. Iterate on PR title and description |
+| `/pr-review` | manual | main | Interactive. Fix issues from review findings |
+| `/pr-review-respond` | manual | main | Interactive. Refine reply text |
+| `/plan-search` | manual | main | Interactive. Research with user |
+| `/plan-build` | manual | fork | One-shot. Generates plan files and done |
+| `/plan-sync` | manual | main | One-shot, lightweight — no fork needed |
+| `/scrum-poker` | manual | fork | One-shot. Returns estimate only |
+| `/jira-fetch` | manual | main | One-shot, lightweight — no fork needed |
+| `/deep-dive` | manual | main | Interactive. Discuss based on findings |
+| `/cc-reference` | manual | fork | Check docs before writing config |
+| `edit-dotfile` | auto | main | Auto-resolves chezmoi path when editing dotfiles |
 
-- **fork**: 別コンテキストで実行、メインの会話を汚さない（結果の要約のみ返る）
-- **main**: メインコンテキストで実行、後続の会話で結果を参照できる
-- **auto**: descriptionマッチで自動トリガー（スラッシュコマンド不要）
+- **fork**: Runs in a separate context, keeps main conversation clean (only summary returned)
+- **main**: Runs in main context, results available for follow-up conversation
+- **auto**: Auto-triggered by description match (no slash command needed)
 
 ## Development Workflow
 
