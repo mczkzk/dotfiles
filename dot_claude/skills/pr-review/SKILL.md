@@ -26,9 +26,19 @@ Review GitHub PR and identify issues.
    - `gh pr view <PR number> --comments`
    - `gh api repos/{owner}/{repo}/pulls/{number}/comments`
 
-2. **Check for Plan Document**
-   - Search: current session plan → `.claude/plans/*/plan.md`
-   - If found, verify alignment with requirements, architecture, tests
+2. **Load Plan Context**
+   - Extract ticket key from PR branch name or title (e.g., `PROJ-123`)
+   - Search: `.claude/plans/{TICKET-KEY}/` directory
+   - If found, read these files (skip if absent):
+     - `jira.md` — requirements, stakeholder decisions
+     - `plan.md` — design, implementation decisions, investigation findings
+     - `review-response.md` — prior review responses (avoid re-flagging)
+     - `review.md` — previous review results (to update)
+   - Use this context to:
+     - Verify implementation aligns with requirements and PM decisions
+     - Avoid flagging intentional design decisions already documented
+     - Check if prior review findings were addressed
+     - Understand scope boundaries (what was explicitly excluded and why)
 
 3. **Check Project Rules**
    - Read rules from `~/.claude/rules/` and `.claude/rules/` whose path patterns match the changed files
