@@ -1,7 +1,6 @@
 ---
 name: commit
 description: Create a git commit with proper format following repository conventions
-context: fork
 allowed-tools:
   - Bash(git:*)
 ---
