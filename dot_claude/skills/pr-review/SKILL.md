@@ -9,6 +9,13 @@ allowed-tools:
   - Read
   - Grep
   - Glob
+  - mcp__claude_ai_Slack__slack_search_channels
+  - mcp__claude_ai_Slack__slack_search_public
+  - mcp__claude_ai_Slack__slack_read_channel
+  - mcp__claude_ai_Slack__slack_read_thread
+  - mcp__claude_ai_Atlassian__getJiraIssue
+  - mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql
+  - mcp__claude_ai_Atlassian__getJiraIssueRemoteIssueLinks
 ---
 
 Review GitHub PR and identify issues.
@@ -41,19 +48,28 @@ Review GitHub PR and identify issues.
      - Check if prior review findings were addressed
      - Understand scope boundaries (what was explicitly excluded and why)
 
-3. **Check Project Rules**
+3. **Gather External Context** (optional, skip if MCP unavailable)
+   - **Slack**: Search for the PR URL or ticket key in relevant channels
+     - Check for direct mentions, urgency signals, or discussion threads
+     - If found, note urgency level and key context (e.g., deadline, CVE, blocker)
+   - **Jira (related tickets)**: If the main ticket has issue links or belongs to an Epic
+     - Fetch linked issues to understand dependencies and blockers
+     - Check sibling tasks under the same Epic for scope overlap
+   - Prepend `[URGENT]` to the review output if urgency signals found (direct mentions requesting review, deadline pressure, CVE/security fixes)
+
+4. **Check Project Rules**
    - Read rules from `~/.claude/rules/` and `.claude/rules/` whose path patterns match the changed files
    - Explicitly list each loaded rule and include them as review criteria
 
-4. **Understand Context**
+5. **Understand Context**
    - Read changed and related files
    - Check config, dependencies, architecture
 
-5. **Review Changes**
+6. **Review Changes**
    - Logic, correctness, quality, patterns
    - Bugs, security, performance, edge cases
 
-6. **Create Verification Plan**
+7. **Create Verification Plan**
    - Prerequisites and setup
    - Test scenarios and expected results
 
