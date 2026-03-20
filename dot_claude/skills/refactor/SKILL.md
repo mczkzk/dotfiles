@@ -36,9 +36,10 @@ Apply refactoring techniques through natural language requests.
   2. **Main branch diff**: `git diff main...HEAD --name-only` — if files differ from main, use those as target
   3. **Ask user**: If both above produce no results, ask the user what to refactor
 
-### 1. Check Project Rules
+### 1. Check Project Rules & Skills
 - Read rules from `~/.claude/rules/` and `.claude/rules/` whose path patterns match the target files
-- Explicitly list each loaded rule and follow them during refactoring
+- Read skills from `.claude/skills/` relevant to the target (e.g., DB schema, API design)
+- Explicitly list each loaded rule/skill and follow them during refactoring
 
 ### 2. Pre-Check
 - Read target files

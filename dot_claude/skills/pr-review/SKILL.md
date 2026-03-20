@@ -58,9 +58,10 @@ Review GitHub PR and identify issues.
      - Check sibling tasks under the same Epic for scope overlap
    - Prepend `[URGENT]` to the review output if urgency signals found (direct mentions requesting review, deadline pressure, CVE/security fixes)
 
-4. **Check Project Rules**
+4. **Check Project Rules & Skills**
    - Read rules from `~/.claude/rules/` and `.claude/rules/` whose path patterns match the changed files
-   - Explicitly list each loaded rule and include them as review criteria
+   - Read skills from `.claude/skills/` relevant to the changed files (e.g., DB schema, API design)
+   - Explicitly list each loaded rule/skill and include them as review criteria
 
 5. **Understand Context**
    - Read changed and related files
