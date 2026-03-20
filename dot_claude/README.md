@@ -59,6 +59,8 @@ dot_claude/
 ### Large feature flow
 For implementations that need upfront planning:
 
+For self-contained features (clear requirements, single session), use `/feature-dev` instead.
+For features requiring external context (JIRA/Slack), multi-session tracking, or documented plans:
 1. **Investigation** — `/plan-search [feature-name]` to create checklist, gather specs
 2. **Plan** — `/plan-build [feature-name]` to create architecture and implementation plan
 3. **Implement** — `/plan-sync [feature-name]` to track progress against plan
