@@ -56,7 +56,6 @@ export PATH="$PATH:/opt/homebrew/bin/"
 [ -f ~/.config/zsh/functions/ghnew.zsh ] && source ~/.config/zsh/functions/ghnew.zsh
 [ -f ~/.config/zsh/functions/gconflict.zsh ] && source ~/.config/zsh/functions/gconflict.zsh
 [ -f ~/.config/zsh/functions/kill-port.zsh ] && source ~/.config/zsh/functions/kill-port.zsh
-[ -f ~/.config/zsh/functions/media-viewer.zsh ] && source ~/.config/zsh/functions/media-viewer.zsh
 
 # ===============================
 # Directory Hash

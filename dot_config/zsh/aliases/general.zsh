@@ -11,5 +11,8 @@ alias vi='nvim'
 alias vim='nvim'
 alias view='nvim -R'
 
+# Claude Code
+alias cc='claude --permission-mode auto'
+
 # Utility aliases
 alias compress-latest-screen-recording='cd ~/Desktop && latest=$(ls -t *.mov | head -n1) && ffmpeg -i "$latest" -vcodec libx264 -crf 28 -preset veryfast -acodec aac -b:a 128k "${latest%.mov}.mp4"'

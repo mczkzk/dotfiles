@@ -31,8 +31,10 @@
       "Bash(pwd:*)",
       "Bash(cut:*)",
       "Bash(sort:*)",
+      "Bash(rm:*)",
       "Bash(tree:*)",
-      "WebFetch(domain:*)"
+      "WebFetch(domain:*)",
+      "WebSearch"
     ],
     "deny": [
       "Bash(rm -r:*)",
