@@ -23,10 +23,10 @@ dot_claude/
 
 | Skill | Invoke | Context | Usage |
 |-------|--------|---------|-------|
-| `/commit` | manual | fork | One-shot. Commits and done |
+| `/commit` | manual | main | One-shot. Commits and done |
 | `/refactor` | manual | main | Interactive. Review changes, give follow-up instructions |
 | `/pr-template` | manual | main | Interactive. Iterate on PR title and description |
-| `/pr-review` | manual | main | Interactive. Fix issues from review findings |
+| `/pr-review` | manual | fork | One-shot. Returns review findings to act on in main |
 | `/pr-review-respond` | manual | main | Interactive. Refine reply text |
 | `/plan-search` | manual | main | Interactive. Research with user |
 | `/plan-build` | manual | fork | One-shot. Generates plan files and done |
