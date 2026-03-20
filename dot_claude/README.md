@@ -48,7 +48,7 @@ dot_claude/
 1. **Implement** — Write code
 2. **Commit** — `/commit` after each step (git push is always done manually)
 3. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
-4. **Refactor** — `/simplify` (plugin), `/refactor [target]`, `codex /refactor`
+4. **Refactor** — `/simplify` (bundled), `/refactor [target]`, `codex /refactor`
 5. **PR** — `/pr-template` to generate title and description
 6. **Review** — `/pr-review`, `/code-review` (plugin), `codex /pr-review`. Fix and re-commit if needed
 7. **Respond** — `/pr-review-respond` when reviewer leaves comments (especially useful for English replies)
@@ -72,17 +72,21 @@ Consider splitting tasks/PRs when plan documents exceed 1000 lines.
 
 ## Plugins / MCP
 
-### Required by skills
-- Slack MCP — Used by `/plan-search` for discussion context (MCP registry)
-- Atlassian MCP — Used by `/plan-search` (MCP registry)
+`codex` = [OpenAI Codex CLI](https://github.com/openai/codex). Separate tool, used as second opinion for review/refactor.
 
-### Recommended — Claude Code official plugins
+### Required by skills
+- Slack MCP — Used by `/plan-search`, `/pr-review` for discussion context (MCP registry)
+- Atlassian MCP — Used by `/plan-search` for JIRA context (MCP registry)
+
+### Bundled skills (included with Claude Code)
 - simplify — Quick code quality pass (used in refactor step)
+
+### Plugins (claude-plugins-official)
 - feature-dev — Guided feature development with codebase exploration and architecture design
 - code-review — PR code review. For local detailed review, use custom `/pr-review` instead
 - skill-creator — Create, modify, and eval custom skills
 
-### Recommended — MCP servers
+### MCP servers
 - [context7](https://github.com/upstash/context7) — Library docs lookup (MCP registry, by Upstash)
 - [playwright](https://github.com/microsoft/playwright-mcp) — Browser automation and testing (by Microsoft)
 - [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) — Chrome DevTools debugging (by Google Chrome team)
