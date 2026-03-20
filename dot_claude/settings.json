@@ -46,7 +46,26 @@
       "Bash(git add --force:*)",
       "Bash(git commit --no-verify:*)",
       "Bash(git commit -n:*)",
-      "Bash(HUSKY=0 git commit:*)"
+      "Bash(HUSKY=0 git commit:*)",
+      "Read(**/.env*)",
+      "Read(**/id_rsa*)",
+      "Read(**/id_ed25519*)",
+      "Read(**/id_ecdsa*)",
+      "Read(**/id_dsa*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.p12)",
+      "Read(**/*.pfx)",
+      "Read(**/*.jks)",
+      "Read(**/*.keystore)",
+      "Read(**/*credentials*)",
+      "Read(**/*secret*)",
+      "Read(**/.netrc)",
+      "Read(**/.npmrc)",
+      "Read(**/.pypirc)",
+      "Read(**/*token*)",
+      "Read(**/.aws/credentials)",
+      "Read(**/.ssh/config)"
     ]
   },
   "hooks": {
@@ -56,7 +75,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "chmod +x ~/.claude/scripts/deny-check.sh && ~/.claude/scripts/deny-check.sh"
+            "command": "~/.claude/scripts/deny-check.sh"
           }
         ]
       }
