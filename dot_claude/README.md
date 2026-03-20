@@ -44,27 +44,28 @@ dot_claude/
 
 ## Development Workflow
 
-### Common flow
+### My PR flow
 1. **Implement** — Write code
-2. **Refactor** — `/simplify` then `/refactor [target]` if needed
-   - Optional: `codex /refactor` in a separate terminal for second opinion, paste results into Claude Code
-3. **Commit** — `/commit` (git push is always done manually)
-4. **PR** — `/pr-template` to generate title and description
-5. **Review** — `/pr-review` (local detailed review with security, plan alignment)
-   - Optional: `/code-review` plugin — posts to GitHub PR, confidence-scored
-   - Optional: `codex /pr-review` — second opinion in a separate terminal, paste results into Claude Code
-6. **E2E** — `/e2e-verify` to run Test Plan UI checks with Playwright
-7. **Respond** — `/pr-review-respond` to address review comments
+2. **Commit** — `/commit` after each step (git push is always done manually)
+3. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
+4. **Refactor** — `/simplify` (plugin), `/refactor [target]`, `codex /refactor`
+5. **PR** — `/pr-template` to generate title and description
+6. **Review** — `/pr-review`, `/code-review` (plugin), `codex /pr-review`. Fix and re-commit if needed
+7. **Respond** — `/pr-review-respond` when reviewer leaves comments (especially useful for English replies)
+
+### Reviewing others' PRs
+1. **Review** — `/pr-review`, `/code-review` (plugin), `codex /pr-review`
+2. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
 
 ### Large feature flow
 For implementations that need upfront planning:
 
-For self-contained features (clear requirements, single session), use `/feature-dev` instead.
+For self-contained features (clear requirements, single session), use `/feature-dev` (plugin) instead.
 For features requiring external context (JIRA/Slack), multi-session tracking, or documented plans:
 1. **Investigation** — `/plan-search [feature-name]` to create checklist, gather specs
 2. **Plan** — `/plan-build [feature-name]` to create architecture and implementation plan
-3. **Implement** — `/plan-sync [feature-name]` to track progress against plan
-4. **Refactor → Commit → PR → Review** — Same as common flow
+3. **Implement** — Build from plan.md, running `/plan-sync [feature-name]` periodically to track progress
+4. **Commit → E2E → Refactor → PR → Review** — Same as my PR flow
 5. **Archive** — Move completed plans to `.claude/plans/archive/`
 
 Consider splitting tasks/PRs when plan documents exceed 1000 lines.
@@ -76,6 +77,8 @@ Consider splitting tasks/PRs when plan documents exceed 1000 lines.
 - Atlassian MCP — Used by `/plan-search` (MCP registry)
 
 ### Recommended — Claude Code official plugins
+- simplify — Quick code quality pass (used in refactor step)
+- feature-dev — Guided feature development with codebase exploration and architecture design
 - code-review — PR code review. For local detailed review, use custom `/pr-review` instead
 - skill-creator — Create, modify, and eval custom skills
 
@@ -83,7 +86,6 @@ Consider splitting tasks/PRs when plan documents exceed 1000 lines.
 - [context7](https://github.com/upstash/context7) — Library docs lookup (MCP registry, by Upstash)
 - [playwright](https://github.com/microsoft/playwright-mcp) — Browser automation and testing (by Microsoft)
 - [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) — Chrome DevTools debugging (by Google Chrome team)
-
 
 ## References
 
