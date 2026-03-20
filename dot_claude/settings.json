@@ -33,6 +33,7 @@
       "Bash(sort:*)",
       "Bash(rm:*)",
       "Bash(tree:*)",
+      "Bash(chezmoi:*)",
       "WebFetch(domain:*)",
       "WebSearch"
     ],

@@ -77,7 +77,7 @@ Review GitHub PR and identify issues.
 
 - Flag verifiable problems only
 - Ask questions when uncertain
-- Don't criticize unfamiliar patterns
+- Don't criticize patterns already established in the project
 
 ## Criteria
 

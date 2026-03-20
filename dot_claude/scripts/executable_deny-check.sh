@@ -27,6 +27,7 @@ check_recursive_rm "$command"
 temp_rm="${command//;/$'\n'}"
 temp_rm="${temp_rm//&&/$'\n'}"
 temp_rm="${temp_rm//\|\|/$'\n'}"
+temp_rm="${temp_rm//|/$'\n'}"
 IFS=$'\n'
 for part in $temp_rm; do
   [ -z "$(echo "$part" | tr -d '[:space:]')" ] && continue
@@ -65,11 +66,12 @@ while IFS= read -r pattern; do
   fi
 done <<<"$deny_patterns"
 
-# Split command by logical operators and check each part
-# Split by semicolon, && and || (don't split pipes | and single &)
+# Split command by logical operators and pipes, check each part
+# Split by semicolon, &&, ||, and | (pipe)
 temp_command="${command//;/$'\n'}"
 temp_command="${temp_command//&&/$'\n'}"
 temp_command="${temp_command//\|\|/$'\n'}"
+temp_command="${temp_command//|/$'\n'}"
 
 IFS=$'\n'
 for cmd_part in $temp_command; do

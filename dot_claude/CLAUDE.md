@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 ## Interaction
-- Respond in Japanese. Use English for variable names and comments in code
+- Respond in Japanese
 - Be concise. No greetings or "Understood" preambles
 - Bold important parts in responses
 - Never use em dashes (—) in English text. Use periods, commas, or parentheses instead
@@ -23,5 +23,5 @@
 ## Code Style
 - Before writing code, read existing code in the same file/directory to match its patterns
 - Comments: only write intent (Why), not obvious operations (What)
-- Match the language of existing comments in the file
+- Comments language: match existing comments in the file. New files use English
 - When date/day-of-week matters, always run `date` to get the actual value. Never guess

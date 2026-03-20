@@ -45,7 +45,7 @@ Generate PR title, description, and recommended labels from PR diff.
    - **Label recommendations**: 1-3 high-signal labels with short reasons
    - **Description policy**:
      - Keep current PR body as baseline
-     - Do not delete existing text unless user explicitly asks
+     - Update existing sections in place; never delete sections unless user explicitly asks
      - Prefer additive edits (append/section update) over full rewrite
 
 6. **Confirm Update**

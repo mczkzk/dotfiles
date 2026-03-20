@@ -27,8 +27,8 @@ Creates investigation checklist and gathers requirements before plan document cr
 
 ### 0. JIRA Information Fetch (Automatic for Task IDs)
 **Identifier Pattern Detection**:
-- Task ID pattern: Contains hyphen followed by numbers (e.g., "PROJECT-123", "SIM-826")
-- Feature name pattern: Hyphen followed by letters (e.g., "user-auth", "payment-flow")
+- Task ID pattern: Matches `^[A-Z]+-\d+$` (e.g., "PROJECT-123")
+- Feature name pattern: Everything else (e.g., "user-auth", "payment-flow")
 
 **If identifier is a task ID**, execute JIRA fetch:
 1. **Check for existing JIRA data**:

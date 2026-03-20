@@ -9,7 +9,9 @@ paths:
 
 - Use TypeScript for all codebases that contain JavaScript
 - **`strict: true`** must always be enabled
-- Avoid classes that encapsulate state; prefer functions (unless meaningful state management or dependency injection is needed)
+- Avoid classes that encapsulate state; prefer functions
+  - Classes OK: React components with state, singleton services, DI containers
+  - Prefer functions: data transformation, validation, utility logic
 
 ## Type System
 
@@ -175,7 +177,7 @@ function area(shape: Shape): number {
 
 ### Options Object Pattern
 
-When a function has multiple parameters, group them into an object and extract the type as an interface:
+When a function has 3+ parameters (or 2+ with optionals), group them into an object and extract the type as an interface:
 
 ```typescript
 // Good - extracted type
@@ -219,14 +221,14 @@ const service = {
 
 ### Return Types
 
-- Public API: annotate explicitly
-- Internal functions: let inference handle it
+- Exported functions: annotate return type explicitly
+- Non-exported functions: let inference handle it
 
 ## Error Handling
 
 ### Result Pattern
 
-Consider a Result type instead of exceptions:
+Prefer for new projects. For existing projects, follow their error handling conventions:
 
 ```typescript
 type Result<T, E = Error> = { ok: true; value: T } | { ok: false; error: E }
