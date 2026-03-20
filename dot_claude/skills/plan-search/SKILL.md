@@ -91,6 +91,19 @@ Read template from `references/search-template.md` (relative to this skill direc
 
 **If ANY unchecked items remain**: Keep status as "Investigation in progress"
 
+## Protocols
+
+### Strict Verification
+- Before marking ANY item complete, evidence must exist in Investigation Notes
+- Evidence = specific details: file paths, code examples, test results
+- Can answer "How do you know this is true?" for every checked item
+- **If Investigation Notes don't prove it, don't check the box**
+
+### Incremental Completion
+- Mark tasks complete ONE AT A TIME
+- Update `[ ]` → `[x]` immediately when verified
+- Record findings in Investigation Notes BEFORE marking checkbox
+
 ## Key Principles
 
 - **Investigation First**: No planning without thorough investigation
@@ -98,7 +111,6 @@ Read template from `references/search-template.md` (relative to this skill direc
 - **Comprehensive Coverage**: All technical aspects must be explored
 - **Documentation Focus**: Record findings for future reference
 - **Blocking Mechanism**: `/plan` command checks for completed pre-plan
-- **Strict Verification**: Never mark complete without 100% verification
 
 ## Integration with Planning
 

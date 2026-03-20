@@ -1,0 +1,115 @@
+---
+name: plan-implement
+description: Implement features following plan.md tasks in phase order with TDD cycles
+argument-hint: "[task ID or feature-name]"
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash
+  - Agent
+  - AskUserQuestion
+  - mcp__ide__getDiagnostics
+---
+
+# Plan Implement Command
+
+Implement features by following plan.md tasks in phase order.
+
+## Protocols
+
+### Strict Implementation
+- Before marking ANY task complete, evidence must exist in Implementation Notes
+- Evidence = specific details: code snippets, test results, file paths
+- Can answer "How do you know this works?" for every checked task
+- **If Implementation Notes don't prove it, don't check the box**
+
+### Incremental Completion
+- Mark tasks complete ONE AT A TIME
+- Update `[ ]` → `[x]` immediately when verified
+- Record evidence in Implementation Notes BEFORE marking checkbox
+- Plans can evolve: add new tasks when requirements change
+
+### No Quick Fixes
+- No implementation until complete understanding is achieved
+- No quick fixes or workarounds: fundamental understanding first
+- No lint suppressions, ignore comments, or error suppression
+- No temporary solutions: pursue root causes only
+- Use web search or ask user when information is missing
+
+## Process
+
+### 1. Load Plan
+- If feature-name provided: Read `.claude/plans/[feature-name]/plan.md`
+- Otherwise: Search `.claude/plans/*/plan.md` (excluding `archive/`), pick from context
+- Also read `search.md` if it exists (for investigation context)
+
+### 2. Load Rules & Skills
+- Read the "Applicable Rules & Skills" section in plan.md
+- Load each listed rule and skill file
+- Follow them during implementation
+
+### 3. Read Commands Reference
+- Check the "Commands Reference" section in plan.md
+- Use these commands for testing, linting, server startup, etc.
+
+### 4. Identify Next Task
+- Find the first unchecked `- [ ]` task in Implementation Plan (phase order)
+- Skip tasks already marked `[x]`
+- Show the user which task you're starting
+
+### 5. Implement (TDD Cycle)
+For each task:
+
+1. **Red**: Write a failing test that defines expected behavior
+2. **Green**: Write minimal implementation to pass the test
+3. **Refactor**: Clean up while keeping tests green
+
+If the task has subtasks, complete each subtask in order.
+
+### 6. Verify & Record
+- Run relevant tests (use Commands Reference)
+- Record evidence in Implementation Notes:
+  ```
+  ### [Task ID] - [Description] (YYYY-MM-DD)
+  - Files: src/foo.ts, src/foo.test.ts
+  - Test: `pnpm test src/foo.test.ts` - PASS (3/3)
+  - Notes: [any decisions or findings]
+  ```
+- Mark `[ ]` → `[x]`
+
+### 7. CHECKPOINT = Auto Sync
+When reaching a `CHECKPOINT` task:
+1. Complete the checkpoint's own items (run full test suite, verify no regression)
+2. **Automatically execute plan-sync logic**:
+   - Verify all tasks in the completed phase match codebase state
+   - Update any task descriptions that changed during implementation
+   - Append sync log to Implementation Notes
+3. Commit the phase (suggest to user)
+
+### 8. Repeat
+Continue from step 4 until all phases complete or user stops.
+
+## On Blockers
+
+- If a task is blocked by unclear requirements: ask the user
+- If a task needs changes to the plan: update plan.md directly, note the change
+- If tests fail unexpectedly: investigate root cause (no quick fixes), record findings
+
+## Output
+
+At each task completion, brief status:
+```
+[x] A.1 - Task description (test: PASS)
+    Next: A.2 - Next task description
+```
+
+At phase completion:
+```
+## Phase A Complete
+- Completed: X/Y tasks
+- Plan synced: Implementation Notes updated
+- Suggest: /commit
+```

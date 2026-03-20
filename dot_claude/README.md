@@ -30,6 +30,7 @@ dot_claude/
 | `/pr-review-respond` | manual | main | Interactive. Refine reply text |
 | `/plan-search` | manual | main | Interactive. Research with user |
 | `/plan-build` | manual | fork | One-shot. Generates plan files and done |
+| `/plan-implement` | manual | main | Interactive. Implement tasks from plan.md with TDD cycles |
 | `/plan-sync` | manual | main | One-shot, lightweight — no fork needed |
 | `/scrum-poker` | manual | fork | One-shot. Returns estimate only |
 | `/jira-fetch` | manual | main | One-shot, lightweight — no fork needed |
@@ -64,7 +65,7 @@ For self-contained features (clear requirements, single session), use `/feature-
 For features requiring external context (JIRA/Slack), multi-session tracking, or documented plans:
 1. **Investigation** — `/plan-search [feature-name]` to create checklist, gather specs
 2. **Plan** — `/plan-build [feature-name]` to create architecture and implementation plan
-3. **Implement** — Build from plan.md, running `/plan-sync [feature-name]` periodically to track progress
+3. **Implement** — `/plan-implement [feature-name]` to build from plan.md (auto-syncs at checkpoints)
 4. **Commit → E2E → Refactor → PR → Review** — Same as my PR flow
 5. **Archive** — Move completed plans to `.claude/plans/archive/`
 

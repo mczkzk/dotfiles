@@ -1,32 +1,7 @@
 # [Feature Name] - Development Plan
 
-**STRICT IMPLEMENTATION PROTOCOL**:
-
-Before marking ANY implementation task complete:
-- Evidence documented in Implementation Notes with specific details (code snippets, test results, file paths)
-- Can answer "How do you know this works?" for this task
-- Implementation Notes contain proof of functionality (test output, working code)
-- Next person reading notes can verify your implementation
-
-**Rule: If Implementation Notes don't prove the task completion, uncheck the box**
-
-**INCREMENTAL COMPLETION PROTOCOL**:
-- Mark tasks complete ONE AT A TIME as you finish each implementation step
-- Update checkboxes [ ] → [x] immediately when task is verified complete
-- Do NOT batch multiple completions - check boxes individually upon completion
-- Record implementation evidence in Implementation Notes before marking checkbox complete
-- Plans can evolve during implementation - add new tasks when requirements change
-
-**NO QUICK FIXES PROTOCOL**:
-- NO implementation until complete understanding is achieved
-- NO quick fixes or workarounds - fundamental understanding takes priority
-- NO lint suppressions, ignore comments, or error suppression
-- NO temporary solutions - pursue root causes only
-- Use web search or ask user when information is missing
-- Take unlimited time for proper analysis and implementation
-- Research findings and insights are valuable even without immediate implementation
-
----
+## Applicable Rules & Skills
+- (List rules and project skills that apply to this feature's files)
 
 ## Requirements Summary
 - [ ] Feature requirement 1
@@ -109,11 +84,8 @@ Record useful commands for this implementation (server startup, linting, testing
 *command here*
 
 ## Implementation Notes
-Record ALL discoveries that impact development - BE COMPREHENSIVE! Include technical details, code snippets, command outputs, error solutions, performance insights, useful patterns, shortcuts, unsolved issues, failed approaches, and any knowledge that helps future implementation. Document complete context to preserve knowledge across sessions.
 
 *Record here*
-
-**Remember**: Comprehensive plan documentation during implementation saves multiples of that time in future development and maintenance.
 
 ---
 

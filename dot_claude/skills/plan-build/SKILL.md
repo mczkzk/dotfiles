@@ -33,6 +33,7 @@ Creates detailed plan documents from completed plan-search investigations.
 3. **Guidelines & Standards Review**:
    - Re-read CLAUDE.md and ~/.claude/CLAUDE.md for development standards and behavioral guidelines
    - Re-read .claude/skills/ and ~/.claude/skills/ for specialized workflows and patterns
+   - Record applicable rules and project skills in the "Applicable Rules & Skills" section of the plan
 
 4. **Create Plan Document**:
    - Read template from `references/plan-template.md` (relative to this skill directory: `${CLAUDE_SKILL_DIR}/references/plan-template.md`)
@@ -42,7 +43,7 @@ Creates detailed plan documents from completed plan-search investigations.
 
 5. **MANDATORY Section Completeness Verification**:
    - Count sections in generated plan document
-   - MUST contain exactly 8 sections: Requirements Summary, Architecture Impact, File Changes, Testing Strategy, Implementation Plan, Risk Assessment, Commands Reference, Implementation Notes
+   - MUST contain exactly 9 sections: Applicable Rules & Skills, Requirements Summary, Architecture Impact, File Changes, Testing Strategy, Implementation Plan, Risk Assessment, Commands Reference, Implementation Notes
    - Run verification command: `grep -c "^## " ".claude/plans/[feature-name]/plan.md"`
    - If count ≠ 8 or any section missing → STOP, return error, regenerate missing sections
 
@@ -52,6 +53,6 @@ Creates detailed plan documents from completed plan-search investigations.
 - **Verification-Based**: Never trust status alone - verify actual checkbox states
 - **Investigation-Driven**: Uses investigation findings to create plan document
 - **Template-Consistent**: Ensures consistency across all plan documents
-- **Section-Complete**: Generated plan MUST contain exactly 8 template sections
+- **Section-Complete**: Generated plan MUST contain exactly 9 template sections
 - **TDD-First**: Follow t-wada practices with Red-Green-Refactor cycles
 - **Implementation-Ready**: Creates actionable tasks for development

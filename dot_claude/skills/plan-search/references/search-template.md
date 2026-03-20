@@ -1,21 +1,5 @@
 # Plan Search Investigation - [Feature Name]
 
-**STRICT VERIFICATION PROTOCOL**:
-
-Before marking ANY item complete:
-- Evidence documented in Investigation Notes with specific details
-- Can answer "How do you know this is true?" for this item
-- Investigation Notes contain file paths, code examples, or test results
-- Next person reading notes can verify your conclusion
-
-**Rule: If Investigation Notes don't prove the check, uncheck the box**
-
-**INCREMENTAL COMPLETION PROTOCOL**:
-- Mark tasks complete ONE AT A TIME as you finish each investigation item
-- Update checkboxes [ ] → [x] immediately when task is verified complete
-- Do NOT batch multiple completions - check boxes individually upon completion
-- Record findings in Investigation Notes before marking checkbox complete
-
 ## Requirements Gathering
 - [ ] **Specifications provided**: Feature requirements and user stories documented
 - [ ] **Feature prioritization**: Required vs optional feature priorities defined
