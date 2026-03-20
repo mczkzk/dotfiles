@@ -1,0 +1,5 @@
+# .claude/e2e-verify/config.yaml
+url: "http://localhost:3000"
+prefer-selector: "data-testid"              # optional: priority attribute for element selection
+component-gotchas: ".claude/e2e-verify/component-gotchas.md"  # optional
+navigation-recipes: ".claude/e2e-verify/recipes.yaml"          # optional

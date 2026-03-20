@@ -10,7 +10,7 @@ Playwright MCP を使って UI 変更を視覚的に検証する。
 
 ## Setup
 
-1. **設定ファイル読み込み** — `.claude/e2e-verify/config.yaml` を Read ツールで読む。なければユーザーに URL を聞く。
+1. **設定ファイル読み込み** — `.claude/e2e-verify/config.yaml` を Read ツールで読む。なければユーザーに URL を聞く。テンプレートは `${CLAUDE_SKILL_DIR}/references/config-template.yaml` を参照。
 2. **Playwright MCP** — `ToolSearch` で `mcp__playwright__browser_navigate` を取得。なければ中断。
 3. **Component Gotchas** — 設定の `component-gotchas` パスがあれば Read ツールで読み込む。
 4. **App running** — 設定の `url` にアクセスできること。
