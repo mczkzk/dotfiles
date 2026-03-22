@@ -111,4 +111,4 @@ Read the prompt template from `${CLAUDE_SKILL_DIR}/references/feature-dev-prompt
   - GitHub: "Full issue details are in `.claude/plans/$FEATURE_ID/issue.md`"
 - `$FEATURE_ID` -- the resolved identifier
 
-Invoke `/feature-dev` with the filled prompt.
+Invoke `/feature-dev:feature-dev` with the filled prompt.

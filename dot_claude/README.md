@@ -23,7 +23,7 @@ dot_claude/
 
 | Skill | Invoke | Context | Usage |
 |-------|--------|---------|-------|
-| `/custom-feature-dev` | manual | main | Fetches JIRA/GitHub context, creates plan.md/SPEC.md, launches `/feature-dev` |
+| `/custom-feature-dev` | manual | main | Fetches JIRA/GitHub context, creates plan.md/SPEC.md, launches `/feature-dev:feature-dev` |
 | `/commit` | manual | main | One-shot. Commits and done |
 | `/refactor` | manual | main | Interactive. Review changes, give follow-up instructions |
 | `/create-draft-pr` | manual | main | One-shot. Creates draft PR with auto-filled template |
@@ -47,16 +47,16 @@ dot_claude/
 ## Development Workflow
 
 ### My PR flow
-1. **Implement** — Direct instructions or `/feature-dev` (plugin)
+1. **Implement** — Direct instructions or `/feature-dev:feature-dev`
 2. **Commit** — `/commit` after each step (git push is always done manually)
 3. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
 4. **Refactor** — `/simplify` (bundled), `/refactor [target]`, `codex /refactor`
 5. **PR** — `/create-draft-pr` to create draft PR with auto-filled template
-6. **Review** — `/pr-review`, `/code-review` (plugin), `codex /pr-review`. Fix and re-commit if needed
+6. **Review** — `/pr-review`, `/code-review:code-review`, `codex /pr-review`. Fix and re-commit if needed
 7. **Respond** — `/pr-review-respond` when reviewer leaves comments (especially useful for English replies)
 
 ### Reviewing others' PRs
-1. **Review** — `/pr-review`, `/code-review` (plugin), `codex /pr-review`
+1. **Review** — `/pr-review`, `/code-review:code-review`, `codex /pr-review`
 2. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
 
 ### Large feature flow
@@ -82,9 +82,9 @@ Consider splitting tasks/PRs when plan documents exceed 1000 lines.
 - simplify — Quick code quality pass (used in refactor step)
 
 ### Plugins (claude-plugins-official)
-- feature-dev — Guided feature development with codebase exploration and architecture design
-- code-review — PR code review. For local detailed review, use custom `/pr-review` instead
-- skill-creator — Create, modify, and eval custom skills
+- [feature-dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev) — Guided feature development with codebase exploration and architecture design
+- [code-review](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-review) — PR code review. For local detailed review, use custom `/pr-review` instead
+- [skill-creator](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) — Create, modify, and eval custom skills
 
 ### MCP servers
 - [context7](https://github.com/upstash/context7) — Library docs lookup (MCP registry, by Upstash)
