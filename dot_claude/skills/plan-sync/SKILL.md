@@ -115,6 +115,6 @@ After applying changes, output brief summary:
 ## Recommended Timing
 
 - After completing a Phase
-- Before `/pr-template`
+- Before `/create-draft-pr`
 - After long work sessions
 - When resuming after context loss

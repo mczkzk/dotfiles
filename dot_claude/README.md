@@ -25,7 +25,7 @@ dot_claude/
 |-------|--------|---------|-------|
 | `/commit` | manual | main | One-shot. Commits and done |
 | `/refactor` | manual | main | Interactive. Review changes, give follow-up instructions |
-| `/pr-template` | manual | main | Interactive. Iterate on PR title and description |
+| `/create-draft-pr` | manual | main | One-shot. Creates draft PR with auto-filled template |
 | `/pr-review` | manual | fork | One-shot. Returns review findings to act on in main |
 | `/pr-review-respond` | manual | main | Interactive. Refine reply text |
 | `/plan-search` | manual | main | Interactive. Research with user |
@@ -50,7 +50,7 @@ dot_claude/
 2. **Commit** — `/commit` after each step (git push is always done manually)
 3. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
 4. **Refactor** — `/simplify` (bundled), `/refactor [target]`, `codex /refactor`
-5. **PR** — `/pr-template` to generate title and description
+5. **PR** — `/create-draft-pr` to create draft PR with auto-filled template
 6. **Review** — `/pr-review`, `/code-review` (plugin), `codex /pr-review`. Fix and re-commit if needed
 7. **Respond** — `/pr-review-respond` when reviewer leaves comments (especially useful for English replies)
 
