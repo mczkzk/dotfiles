@@ -7,7 +7,7 @@ $REQUIREMENTS
 $CONTEXT
 
 ## Instructions
-- The plan document is at `.claude/plans/$FEATURE_ID/plan.md`. Update it as you investigate and implement.
+- **SSoT**: `.claude/plans/$FEATURE_ID/plan.md` and `docs/SPEC.md` (if exists) are the single source of truth. Update them at every implementation milestone, BEFORE moving to the next task. They survive context resets.
 - Read CLAUDE.md and ~/.claude/CLAUDE.md first for project rules and conventions.
 - After codebase exploration (once you understand the scope and affected files), re-read `.claude/skills/` and `~/.claude/skills/` to identify relevant skills and rules. Record them in the "Applicable Rules & Skills" section of plan.md.
 - MCP tools are available for external services (Slack, JIRA, GitHub, etc). Use them when you need more context.

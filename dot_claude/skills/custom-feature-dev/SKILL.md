@@ -92,13 +92,13 @@ Check if CLAUDE.md already contains "SSoT" (grep for it). If not, add the follow
 ```markdown
 ## SSoT (Single Source of Truth) -- DO NOT REMOVE
 **You MUST keep these files up-to-date at every implementation milestone. This is non-negotiable.**
-- `.claude/plans/$FEATURE_ID/plan.md` -- investigation findings, implementation progress, decisions
-- `docs/SPEC.md` -- project specification (personal repos only, skip if not exists)
+- `.claude/plans/*/plan.md` -- investigation findings, implementation progress, decisions
+- `docs/SPEC.md` -- project specification (if exists)
 
 Update these files BEFORE moving to the next task. They are the persistent record that survives context resets.
 ```
 
-If the SSoT block already exists, update the plan path to the current `$FEATURE_ID` but don't duplicate the block.
+If the SSoT block already exists, skip.
 
 ## Step 6: Launch /feature-dev
 
