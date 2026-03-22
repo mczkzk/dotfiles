@@ -23,6 +23,7 @@ dot_claude/
 
 | Skill | Invoke | Context | Usage |
 |-------|--------|---------|-------|
+| `/custom-feature-dev` | manual | main | Fetches JIRA/GitHub context, creates plan.md/SPEC.md, launches `/feature-dev` |
 | `/commit` | manual | main | One-shot. Commits and done |
 | `/refactor` | manual | main | Interactive. Review changes, give follow-up instructions |
 | `/create-draft-pr` | manual | main | One-shot. Creates draft PR with auto-filled template |
@@ -46,7 +47,7 @@ dot_claude/
 ## Development Workflow
 
 ### My PR flow
-1. **Implement** — Write code
+1. **Implement** — Direct instructions or `/feature-dev` (plugin)
 2. **Commit** — `/commit` after each step (git push is always done manually)
 3. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
 4. **Refactor** — `/simplify` (bundled), `/refactor [target]`, `codex /refactor`
@@ -59,15 +60,13 @@ dot_claude/
 2. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
 
 ### Large feature flow
-For implementations that need upfront planning:
+For complex features that span multiple sessions, need external context (JIRA/GitHub Issues), or benefit from a persistent plan document:
+1. **Implement** — `/custom-feature-dev [ticket or feature]`
+2. **Commit → E2E → Refactor → PR → Review** — Same as my PR flow
+3. **Archive** — Move completed plans to `.claude/plans/archive/`
 
-For self-contained features (clear requirements, single session), use `/feature-dev` (plugin) instead.
-For features requiring external context (JIRA/Slack), multi-session tracking, or documented plans:
-1. **Investigation** — `/plan-search [feature-name]` to create checklist, gather specs
-2. **Plan** — `/plan-build [feature-name]` to create architecture and implementation plan
-3. **Implement** — `/plan-implement [feature-name]` to build from plan.md (auto-syncs at checkpoints)
-4. **Commit → E2E → Refactor → PR → Review** — Same as my PR flow
-5. **Archive** — Move completed plans to `.claude/plans/archive/`
+[Deprecated] Alternatively, run individual steps manually:
+1. `/plan-search [feature-name]` → 2. `/plan-build [feature-name]` → 3. `/plan-implement [feature-name]`
 
 Consider splitting tasks/PRs when plan documents exceed 1000 lines.
 
