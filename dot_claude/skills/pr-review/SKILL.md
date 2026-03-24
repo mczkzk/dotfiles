@@ -92,6 +92,7 @@ Review GitHub PR and identify issues.
 - Flag verifiable problems only
 - Ask questions when uncertain
 - Don't criticize patterns already established in the project
+- **Review language**: Detect the PR language from title/body/comments. If the PR is in English, each finding in `review.md` must include a `> **PR Comment (EN):**` block right after the Japanese explanation. This block should be copy-pasteable as a GitHub review comment. If the PR is in Japanese, Japanese only.
 
 ## Criteria
 
@@ -116,4 +117,17 @@ Review GitHub PR and identify issues.
    - `[NIT]`: Minor issues (naming, formatting)
    - `[QUESTION]`: Clarifications needed
    - `[FYI]`: Notes and references
+
+   For English PRs, each finding in `review.md` should follow this format:
+
+   ```markdown
+   ### [SHOULD] 日本語の説明タイトル
+
+   日本語での詳細説明...
+
+   > **PR Comment (EN):**
+   > `_setShrink` is missing the `private` modifier. Other event handlers
+   > in this file (`_setIncludesStockpileVolume`, `_setIsShrinkMenuOn`)
+   > all use `private`.
+   ```
 
