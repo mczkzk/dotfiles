@@ -38,7 +38,7 @@ Review GitHub PR and identify issues.
 2. **Load Plan Context**
    - Extract ticket key from PR branch name or title (e.g., `PROJ-123`)
    - Search: `.claude/plans/{TICKET-KEY}/` directory
-   - If ticket key was found and `jira.md` does not exist, run `/jira-fetch {TICKET-KEY}` to retrieve it
+   - If ticket key was found, always run `/jira-fetch {TICKET-KEY}` to get the latest JIRA state
    - Read these files (skip if absent):
      - `jira.md` — requirements, stakeholder decisions
      - `plan.md` — design, implementation decisions, investigation findings
