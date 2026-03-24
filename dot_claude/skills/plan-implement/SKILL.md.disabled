@@ -66,11 +66,12 @@ For each task:
 1. **Red**: Write a failing test that defines expected behavior
 2. **Green**: Write minimal implementation to pass the test
 3. **Refactor**: Clean up while keeping tests green
+4. **Verify**: Run tests via `test-runner` agent to keep test output out of main context
 
 If the task has subtasks, complete each subtask in order.
 
 ### 6. Verify & Record
-- Run relevant tests (use Commands Reference)
+- Run relevant tests via `test-runner` agent (use Commands Reference)
 - Record evidence in Implementation Notes:
   ```
   ### [Task ID] - [Description] (YYYY-MM-DD)

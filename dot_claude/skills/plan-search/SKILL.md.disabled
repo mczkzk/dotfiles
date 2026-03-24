@@ -73,7 +73,10 @@ Guide user through checklist completion:
 - External dependencies validation
 - Technical requirements clarification
 
-**Parallel investigation**: When multiple checklist sections are independent (e.g., Database + External Dependencies), use subagents to investigate in parallel
+**Parallel investigation**: When multiple checklist sections are independent, launch agents in parallel:
+- `code-tracer` agent — for codebase analysis: trace execution paths, map dependencies, analyze git history of related files
+- `web-researcher` agent — for external dependencies: search docs, API references, known issues, migration guides
+- Self — handle remaining sections (Database, Requirements) directly
 
 ## Investigation Checklist Template
 

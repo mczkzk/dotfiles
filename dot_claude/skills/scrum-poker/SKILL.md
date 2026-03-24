@@ -59,7 +59,8 @@ Apply the following adjustments to the base estimate. Cumulative when multiple f
 ### Guidelines
 - **Estimate for "anyone on the team can complete" not "my fastest implementation"**
 - When in doubt, choose the higher estimate (correcting optimism bias)
-- **Multiple tasks**: Estimate each task via subagent in parallel, then aggregate results
+- **Multiple tasks**: Estimate each task via `complexity-analyzer` agent in parallel, then aggregate results
+- **Single task**: Launch `complexity-analyzer` agent to gather metrics (files affected, cyclomatic complexity, dependency depth, risk factors), then use its output to determine the poker number
 
 ## Output Format
 

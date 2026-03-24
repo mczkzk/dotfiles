@@ -10,6 +10,7 @@ dot_claude/
 ├── .jira.env              # JIRA API credentials (shared by jira-fetch, deploy etc.)
 ├── settings.json          # Permission and tool settings
 ├── skills/                # Custom skills (see table below)
+├── agents/                # Subagent definitions (used by skills via Agent tool)
 ├── rules/                 # Path-scoped rules (loaded when matching files)
 └── scripts/               # Hook scripts
 ```
@@ -29,10 +30,6 @@ dot_claude/
 | `/create-draft-pr` | manual | main | One-shot. Creates draft PR with auto-filled template |
 | `/pr-review` | manual | fork | One-shot. Returns review findings to act on in main |
 | `/pr-review-respond` | manual | main | Interactive. Refine reply text |
-| `/plan-search` | manual | main | Interactive. Research with user |
-| `/plan-build` | manual | fork | One-shot. Generates plan files and done |
-| `/plan-implement` | manual | main | Interactive. Implement tasks from plan.md with TDD cycles |
-| `/plan-sync` | manual | main | One-shot, lightweight — no fork needed |
 | `/scrum-poker` | manual | fork | One-shot. Returns estimate only |
 | `/jira-fetch` | manual | main | One-shot, lightweight — no fork needed |
 | `/e2e-verify` | manual | main | Interactive. Verify UI with Playwright, take screenshots |
@@ -65,18 +62,29 @@ For complex features that span multiple sessions, need external context (JIRA/Gi
 2. **Commit → E2E → Refactor → PR → Review** — Same as my PR flow
 3. **Archive** — Move completed plans to `.claude/plans/archive/`
 
-[Deprecated] Alternatively, run individual steps manually:
-1. `/plan-search [feature-name]` → 2. `/plan-build [feature-name]` → 3. `/plan-implement [feature-name]`
+## Agents (subagents)
 
-Consider splitting tasks/PRs when plan documents exceed 1000 lines.
+Defined in `agents/`, invoked by skills via the Agent tool.
+
+| Agent | Model | Used by | Role |
+|-------|-------|---------|------|
+| `test-runner` | haiku | refactor | Run tests in isolated context |
+| `reuse-finder` | sonnet | refactor | Find existing code to reuse |
+| `security-reviewer` | sonnet | pr-review | OWASP-focused security review |
+| `convention-checker` | sonnet | pr-review | Project convention compliance |
+| `complexity-analyzer` | sonnet | scrum-poker | Code complexity metrics |
+| `web-researcher` | sonnet | — | Web search for docs and solutions |
+| `code-tracer` | sonnet | — | Code path and git history tracing |
+
+Note: `/deep-dive` also supports **agent teams** (experimental) for parallel hypothesis-driven investigation where teammates debate and disprove each other's theories. Enabled via `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` in settings.json.
 
 ## Plugins / MCP
 
 `codex` = [OpenAI Codex CLI](https://github.com/openai/codex). Separate tool, used as second opinion for review/refactor.
 
 ### Required by skills
-- Slack MCP — Used by `/plan-search`, `/pr-review` for discussion context (MCP registry)
-- Atlassian MCP — Used by `/plan-search` for JIRA context (MCP registry)
+- Slack MCP — Used by `/pr-review` for discussion context (MCP registry)
+- Atlassian MCP — Used by `/jira-fetch`, `/pr-review` for JIRA context (MCP registry)
 
 ### Bundled skills (included with Claude Code)
 - simplify — Quick code quality pass (used in refactor step)

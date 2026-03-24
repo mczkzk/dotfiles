@@ -43,17 +43,18 @@ Apply refactoring techniques through natural language requests.
 
 ### 2. Pre-Check
 - Read target files
-- Run tests via subagent (must be green) — keeps test output out of main context
+- Run tests via `test-runner` agent (must be green) — keeps test output out of main context
 - Check git status (must be clean)
 
 ### 3. Reuse Discovery
 
-Scan new definitions (types, functions, constants, interfaces) in target files and search the existing codebase for reusable equivalents:
+Launch `reuse-finder` agent with the list of new definitions in the target diff. The agent will search for existing equivalents by name, shape, and location.
 
-1. List all newly added definitions in the target diff
-2. For each, `Grep` / `Glob` the codebase for similar names, signatures, or shapes
-3. If a match is found, replace the new definition with a reference to the existing one
-4. If partially overlapping, consider extracting a shared abstraction
+Based on the agent's findings:
+1. **Exact match** → Replace new definition with reference to existing one
+2. **Partial overlap** → Consider extracting a shared abstraction
+3. **Library available** → Consider using the library instead
+4. **No match** → Keep the new definition
 
 ### 4. Refactoring Techniques
 
@@ -117,11 +118,11 @@ Select appropriate technique(s) based on the description:
 
 ### 5. Micro-Cycle (Repeat)
 1. **Small change** (one technique, one location)
-2. **Test via subagent** (must stay green)
+2. **Test via `test-runner` agent** (must stay green)
 3. **Commit** (enable rollback)
 
 ### 6. Complete
-- Run full test suite + linting/type check via subagent
+- Run full test suite + linting/type check via `test-runner` agent
 - Verify improved readability
 
 ## Key Principles

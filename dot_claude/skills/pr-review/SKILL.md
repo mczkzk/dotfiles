@@ -10,6 +10,7 @@ allowed-tools:
   - Read
   - Grep
   - Glob
+  - Agent
   - mcp__claude_ai_Slack__slack_search_channels
   - mcp__claude_ai_Slack__slack_search_public
   - mcp__claude_ai_Slack__slack_read_channel
@@ -67,9 +68,12 @@ Review GitHub PR and identify issues.
    - Read changed and related files
    - Check config, dependencies, architecture
 
-6. **Review Changes**
-   - Logic, correctness, quality, patterns
-   - Bugs, security, performance, edge cases
+6. **Review Changes** (parallel agents)
+   - Launch `security-reviewer` and `convention-checker` agents **in parallel** with your own review
+   - Your review: Logic, correctness, quality, performance, edge cases
+   - `security-reviewer` agent: OWASP vulnerabilities, auth/authz, data exposure
+   - `convention-checker` agent: Project pattern compliance, naming, structure
+   - Merge agent findings into your review (deduplicate, apply severity labels)
 
 7. **Create Verification Plan**
    - Prerequisites and setup
