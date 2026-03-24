@@ -7,7 +7,7 @@ Global configuration for Claude Code (`~/.claude/`), managed via chezmoi.
 ```
 dot_claude/
 ├── CLAUDE.md              # Global instructions (loaded every session)
-├── .jira.env              # JIRA API credentials (shared by jira-fetch, deploy etc.)
+├── .jira.env              # JIRA API credentials (not in chezmoi, manually placed)
 ├── settings.json          # Permission and tool settings
 ├── skills/                # Custom skills (see table below)
 ├── agents/                # Subagent definitions (used by skills via Agent tool)
@@ -26,7 +26,7 @@ dot_claude/
 |-------|--------|---------|-------|
 | `/custom-feature-dev` | manual | main | Fetches JIRA/GitHub context, creates plan.md/SPEC.md, launches `/feature-dev:feature-dev` |
 | `/commit` | manual | main | One-shot. Commits and done |
-| `/refactor` | manual | main | Interactive. Review changes, give follow-up instructions |
+| `/custom-simplify` | manual | main | Convention check + test → `/simplify` with context |
 | `/create-draft-pr` | manual | main | One-shot. Creates draft PR with auto-filled template |
 | `/pr-review` | manual | fork | One-shot. Returns review findings to act on in main |
 | `/pr-review-respond` | manual | main | Interactive. Refine reply text |
@@ -44,23 +44,27 @@ dot_claude/
 ## Development Workflow
 
 ### My PR flow
-1. **Implement** — Direct instructions or `/feature-dev:feature-dev`
+1. **Implement** — Pick by scale:
+   - Small: Direct instructions or `/feature-dev:feature-dev`
+   - Medium: `/custom-feature-dev [ticket or feature]`
+   - Large: `/batch [instruction]`
 2. **Commit** — `/commit` after each step (git push is always done manually)
 3. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
-4. **Refactor** — `/simplify` (bundled), `/refactor [target]`, `codex /refactor`
+4. **Simplify** — Pick by scale:
+   - Small: `/simplify`
+   - Medium/Large: `/custom-simplify [target]` (convention check + test + simplify)
 5. **PR** — `/create-draft-pr` to create draft PR with auto-filled template
-6. **Review** — `/pr-review`, `/code-review:code-review`, `codex /pr-review`. Fix and re-commit if needed
+6. **Review** — Fix and re-commit if needed
+   - Local: `/pr-review` (with agents + JIRA/Slack/plan.md)
+   - Post to PR: `/code-review:code-review`
 7. **Respond** — `/pr-review-respond` when reviewer leaves comments (especially useful for English replies)
+8. **Archive** — Move completed plans to `.claude/plans/archive/`
 
 ### Reviewing others' PRs
-1. **Review** — `/pr-review`, `/code-review:code-review`, `codex /pr-review`
+1. **Review**
+   - Local: `/pr-review` (with agents + JIRA/Slack/plan.md)
+   - Post to PR: `/code-review:code-review`
 2. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
-
-### Large feature flow
-For complex features that span multiple sessions, need external context (JIRA/GitHub Issues), or benefit from a persistent plan document:
-1. **Implement** — `/custom-feature-dev [ticket or feature]`
-2. **Commit → E2E → Refactor → PR → Review** — Same as my PR flow
-3. **Archive** — Move completed plans to `.claude/plans/archive/`
 
 ## Agents (subagents)
 
@@ -68,10 +72,10 @@ Defined in `agents/`, invoked by skills via the Agent tool.
 
 | Agent | Model | Used by | Role |
 |-------|-------|---------|------|
-| `test-runner` | haiku | refactor | Run tests in isolated context |
-| `reuse-finder` | sonnet | refactor | Find existing code to reuse |
+| `test-runner` | haiku | custom-simplify | Run tests in isolated context |
+| `reuse-finder` | sonnet | pr-review | Find existing code to reuse |
 | `security-reviewer` | sonnet | pr-review | OWASP-focused security review |
-| `convention-checker` | sonnet | pr-review | Project convention compliance |
+| `convention-checker` | sonnet | pr-review, custom-simplify | Project convention compliance |
 | `complexity-analyzer` | sonnet | scrum-poker | Code complexity metrics |
 | `web-researcher` | sonnet | — | Web search for docs and solutions |
 | `code-tracer` | sonnet | — | Code path and git history tracing |
@@ -80,18 +84,17 @@ Note: `/deep-dive` also supports **agent teams** (experimental) for parallel hyp
 
 ## Plugins / MCP
 
-`codex` = [OpenAI Codex CLI](https://github.com/openai/codex). Separate tool, used as second opinion for review/refactor.
-
 ### Required by skills
 - Slack MCP — Used by `/pr-review` for discussion context (MCP registry)
 - Atlassian MCP — Used by `/jira-fetch`, `/pr-review` for JIRA context (MCP registry)
 
-### Bundled skills (included with Claude Code)
-- simplify — Quick code quality pass (used in refactor step)
+### [Bundled skills](https://code.claude.com/docs/en/skills#bundled-skills) (included with Claude Code)
+- simplify — Code quality pass with 3 parallel agents (reuse, quality, efficiency). Called by `/custom-simplify`
+- batch — Codebase-wide parallel changes. Decomposes into 5-30 units, each in isolated git worktree
 
 ### Plugins (claude-plugins-official)
 - [feature-dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev) — Guided feature development with codebase exploration and architecture design
-- [code-review](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-review) — PR code review. For local detailed review, use custom `/pr-review` instead
+- [code-review](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-review) — PR code review with auto-comment. `/pr-review` is the local alternative with JIRA/Slack/plan.md context
 - [skill-creator](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) — Create, modify, and eval custom skills
 
 ### MCP servers
@@ -108,3 +111,4 @@ Note: `/deep-dive` also supports **agent teams** (experimental) for parallel hyp
 - [Hooks](https://code.claude.com/docs/en/hooks-guide) — Automate workflows around tool events
 - [MCP](https://code.claude.com/docs/en/mcp) — Connect external tools and services
 - [Permissions](https://code.claude.com/docs/en/permissions) — Configure tool access and allowlists
+- [Agent Teams](https://code.claude.com/docs/en/agent-teams) — Coordinate multiple Claude instances as a team (experimental)

@@ -69,10 +69,11 @@ Review GitHub PR and identify issues.
    - Check config, dependencies, architecture
 
 6. **Review Changes** (parallel agents)
-   - Launch `security-reviewer` and `convention-checker` agents **in parallel** with your own review
+   - Launch `security-reviewer`, `convention-checker`, and `reuse-finder` agents **in parallel** with your own review
    - Your review: Logic, correctness, quality, performance, edge cases
    - `security-reviewer` agent: OWASP vulnerabilities, auth/authz, data exposure
    - `convention-checker` agent: Project pattern compliance, naming, structure
+   - `reuse-finder` agent: New definitions that duplicate existing code in the codebase
    - Merge agent findings into your review (deduplicate, apply severity labels)
 
 7. **Create Verification Plan**

@@ -17,7 +17,8 @@ You are a convention compliance checker. Verify that code changes follow establi
 
 ### 1. Load Project Rules
 - Read `CLAUDE.md` and `~/.claude/CLAUDE.md`
-- Read `.claude/rules/` files matching changed file patterns
+- Read `.claude/rules/` and `~/.claude/rules/` files matching changed file patterns
+- Read `.claude/skills/` and `~/.claude/skills/` relevant to the changed files (e.g., DB schema, API design)
 - Read `.editorconfig`, `.eslintrc*`, `.prettierrc*`, `tsconfig.json` if they exist
 
 ### 2. Analyze Existing Patterns
@@ -46,6 +47,7 @@ For each finding:
 ### [SHOULD] Convention: <pattern name>
 - **File**: path/to/file.ts:42
 - **Confidence**: 85/100
+- **Source**: Where the convention is defined (e.g., `.claude/rules/ts-guidelines.md:15`, `.claude/skills/api-design/SKILL.md`, `CLAUDE.md:42`, or "observed pattern in src/utils/")
 - **Convention**: What the project convention is (with examples from existing code)
 - **Deviation**: What the PR does differently
 - **Suggestion**: How to align with the convention
