@@ -28,7 +28,7 @@ dot_claude/
 | `/commit` | manual | main | One-shot. Commits and done |
 | `/custom-simplify` | manual | main | Convention check + test → `/simplify` with context |
 | `/create-draft-pr` | manual | main | One-shot. Creates draft PR with auto-filled template |
-| `/pr-review` | manual | fork | One-shot. Returns review findings to act on in main |
+| `/pr-review` | manual | main | Review findings with JIRA/Slack/plan.md + agents |
 | `/pr-review-respond` | manual | main | Interactive. Refine reply text |
 | `/scrum-poker` | manual | fork | One-shot. Returns estimate only |
 | `/jira-fetch` | manual | main | One-shot, lightweight — no fork needed |
