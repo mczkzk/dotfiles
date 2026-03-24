@@ -1,6 +1,6 @@
 ---
 name: scrum-poker
-description: Estimate code complexity and effort using Scrum poker scale (0, 1, 2, 3, 5, 8, 13, 20, 40, 100)
+description: Estimate task effort using Scrum poker scale (0, 1, 2, 3, 5, 8, 13, 20, 40, 100). Requires task context from .claude/plans/ or conversation.
 argument-hint: "[task ID(s) or feature name(s), comma-separated]"
 allowed-tools:
   - Read
@@ -29,6 +29,17 @@ Analyzes code complexity and provides effort estimates using standard Scrum poke
 - **40** - Large epic (major refactoring, new architecture)
 - **100** - Massive undertaking (complete rewrites, new systems)
 - **?** - Requirements too unclear to estimate (needs investigation)
+
+## Prerequisites
+
+Before estimating, gather task context from these sources (in order):
+
+1. **`.claude/plans/{task-ID}/`** — Read all files (requirements, design decisions, investigation notes, etc.)
+2. **Conversation context** — The user may have already discussed the task in this session
+
+If **neither source provides any information about the task** (what it requires, its scope, acceptance criteria), **abort and ask the user to provide context first** (e.g., fetch ticket info, describe the task, or point to relevant docs).
+
+Do NOT estimate based on code analysis alone without understanding what the task asks for.
 
 ## Analysis Factors
 
