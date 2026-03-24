@@ -97,5 +97,5 @@ After outputting the estimate, check for `.claude/plans/` directory and save res
    - If no argument: Find most recently modified `.claude/plans/*/` directory and save there
 
 3. **Save result**:
-   - Write the estimate output to `scrum-poker-result.md` in the determined location
+   - Write the estimate output to `scrum-poker-result.md` in the determined location (overwrite if exists)
    - Confirm save location to user
