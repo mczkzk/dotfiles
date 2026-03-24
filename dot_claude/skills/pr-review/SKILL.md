@@ -79,6 +79,14 @@ Review GitHub PR and identify issues.
    - Prerequisites and setup
    - Test scenarios and expected results
 
+8. **Save `review.md`** (do this BEFORE reporting to user)
+   - Look for existing `.claude/plans/{ISSUE-KEY}/` directory matching the PR's ticket key
+   - If found: write the full review (Summary, Findings, Verification Steps) to `review.md` in that directory
+   - If not found: skip (do not create a new plan directory)
+   - On repeated runs: update the existing `review.md` (do not create duplicates)
+
+9. **Report** to user using the Output format below
+
 ## Principles
 
 - Flag verifiable problems only
@@ -109,10 +117,3 @@ Review GitHub PR and identify issues.
    - `[QUESTION]`: Clarifications needed
    - `[FYI]`: Notes and references
 
-## Plans Integration
-
-After review, save results to `.claude/plans/`:
-- Look for existing plan directory matching the PR's ticket key (e.g., `.claude/plans/{ISSUE-KEY}/`)
-- If found: create or **update** `review.md` in that directory
-- If not found: skip (do not create a new plan directory)
-- On repeated runs: update the existing `review.md` (do not create duplicates)
