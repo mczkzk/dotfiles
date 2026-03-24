@@ -22,24 +22,20 @@ dot_claude/
 
 ## Skills
 
-| Skill | Invoke | Context | Usage |
-|-------|--------|---------|-------|
-| `/custom-feature-dev` | manual | main | Fetches JIRA/GitHub context, creates plan.md/SPEC.md, launches `/feature-dev:feature-dev` |
-| `/commit` | manual | main | One-shot. Commits and done |
-| `/custom-simplify` | manual | main | Convention check + test → `/simplify` with context |
-| `/create-draft-pr` | manual | main | One-shot. Creates draft PR with auto-filled template |
-| `/pr-review` | manual | main | Review findings with JIRA/Slack/plan.md + agents |
-| `/pr-review-respond` | manual | main | Interactive. Refine reply text |
-| `/scrum-poker` | manual | fork | One-shot. Returns estimate only |
-| `/jira-fetch` | manual | main | One-shot, lightweight — no fork needed |
-| `/e2e-verify` | manual | main | Interactive. Verify UI with Playwright, take screenshots |
-| `/deep-dive` | manual | main | Interactive. Discuss based on findings |
-| `/cc-reference` | manual | fork | Check docs before writing config |
-| `edit-dotfile` | auto | main | Auto-resolves chezmoi path when editing dotfiles |
-
-- **fork**: Runs in a separate context, keeps main conversation clean (only summary returned)
-- **main**: Runs in main context, results available for follow-up conversation
-- **auto**: Auto-triggered by description match (no slash command needed)
+| Skill | Invoke | Usage |
+|-------|--------|-------|
+| `/custom-feature-dev` | manual | Fetches JIRA/GitHub context, creates plan.md/SPEC.md, launches `/feature-dev:feature-dev` |
+| `/commit` | manual | One-shot. Commits and done |
+| `/custom-simplify` | manual | Convention check + test → `/simplify` with context |
+| `/create-draft-pr` | manual | One-shot. Creates draft PR with auto-filled template |
+| `/pr-review` | manual | Review findings with JIRA/Slack/plan.md + agents |
+| `/pr-review-respond` | manual | Interactive. Refine reply text |
+| `/scrum-poker` | manual | One-shot. Returns estimate only |
+| `/jira-fetch` | manual | One-shot. Fetches JIRA ticket to `.claude/plans/` |
+| `/e2e-verify` | manual | Interactive. Verify UI with Playwright, take screenshots |
+| `/deep-dive` | manual | Interactive. Discuss based on findings |
+| `/cc-reference` | manual | Check docs before writing config |
+| `edit-dotfile` | auto | Auto-resolves chezmoi path when editing dotfiles |
 
 ## Development Workflow
 
