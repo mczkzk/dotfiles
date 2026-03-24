@@ -86,7 +86,7 @@ Note: `/deep-dive` also supports **agent teams** (experimental) for parallel hyp
 
 ### [Bundled skills](https://code.claude.com/docs/en/skills#bundled-skills) (included with Claude Code)
 - simplify — Code quality pass with 3 parallel agents (reuse, quality, efficiency). Called by `/custom-simplify`
-- batch — Codebase-wide parallel changes. Decomposes into 5-30 units, each in isolated git worktree
+- batch — Codebase-wide parallel changes. Decomposes into 5-30 units, each in isolated git worktree. **Each unit auto-creates a PR**
 
 ### Plugins (claude-plugins-official)
 - [feature-dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev) — Guided feature development with codebase exploration and architecture design
