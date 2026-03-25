@@ -28,7 +28,7 @@ dot_claude/
 | `/commit` | manual | One-shot. Commits and done |
 | `/custom-simplify` | manual | Convention check + test → `/simplify` with context |
 | `/create-draft-pr` | manual | One-shot. Creates draft PR with auto-filled template |
-| `/pr-review` | manual | Review findings with JIRA/Slack/plan.md + agents |
+| `/pr-review` | manual | Orchestrated PR review: 7 parallel agents + confidence scoring + JIRA/Slack/plan.md context |
 | `/pr-review-respond` | manual | Interactive. Refine reply text |
 | `/scrum-poker` | manual | One-shot. Returns estimate only |
 | `/jira-fetch` | manual | One-shot. Fetches JIRA ticket to `.claude/plans/` |
@@ -74,7 +74,10 @@ Defined in `agents/`, invoked by skills via the Agent tool.
 | `convention-checker` | sonnet | pr-review, custom-simplify | Project convention compliance |
 | `complexity-analyzer` | sonnet | scrum-poker | Code complexity metrics |
 | `web-researcher` | sonnet | — | Web search for docs and solutions |
-| `code-tracer` | sonnet | — | Code path and git history tracing |
+| `code-tracer` | sonnet | — | Code path and dependency tracing |
+| `git-historian` | sonnet | pr-review | Git blame, log, and change pattern analysis |
+| `past-pr-reviewer` | sonnet | pr-review | Past PR comment re-applicability check |
+| `code-comment-checker` | sonnet | pr-review | Code comment compliance verification |
 
 Note: `/deep-dive` also supports **agent teams** (experimental) for parallel hypothesis-driven investigation where teammates debate and disprove each other's theories. Enabled via `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` in settings.json.
 
