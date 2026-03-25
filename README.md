@@ -52,20 +52,23 @@ Option B (Direct install):
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply mczkzk
 ```
 
-**3. Create git user config:**
-```bash
-echo '[user]
-	email = your.email@example.com' > ~/.gitconfig_user
+During init, you will be prompted for `git user.name` and `git user.email`.
+Use your GitHub noreply address for personal use (find it at [GitHub Email Settings](https://github.com/settings/emails)).
+
+Example:
+```
+git user.name? mczkzk
+git user.email? 22053988+mczkzk@users.noreply.github.com
 ```
 
-**4. Create JIRA config (optional):**
+**3. Create JIRA config (optional):**
 ```bash
 echo 'JIRA_DOMAIN=your-domain.atlassian.net
 JIRA_EMAIL=your-email@example.com
 JIRA_API_TOKEN=your-api-token' > ~/.claude/.jira.env
 ```
 
-**5. Install packages:**
+**4. Install packages:**
 ```bash
 brew bundle
 source ~/.zshrc

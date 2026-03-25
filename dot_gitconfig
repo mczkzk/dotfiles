@@ -1,5 +1,0 @@
-[user]
-	name = mczkzk
-
-[include]
-	path = ~/.gitconfig_user
