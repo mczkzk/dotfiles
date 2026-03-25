@@ -66,6 +66,7 @@ Review GitHub PR and identify issues.
 5. **Understand Context**
    - Read changed and related files
    - Check config, dependencies, architecture
+   - **Important**: When searching for residual references or leftover code, only flag findings that exist in files tracked by git (`git ls-files`). Do NOT flag content found in `.gitignore`d or auto-generated files, as these are not part of the PR and may contain stale local artifacts
 
 6. **Review Changes** (parallel agents)
    - Launch `security-reviewer`, `convention-checker`, and `reuse-finder` agents **in parallel** with your own review
