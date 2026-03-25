@@ -1,8 +1,8 @@
 encryption = "age"
 
 [data]
-    name = {{ promptString "git user.name" | quote }}
-    email = {{ promptString "git user.email" | quote }}
+    name = {{ promptStringOnce . "name" "git user.name" | quote }}
+    email = {{ promptStringOnce . "email" "git user.email" | quote }}
 
 [age]
     identity = "~/.config/chezmoi/key.txt"
