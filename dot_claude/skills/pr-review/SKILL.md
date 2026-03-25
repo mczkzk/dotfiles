@@ -61,7 +61,9 @@ Launch **2a and 2b in parallel**:
 
 ### Phase 3: Review + External Context (parallel, depends on Phase 2)
 
-Launch **ALL of the following in parallel**. Each agent returns a list of issues with the reason each was flagged:
+Launch **ALL of the following in parallel**. Each agent returns a list of issues with the reason each was flagged.
+
+**CRITICAL instruction for ALL agents**: Do NOT create any files (no `review.md`, no reports). Return findings as text output only. File writing is handled exclusively in Phase 6.
 
 | Agent | Type | Responsibility |
 |-------|------|----------------|
