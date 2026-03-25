@@ -61,11 +61,20 @@ git user.name? mczkzk
 git user.email? 22053988+mczkzk@users.noreply.github.com
 ```
 
-**3. Create JIRA config (optional):**
+**3. Set up age key for encrypted files (API keys, tokens, etc.):**
+
+Copy `~/.config/chezmoi/key.txt` from an existing machine, then re-apply:
 ```bash
-echo 'JIRA_DOMAIN=your-domain.atlassian.net
-JIRA_EMAIL=your-email@example.com
-JIRA_API_TOKEN=your-api-token' > ~/.claude/.jira.env
+chezmoi apply
+```
+
+To set up encryption from scratch (first machine only):
+```bash
+age-keygen -o ~/.config/chezmoi/key.txt
+```
+Then add the `recipient` (public key) to `.chezmoi.toml.tmpl` and encrypt files:
+```bash
+chezmoi add --encrypt ~/.claude/.jira.env
 ```
 
 **4. Install packages:**
