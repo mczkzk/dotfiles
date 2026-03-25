@@ -1,3 +1,4 @@
+brew "age"
 brew "awscli"
 brew "bat"
 brew "chezmoi"

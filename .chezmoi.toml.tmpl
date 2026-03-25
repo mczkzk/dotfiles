@@ -1,3 +1,9 @@
+encryption = "age"
+
 [data]
     name = {{ promptString "git user.name" | quote }}
     email = {{ promptString "git user.email" | quote }}
+
+[age]
+    identity = "~/.config/chezmoi/key.txt"
+    recipient = "age1fu5d9ggl7v50sa4g92f7rhkfnrkxaedd68stpxkn9ejsl9fz444s4fgtkf"
