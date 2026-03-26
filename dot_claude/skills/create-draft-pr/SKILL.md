@@ -51,7 +51,7 @@ Create a draft GitHub PR for the current branch, auto-filling the repo's PR temp
    - Recommend 1-3 high-signal labels with short reasons
 
 7. **Confirm and Create**
-   - Display: title, body, label recommendations
+   - Display: base branch, title, body, label recommendations
    - Ask: "Create draft PR with these details?"
    - If approved:
      1. Write body to temp file to avoid shell escaping issues
