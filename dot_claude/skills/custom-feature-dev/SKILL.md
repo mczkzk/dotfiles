@@ -100,7 +100,23 @@ Update these files BEFORE moving to the next task. They are the persistent recor
 
 If the SSoT block already exists, skip.
 
-## Step 6: Launch /feature-dev
+## Step 6: Branch Strategy
+
+Use `AskUserQuestion` to ask whether to create a feature branch:
+
+- **Question**: "Create a feature branch `feature/$FEATURE_ID` from the latest default branch? (default: continue on the current branch)"
+- **Default**: continue on the current branch
+
+If the user answers yes:
+
+```bash
+DEFAULT_BRANCH=$(git remote show origin | sed -n 's/.*HEAD branch: //p')
+git fetch origin && git switch -c "feature/$FEATURE_ID" "origin/$DEFAULT_BRANCH"
+```
+
+Otherwise (no, empty, or ambiguous): proceed on the current branch as-is.
+
+## Step 7: Launch /feature-dev
 
 Read the prompt template from `${CLAUDE_SKILL_DIR}/references/feature-dev-prompt.md` and fill in:
 
