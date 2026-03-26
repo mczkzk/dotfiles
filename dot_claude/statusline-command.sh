@@ -50,7 +50,7 @@ if [ -n "$five_h" ]; then
   five_h=$(printf '%.0f' "$five_h")
   seven_d=$(printf '%.0f' "$seven_d")
   five_h_reset=$(TZ=Asia/Tokyo date -r "$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at')" +"%H:%M" 2>/dev/null)
-  seven_d_reset=$(TZ=Asia/Tokyo date -r "$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at')" +"%m/%d" 2>/dev/null)
+  seven_d_reset=$(TZ=Asia/Tokyo date -r "$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at')" +"%m/%d %H:%M" 2>/dev/null)
   usage_info="🔋 \033[0;36m5h ${five_h}% \033[0;90m→${five_h_reset}\033[0m │ \033[0;36m7d ${seven_d}% \033[0;90m→${seven_d_reset}\033[0m"
 fi
 
