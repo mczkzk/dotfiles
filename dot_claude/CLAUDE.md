@@ -7,11 +7,12 @@
 - Never use em dashes (—) in English text. Use periods, commas, or parentheses instead
 
 ## Git
-- When changes seem to disappear or `git add` fails silently, ALWAYS check in this order:
-  1. `.gitignore` (the file may be ignored by a pattern)
-  2. `.git/info/exclude` — per-repo exclude rules (not committed)
-  3. `git config --global core.excludesFile` — global gitignore file
-- Never attempt to `git add` a file without first verifying it is not ignored (`git check-ignore -v <file>`)
+- When a file or directory is not found by Glob, Grep, or `git add` (despite existing on disk), ALWAYS check ignore rules in this order:
+  1. `.gitignore`
+  2. `.git/info/exclude` (per-repo, not committed)
+  3. `git config --global core.excludesFile` (global gitignore)
+- Quick check: `git check-ignore -v <path>` reveals which rule is hiding it
+- Never attempt to `git add` a file without first verifying it is not ignored
 
 ## Dotfiles (chezmoi)
 - Before editing any dotfile under `~/`, run `chezmoi managed | grep <filename>` to check
