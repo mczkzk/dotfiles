@@ -16,13 +16,13 @@ Classify `$ARGUMENTS` into one of:
 | Pattern | Type | Example |
 |---|---|---|
 | `^[A-Z]+-\d+$` | JIRA ticket | `PROJ-123` |
-| Number-only (and `.claude/jira-prefix` exists) | JIRA ticket | `123` -> `{PREFIX}-123` |
+| Number-only (and `.claude/config.yaml` の `jira.prefix` exists) | JIRA ticket | `123` -> `{PREFIX}-123` |
 | `^#?\d+$` | GitHub Issue | `#45` or `45` (stored as `issue-45`) |
 | URL containing `atlassian` | JIRA ticket | extract key from URL |
 | URL containing `github.com` with `/issues/` | GitHub Issue | extract owner/repo and number |
 | Everything else | Feature description | `add-user-auth` |
 
-**If ambiguous** (e.g. bare number with no `.claude/jira-prefix`): ask the user what it is.
+**If ambiguous** (e.g. bare number with no `.claude/config.yaml` の `jira.prefix`): ask the user what it is.
 
 For feature descriptions, propose a kebab-case `feature-name` to the user for confirmation (used as directory name).
 
