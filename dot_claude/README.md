@@ -33,6 +33,7 @@ dot_claude/
 | `/scrum-poker` | manual | One-shot. Returns estimate only |
 | `/jira-fetch` | manual | One-shot. Fetches JIRA ticket to `.claude/plans/` |
 | `/e2e-verify` | manual | Interactive. Verify UI with Playwright, take screenshots |
+| `/video-debug` | manual | Extract frames from screen recording for visual debugging |
 | `/deep-dive` | manual | Interactive. Discuss based on findings |
 | `/cc-reference` | manual | Check docs before writing config |
 | `edit-dotfile` | auto | Auto-resolves chezmoi path when editing dotfiles |
