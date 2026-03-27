@@ -1,3 +1,4 @@
+{{- if and (hasKey . "shared_claude_repo") .shared_claude_repo (ne .shared_claude_repo "") }}
 # ===============================
 # Shared Claude Sync Function
 # ===============================
@@ -28,3 +29,4 @@ shared-claude-sync() {
   git -C "$repo" commit -m "update shared-claude" && \
   git -C "$repo" push
 }
+{{- end }}
