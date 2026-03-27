@@ -1,0 +1,30 @@
+# ===============================
+# Shared Claude Sync Function
+# ===============================
+
+shared-claude-sync() {
+  local repo={{ .shared_claude_repo | quote }}
+  local src dest
+
+{{- range splitList "," .shared_claude_sources }}
+{{- $entry := trim . }}
+{{- if $entry }}
+{{- $parts := splitList ":" $entry }}
+{{- if ge (len $parts) 2 }}
+  src={{ index $parts 0 | quote }}
+  dest={{ index $parts 1 | quote }}
+
+  if [[ -d "$src" ]]; then
+    mkdir -p "$repo/$dest"
+    rsync -a --delete "$src/" "$repo/$dest/"
+  else
+    echo "shared-claude-sync: source not found: $src" >&2
+  fi
+
+{{- end }}
+{{- end }}
+{{- end }}
+  git -C "$repo" add -A && \
+  git -C "$repo" commit -m "update shared-claude" && \
+  git -C "$repo" push
+}

@@ -3,6 +3,8 @@ encryption = "age"
 [data]
     name = {{ promptStringOnce . "name" "git user.name" | quote }}
     email = {{ promptStringOnce . "email" "git user.email" | quote }}
+    shared_claude_repo = {{ promptStringOnce . "shared_claude_repo" "shared-claude repo path" | quote }}
+    shared_claude_sources = {{ promptStringOnce . "shared_claude_sources" "shared-claude sync sources (src:dest, comma-separated)" | quote }}
 
 [age]
     identity = "~/.config/chezmoi/key.txt"

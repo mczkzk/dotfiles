@@ -61,6 +61,20 @@ git user.name? mczkzk
 git user.email? 22053988+mczkzk@users.noreply.github.com
 ```
 
+If you use `shared-claude-sync`, you will also be prompted for:
+
+- `shared-claude repo path`
+- `shared-claude sync sources (src:dest, comma-separated)`
+
+Example:
+
+```text
+shared-claude repo path? /Users/<your-user>/github/<shared-claude-repo>
+shared-claude sync sources (src:dest, comma-separated)? /Users/<your-user>/github/<source-repo>/.shared-claude:<source-repo>/.shared-claude
+```
+
+This config makes `shared-claude-sync` copy the contents of `.shared-claude` from the source repo into the matching path in the shared repo, then commit and push the shared repo.
+
 **3. Set up age key for encrypted files (API keys, tokens, etc.):**
 
 Copy `~/.config/chezmoi/key.txt` from an existing machine, then re-apply:
