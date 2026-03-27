@@ -11,6 +11,11 @@ allowed-tools:
   - Agent
   - WebSearch
   - WebFetch
+  - ToolSearch
+  - mcp__claude_ai_Slack__*
+  - mcp__claude_ai_Atlassian__*
+  - mcp__claude_ai_Notion__*
+  - mcp__claude_ai_Microsoft_365__*
 ---
 
 Find the root cause. Do not stop until you find it or exhaust every possible avenue.
@@ -95,6 +100,33 @@ After team convergence:
 - [What to fix and how]
 ```
 
+## MCP Sweep Phase
+
+Agent teammates use specialized types (e.g., `feature-dev:code-explorer`) that **cannot access MCP tools**. Only the main conversation (skill runner) can use MCP tools (Slack, JIRA, Confluence, Notion, etc.).
+
+**Run this phase in parallel with agent team investigation, or immediately after agents report back.**
+
+### When to Run
+
+- Always, if MCP servers are available in the conversation
+- Especially for: context behind decisions, discussions, related tickets, design docs
+
+### What to Search
+
+Using `ToolSearch` to fetch MCP tool schemas, then search across:
+
+1. **Slack** (`mcp__claude_ai_Slack__slack_search_public_and_private`): keywords from the topic, ticket IDs, related terms in relevant channels
+2. **JIRA** (`mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql`): related tickets, linked issues, comments on the main ticket
+3. **Confluence** (`mcp__claude_ai_Atlassian__searchConfluenceUsingCql`): design docs, architecture decisions, meeting notes
+4. **Notion** (`mcp__claude_ai_Notion__notion-search`): specs, planning docs
+
+### Strategy
+
+- Use `mcp__claude_ai_Atlassian__getAccessibleAtlassianResources` first to get cloudId
+- Run multiple MCP searches in parallel (different keywords, different sources)
+- Read promising thread contexts with `mcp__claude_ai_Slack__slack_read_thread`
+- Integrate MCP findings into the final report alongside agent findings
+
 ## Simple Investigation (Fallback)
 
-For straightforward problems where the cause is likely singular, skip the agent team and investigate directly using all available tools.
+For straightforward problems where the cause is likely singular, skip the agent team and investigate directly using all available tools including MCP.
