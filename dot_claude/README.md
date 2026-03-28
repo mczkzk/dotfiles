@@ -34,6 +34,7 @@ dot_claude/
 | `/jira-fetch` | manual | One-shot. Fetches JIRA ticket to `.claude/plans/` |
 | `/e2e-verify` | manual | Interactive. Verify UI with Playwright, take screenshots |
 | `/video-debug` | manual | Extract frames from screen recording for visual debugging |
+| `/spike-branch` | manual | Interactive. Spike implementation on throwaway branch, document findings, split into subtasks |
 | `/deep-dive` | manual | Interactive. Discuss based on findings |
 | `/cc-reference` | manual | Check docs before writing config |
 | `edit-dotfile` | auto | Auto-resolves chezmoi path when editing dotfiles |
@@ -41,10 +42,11 @@ dot_claude/
 ## Development Workflow
 
 ### My PR flow
+0. **Spike** (if needed) — `/spike-branch` when the task is too complex to split upfront. Explore, learn, then split into subtasks
 1. **Implement** — Pick by scale:
    - Small: Direct instructions or `/feature-dev:feature-dev`
    - Medium: `/custom-feature-dev [ticket or feature]`
-   - Large: `/batch [instruction]`
+   - Large (repetitive): `/batch [instruction]` (e.g. migrate all files from X to Y)
 2. **Commit** — `/commit` after each step (git push is always done manually)
 3. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
 4. **Simplify** — Pick by scale:
