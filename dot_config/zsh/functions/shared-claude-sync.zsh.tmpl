@@ -5,6 +5,7 @@
 
 shared-claude-sync() {
   local repo={{ .shared_claude_repo | quote }}
+{{- if and (hasKey . "shared_claude_sources") .shared_claude_sources (ne .shared_claude_sources "") }}
   local src dest
 
 {{- range splitList "," .shared_claude_sources }}
@@ -22,6 +23,7 @@ shared-claude-sync() {
     echo "shared-claude-sync: source not found: $src" >&2
   fi
 
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
