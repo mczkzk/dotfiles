@@ -37,6 +37,7 @@ dot_claude/
 | `/spike-branch` | manual | Interactive. Spike implementation on throwaway branch, document findings, split into subtasks |
 | `/deep-dive` | manual | Interactive. Discuss based on findings |
 | `/cc-reference` | manual | Check docs before writing config |
+| `/new-repo` | manual | Interactive. Discuss repo name, create GitHub repo (local-first or GitHub-first) |
 | `edit-dotfile` | auto | Auto-resolves chezmoi path when editing dotfiles |
 
 ## Development Workflow

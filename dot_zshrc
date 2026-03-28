@@ -53,7 +53,6 @@ export PATH="$PATH:/opt/homebrew/bin/"
 
 # Load functions
 [ -f ~/.config/zsh/functions/gwtadd.zsh ] && source ~/.config/zsh/functions/gwtadd.zsh
-[ -f ~/.config/zsh/functions/ghnew.zsh ] && source ~/.config/zsh/functions/ghnew.zsh
 [ -f ~/.config/zsh/functions/gconflict.zsh ] && source ~/.config/zsh/functions/gconflict.zsh
 [ -f ~/.config/zsh/functions/kill-port.zsh ] && source ~/.config/zsh/functions/kill-port.zsh
 [ -f ~/.config/zsh/functions/shared-claude-sync.zsh ] && source ~/.config/zsh/functions/shared-claude-sync.zsh
