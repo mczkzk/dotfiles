@@ -1,6 +1,6 @@
 ---
 name: scrum-poker
-description: Estimate task effort using Scrum poker scale (0, 1, 2, 3, 5, 8, 13, 20, 40, 100). Requires task context from .claude/plans/ or conversation.
+description: Estimate task effort using Scrum poker scale (0, 1, 2, 3, 5, 8, 13, 20, 40, 100). Requires task context from .claude/tasks/ or conversation.
 argument-hint: "[task ID(s) or feature name(s), comma-separated]"
 allowed-tools:
   - Read
@@ -34,7 +34,7 @@ Analyzes code complexity and provides effort estimates using standard Scrum poke
 
 Before estimating, gather task context from these sources (in order):
 
-1. **`.claude/plans/{task-ID}/`** — Read all files (requirements, design decisions, investigation notes, etc.)
+1. **`.claude/tasks/{task-ID}/`** — Read all files (requirements, design decisions, investigation notes, etc.)
 2. **Conversation context** — The user may have already discussed the task in this session
 
 If **neither source provides any information about the task** (what it requires, its scope, acceptance criteria), **abort and ask the user to provide context first** (e.g., fetch ticket info, describe the task, or point to relevant docs).
@@ -97,15 +97,15 @@ Apply the following adjustments to the base estimate. Cumulative when multiple f
 
 ## Result Saving
 
-After outputting the estimate, check for `.claude/plans/` directory and save results:
+After outputting the estimate, check for `.claude/tasks/` directory and save results:
 
-1. **Check for plans directory**:
-   - Run `ls -d .claude/plans/*/` to check if `.claude/plans/[feature-name]/` directories exist
-   - If no `.claude/plans/` directory exists → Skip saving (output only)
+1. **Check for tasks directory**:
+   - Run `ls -d .claude/tasks/*/` to check if `.claude/tasks/[feature-name]/` directories exist
+   - If no `.claude/tasks/` directory exists → Skip saving (output only)
 
 2. **Determine save location**:
-   - If argument (feature-name) provided: Save to `.claude/plans/[feature-name]/scrum-poker-result.md`
-   - If no argument: Find most recently modified `.claude/plans/*/` directory and save there
+   - If argument (feature-name) provided: Save to `.claude/tasks/[feature-name]/scrum-poker-result.md`
+   - If no argument: Find most recently modified `.claude/tasks/*/` directory and save there
 
 3. **Save result**:
    - Write the estimate output to `scrum-poker-result.md` in the determined location (overwrite if exists)

@@ -31,7 +31,7 @@ dot_claude/
 | `/pr-review` | manual | Orchestrated PR review: 7 parallel agents + confidence scoring + JIRA/Slack/plan.md context |
 | `/pr-review-respond` | manual | Interactive. Refine reply text |
 | `/scrum-poker` | manual | One-shot. Returns estimate only |
-| `/jira-fetch` | manual | One-shot. Fetches JIRA ticket to `.claude/plans/` |
+| `/jira-fetch` | manual | One-shot. Fetches JIRA ticket to `.claude/tasks/` |
 | `/e2e-verify` | manual | Interactive. Verify UI with Playwright, take screenshots |
 | `/video-debug` | manual | Extract frames from screen recording for visual debugging |
 | `/spike-branch` | manual | Interactive. Spike implementation on throwaway branch, document findings, split into subtasks |
@@ -57,7 +57,7 @@ dot_claude/
    - Local: `/pr-review` (with agents + JIRA/Slack/plan.md)
    - Post to PR: `/code-review:code-review`
 7. **Respond** — `/pr-review-respond` when reviewer leaves comments (especially useful for English replies)
-8. **Archive** — Move completed plans to `.claude/plans/archive/`
+8. **Archive** — Move completed tasks to `.claude/tasks/archive/`
 
 ### Reviewing others' PRs
 1. **Review**

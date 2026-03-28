@@ -44,7 +44,7 @@ Launch **2a and 2b in parallel**:
 
 2a. **Load Plan Context**
    - Extract ticket key from PR branch name or title (e.g., `PROJ-123`)
-   - Search: `.claude/plans/{TICKET-KEY}/` directory
+   - Search: `.claude/tasks/{TICKET-KEY}/` directory
    - If ticket key was found, always run `/jira-fetch {TICKET-KEY}` to get the latest JIRA state
    - Read these files (skip if absent):
      - `jira.md` — requirements, stakeholder decisions
@@ -111,9 +111,9 @@ For CLAUDE.md-flagged issues, the scorer must verify the CLAUDE.md actually call
 ### Phase 6: Output (depends on Phase 5)
 
 6a. **Save `review.md`** (do this BEFORE reporting to user)
-   - Look for existing `.claude/plans/{ISSUE-KEY}/` directory matching the PR's ticket key
+   - Look for existing `.claude/tasks/{ISSUE-KEY}/` directory matching the PR's ticket key
    - If found: write the full review (Summary, Findings, Verification Steps) to `review.md` in that directory
-   - If not found: skip (do not create a new plan directory)
+   - If not found: skip (do not create a new task directory)
    - On repeated runs: update the existing `review.md` (do not create duplicates)
 
 6b. **Report** to user using the Output format below

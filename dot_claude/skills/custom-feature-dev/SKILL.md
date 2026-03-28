@@ -33,14 +33,14 @@ Set `$FEATURE_ID` to the resolved identifier (e.g. `PROJ-123`, `issue-45`, or `a
 ### JIRA Ticket
 
 1. Run `/jira-fetch $FEATURE_ID`
-2. Read the generated `.claude/plans/$FEATURE_ID/jira.md`
+2. Read the generated `.claude/tasks/$FEATURE_ID/jira.md`
 3. Check for linked issues, subtasks, parent tickets in jira.md
 4. If there are important linked tickets (blockers, "is caused by", related work), fetch those too with `/jira-fetch` and note their summaries
 
 ### GitHub Issue
 
 1. Run: `gh issue view <number> --json title,body,comments,labels,assignees,milestone`
-2. Save to `.claude/plans/$FEATURE_ID/issue.md`
+2. Save to `.claude/tasks/$FEATURE_ID/issue.md`
 3. Check for referenced issues/PRs in the body and comments
 
 ### Feature Description (no external ticket)
@@ -48,7 +48,7 @@ Set `$FEATURE_ID` to the resolved identifier (e.g. `PROJ-123`, `issue-45`, or `a
 - The user's description itself is the requirement
 - Ask the user if there are any related tickets, docs, or links they want to include
 
-Store all gathered info in `.claude/plans/$FEATURE_ID/`.
+Store all gathered info in `.claude/tasks/$FEATURE_ID/`.
 
 ## Step 3: Create plan.md
 
@@ -60,7 +60,7 @@ Read the template from `${CLAUDE_SKILL_DIR}/references/plan-template.md` and fil
 - `$REQUIREMENTS` -- from JIRA/GitHub/user description, be specific
 - `$RELATED_CONTEXT` -- links to related tickets (with status and summary), key decisions from comments/discussions
 
-Save to `.claude/plans/$FEATURE_ID/plan.md`.
+Save to `.claude/tasks/$FEATURE_ID/plan.md`.
 
 This file is intentionally lean. feature-dev fills in architecture and implementation details during its phases.
 
@@ -92,7 +92,7 @@ Check if CLAUDE.md already contains "SSoT" (grep for it). If not, add the follow
 ```markdown
 ## SSoT (Single Source of Truth) -- DO NOT REMOVE
 **You MUST keep these files up-to-date at every implementation milestone. This is non-negotiable.**
-- `.claude/plans/*/plan.md` -- investigation findings, implementation progress, decisions
+- `.claude/tasks/*/plan.md` -- investigation findings, implementation progress, decisions
 - `docs/SPEC.md` -- project specification (if exists)
 
 Update these files BEFORE moving to the next task. They are the persistent record that survives context resets.
@@ -123,8 +123,8 @@ Read the prompt template from `${CLAUDE_SKILL_DIR}/references/feature-dev-prompt
 - `$TITLE` -- ticket summary or feature description
 - `$REQUIREMENTS` -- same as plan.md
 - `$CONTEXT` -- key info from JIRA comments, linked tickets, GitHub issue discussion. Include file pointers:
-  - JIRA: "Full ticket details are in `.claude/plans/$FEATURE_ID/jira.md`"
-  - GitHub: "Full issue details are in `.claude/plans/$FEATURE_ID/issue.md`"
+  - JIRA: "Full ticket details are in `.claude/tasks/$FEATURE_ID/jira.md`"
+  - GitHub: "Full issue details are in `.claude/tasks/$FEATURE_ID/issue.md`"
 - `$FEATURE_ID` -- the resolved identifier
 
 Invoke `/feature-dev:feature-dev` with the filled prompt.

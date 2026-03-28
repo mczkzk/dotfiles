@@ -22,7 +22,7 @@ Playwright MCP を使って UI 変更を視覚的に検証する。
 - **`pr`** → PR description の Test Plan を使う (`gh pr view --json body -q .body`)
 - **具体的な UI 操作手順が書かれている** → そのまま実行
 - **`auto` または空** → 以下の優先順位で取得:
-  1. `.claude/plans/{ISSUE-KEY}/review.md` の Verification Steps
+  1. `.claude/tasks/{ISSUE-KEY}/review.md` の Verification Steps
   2. PR description の Test Plan (`gh pr view --json body -q .body`)
   3. 見つからなければユーザーに聞く
 

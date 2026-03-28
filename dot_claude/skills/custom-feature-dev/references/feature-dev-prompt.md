@@ -7,7 +7,7 @@ $REQUIREMENTS
 $CONTEXT
 
 ## Instructions
-- **SSoT**: `.claude/plans/$FEATURE_ID/plan.md` and `docs/SPEC.md` (if exists) are the single source of truth. Update them at every implementation milestone, BEFORE moving to the next task. They survive context resets.
+- **SSoT**: `.claude/tasks/$FEATURE_ID/plan.md` and `docs/SPEC.md` (if exists) are the single source of truth. Update them at every implementation milestone, BEFORE moving to the next task. They survive context resets.
 - **TDD**: Write tests first, then implement. Follow the Red → Green → Refactor cycle.
 - Read CLAUDE.md and ~/.claude/CLAUDE.md first for project rules and conventions.
 - After codebase exploration (once you understand the scope and affected files), re-read `.claude/skills/` and `~/.claude/skills/` to identify relevant skills and rules. Record them in the "Applicable Rules & Skills" section of plan.md.

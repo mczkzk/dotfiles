@@ -21,7 +21,7 @@ Review code with a code-review mindset. Prioritize verifiable findings over summ
 - `gh api repos/{owner}/{repo}/pulls/{number}/comments`
 
 ### 2. Check for Plan Document
-- Search `.codex/plans/*/plan.md` or `.claude/plans/*/plan.md`
+- Search `.codex/tasks/*/plan.md` or `.claude/tasks/*/plan.md`
 - If found, verify alignment with requirements, architecture, tests
 
 ### 3. Understand Context

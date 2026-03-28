@@ -18,7 +18,7 @@ Verify the current branch is a task branch. If it matches any of these, **stop**
 Determine the task name from the current branch by stripping prefixes (`feature/`, `feat/`, `task/`).
 - `feature/large-task` -> `large-task`
 
-Check `.claude/plans/$TASK/` for existing spike docs:
+Check `.claude/tasks/$TASK/` for existing spike docs:
 - **No existing spikes**: spike-1.
 - **spike-N.md exists**: Read all. Summarize key takeaways to the user. Next number = highest + 1.
 
@@ -44,7 +44,7 @@ Once done, tell the user and wait for them to verify. They will check the app, t
 
 ## Step 4: Wrap Up (when the user says so)
 
-When the user decides the spike is done, draft `.claude/plans/$TASK/spike-$N.md` together. Let the user review and refine:
+When the user decides the spike is done, draft `.claude/tasks/$TASK/spike-$N.md` together. Let the user review and refine:
 
 ```markdown
 # Spike $N: $TASK
@@ -72,7 +72,7 @@ Commit the doc, then tell the user the spike branch name so they can push it.
 
 ## When the User Says "OK, Let's Split"
 
-Write `.claude/plans/$TASK/split.md`:
+Write `.claude/tasks/$TASK/split.md`:
 
 ```markdown
 # Task Split: $TASK

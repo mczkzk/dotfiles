@@ -30,7 +30,7 @@ Create a draft GitHub PR for the current branch, auto-filling the repo's PR temp
 3. **Gather Context**
    - `git log --oneline $(git merge-base HEAD origin/<base>)..HEAD` for commit history
    - `git diff origin/<base>...HEAD` for full diff
-   - If `.claude/plans/*/plan.md` exists matching current branch or ticket ID, read it as supplemental context
+   - If `.claude/tasks/*/plan.md` exists matching current branch or ticket ID, read it as supplemental context
 
 4. **Find PR Template**
    - Search tracked files: `git ls-files | grep -i pull_request_template`

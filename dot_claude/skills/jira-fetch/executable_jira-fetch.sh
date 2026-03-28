@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# JIRA チケット情報を取得して .claude/plans/{ISSUE_KEY}/jira.md に保存
+# JIRA チケット情報を取得して .claude/tasks/{ISSUE_KEY}/jira.md に保存
 #
 # Usage: jira-fetch.sh PROJ-100 [PROJ-101 PROJ-102 ...]
 #
@@ -159,7 +159,7 @@ end
     ')
 
     # 出力ディレクトリ作成
-    OUTPUT_DIR="$PROJECT_ROOT/.claude/plans/${KEY}"
+    OUTPUT_DIR="$PROJECT_ROOT/.claude/tasks/${KEY}"
     mkdir -p "$OUTPUT_DIR"
 
     # 画像ダウンロード
