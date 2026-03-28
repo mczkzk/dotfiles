@@ -19,6 +19,7 @@ dot_claude/
 |------|-------------|
 | `rules/ts-guidelines.md` | TypeScript coding guidelines (`*.ts`, `*.tsx`) |
 | `scripts/deny-check.sh` | Pre-tool use hook for command validation |
+| `scripts/chezmoi-guard.sh` | Pre-tool use hook: blocks Write/Edit to chezmoi-managed paths, suggests source path |
 
 ## Skills
 
@@ -36,9 +37,9 @@ dot_claude/
 | `/video-debug` | manual | Extract frames from screen recording for visual debugging |
 | `/spike-branch` | manual | Interactive. Spike implementation on throwaway branch, document findings, split into subtasks |
 | `/deep-dive` | manual | Interactive. Discuss based on findings |
-| `/cc-reference` | manual | Check docs before writing config |
+| `/cc-reference` | manual/auto | Check docs before writing config |
 | `/new-repo` | manual | Interactive. Discuss repo name, create GitHub repo (local-first or GitHub-first) |
-| `edit-dotfile` | auto | Auto-resolves chezmoi path when editing dotfiles |
+| `chezmoi-edit` | manual/auto | Auto-resolves chezmoi source path for ~/配下の管理ファイル編集 |
 
 ## Development Workflow
 

@@ -2,8 +2,6 @@
 name: cc-reference
 description: Look up Claude Code best practices from official docs before writing configuration. Use when creating or editing hooks (settings.json hooks), MCP server config, settings.json permissions (allow/deny), CLAUDE.md files, skills, agents, keybindings, or any Claude Code configuration file.
 argument-hint: <topic: what to configure, like "skill for deployment" or "hook for pre-commit">
-disable-model-invocation: true
-context: fork
 ---
 
 Claude Code configuration formats change frequently. Always check the current docs before writing — stale patterns cause silent failures.

@@ -81,6 +81,15 @@
             "command": "~/.claude/scripts/deny-check.sh"
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/scripts/chezmoi-guard.sh"
+          }
+        ]
       }
     ]
   },

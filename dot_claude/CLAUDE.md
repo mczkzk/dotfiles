@@ -14,9 +14,9 @@
 - Quick check: `git check-ignore -v <path>` reveals which rule is hiding it
 - Never attempt to `git add` a file without first verifying it is not ignored
 
-## Dotfiles (chezmoi)
-- Before editing any dotfile under `~/`, run `chezmoi managed | grep <filename>` to check
-- If managed: NEVER edit `~/` directly. Edit the chezmoi source instead. See `edit-dotfile` skill for path mapping and details
+## chezmoi
+- Before editing any file under `~/`, run `chezmoi managed | grep <filename>` to check
+- If managed: NEVER edit `~/` directly. Edit the chezmoi source instead. See `chezmoi-edit` skill for path mapping and details
 
 ## Claude Code Config
 - When writing hooks, settings.json, MCP config, skills, or agents: if unsure about syntax or field names, run `/cc-reference <topic>` to check official docs first
