@@ -39,7 +39,7 @@ dot_claude/
 | `/deep-dive` | manual | Interactive. Discuss based on findings |
 | `/cc-reference` | manual/auto | Check docs before writing config |
 | `/new-repo` | manual | Interactive. Discuss repo name, create GitHub repo (local-first or GitHub-first) |
-| `chezmoi-edit` | manual/auto | Auto-resolves chezmoi source path for ~/配下の管理ファイル編集 |
+| `/chezmoi-edit` | manual/auto | Auto-resolves chezmoi source path for ~/配下の管理ファイル編集 |
 
 ## Development Workflow
 
