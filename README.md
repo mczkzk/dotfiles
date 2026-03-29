@@ -15,7 +15,7 @@
 **Sync changes from other PCs:**
 - `cupdate`
 
-> Aliases are defined in [.zshrc](dot_zshrc)
+> Aliases and functions are defined in [.config/zsh/](dot_config/zsh)
 
 ## Package Management
 
