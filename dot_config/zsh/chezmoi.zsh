@@ -1,13 +1,18 @@
 # ===============================
-# Chezmoi Configuration & Aliases
+# Chezmoi
 # ===============================
 
-# Chezmoi completion
 eval "$(chezmoi completion zsh)"
 
-# Chezmoi aliases
+# Aliases
 alias cadd='chezmoi add'
+alias capply='chezmoi apply'
+alias ccd='chezmoi cd'
+alias cdiff='chezmoi diff'
+alias cupdate='chezmoi update'
 alias cvi='chezmoi edit'
+
+# Sync and push: auto-detect which side changed per file
 cpush() {
   local src="$(chezmoi source-path)"
   local status_output
@@ -36,7 +41,3 @@ cpush() {
 
   cd "$src" && git add . && git commit -m "update dotfiles" && git push
 }
-alias cdiff='chezmoi diff'
-alias capply='chezmoi apply'
-alias ccd='chezmoi cd'
-alias cupdate='chezmoi update'

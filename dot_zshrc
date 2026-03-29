@@ -46,16 +46,10 @@ export PATH="$PATH:/opt/homebrew/bin/"
 # Custom Aliases & Functions
 # ===============================
 
-# Load aliases
-[ -f ~/.config/zsh/aliases/general.zsh ] && source ~/.config/zsh/aliases/general.zsh
-[ -f ~/.config/zsh/aliases/chezmoi.zsh ] && source ~/.config/zsh/aliases/chezmoi.zsh
-[ -f ~/.config/zsh/aliases/git.zsh ] && source ~/.config/zsh/aliases/git.zsh
-
-# Load functions
-[ -f ~/.config/zsh/functions/gwtadd.zsh ] && source ~/.config/zsh/functions/gwtadd.zsh
-[ -f ~/.config/zsh/functions/gconflict.zsh ] && source ~/.config/zsh/functions/gconflict.zsh
-[ -f ~/.config/zsh/functions/kill-port.zsh ] && source ~/.config/zsh/functions/kill-port.zsh
-[ -f ~/.config/zsh/functions/shared-claude-sync.zsh ] && source ~/.config/zsh/functions/shared-claude-sync.zsh
+# Load zsh config files
+for f in ~/.config/zsh/*.zsh; do
+  [ -f "$f" ] && source "$f"
+done
 
 # ===============================
 # Directory Hash
