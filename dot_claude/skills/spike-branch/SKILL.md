@@ -15,8 +15,13 @@ Verify the current branch is a task branch. If it matches any of these, **stop**
 
 ## Step 1: Understand Context
 
-Determine the task name from the current branch by stripping prefixes (`feature/`, `feat/`, `task/`).
-- `feature/large-task` -> `large-task`
+Determine the task name ($TASK) from the current branch:
+
+1. Strip known prefixes (`feature/`, `feat/`, `task/`, `spike/`) from the branch name.
+2. `ls .claude/tasks/` to list existing task directories.
+3. Find the directory whose name is a **prefix** of the branch name (e.g., branch `ABC-123-some-feature` matches directory `ABC-123`).
+4. If a match is found, use that directory name as $TASK.
+5. If no match is found, use the full stripped branch name as $TASK.
 
 Check `.claude/tasks/$TASK/` for existing spike docs:
 - **No existing spikes**: spike-1.
