@@ -74,6 +74,7 @@ Launch **ALL of the following in parallel**. Each agent returns a list of issues
 | **E** | `past-pr-reviewer` | Read previous PRs that touched these files, check for review comments that may also apply |
 | **F** | `code-comment-checker` | Read code comments (TODO, NOTE, FIXME, invariants, contracts) in modified files, verify the PR complies |
 | **G** | general-purpose (sonnet) | Shallow scan of the diff for obvious bugs. Focus on large bugs only, avoid nitpicks. Ignore likely false positives |
+| **H** | `performance-checker` | Detect cost profile changes in shared code (selectors, utilities, middleware) and trace callers on hot paths (render, stateChanged, animation loops). Verify memoization integrity |
 
 Also in parallel with the agents above (optional, skip if MCP unavailable):
 
@@ -81,7 +82,7 @@ Also in parallel with the agents above (optional, skip if MCP unavailable):
   - **Slack**: Search for the PR URL or ticket key in relevant channels. Check for urgency signals
   - **Jira (related tickets)**: If the main ticket has issue links or belongs to an Epic, fetch linked issues
 
-**Wait for ALL 7 agents to complete before proceeding to Phase 4.** External Context may still be in progress; it will be used in Phase 5.
+**Wait for ALL 8 agents to complete before proceeding to Phase 4.** External Context may still be in progress; it will be used in Phase 5.
 
 ### Phase 4: Confidence Scoring (depends on Phase 3 agents ALL complete)
 
@@ -128,7 +129,8 @@ For CLAUDE.md-flagged issues, the scorer must verify the CLAUDE.md actually call
 ## Criteria
 
 - **Quality**: Naming, error handling, comments
-- **Logic**: Implementation, edge cases, performance
+- **Logic**: Implementation, edge cases
+- **Performance**: Cost profile changes in shared code, hot path impact, caching correctness
 - **Security**: Authorization in call chain, data access checks, cross-resource ownership, entry point validation
 - **Smells**: Duplication, dead code, hardcoded values, reinventing existing definitions
 - **Architecture**: Pattern violations, separation of concerns

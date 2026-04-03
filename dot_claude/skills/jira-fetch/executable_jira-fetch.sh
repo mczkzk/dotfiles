@@ -119,7 +119,14 @@ def convert_node($indent):
     elif .type == "mediaSingle" or .type == "mediaGroup" then
         "![MEDIA:" + (.content[0]?.attrs.id // "unknown") + ":" + (.content[0]?.attrs.alt // "") + "]\n"
     elif .type == "table" then
-        "[テーブル]\n"
+        ([.content[]? |
+            "| " + ([.content[]? | (.content | extract_text | gsub("\n"; " "))] | join(" | ")) + " |"
+        ] | . as $rows |
+            if ($rows | length) > 0 then
+                $rows[0] + "\n" + ($rows[0] | gsub("[^|]"; "-")) + "\n" + ($rows[1:] | join("\n"))
+            else ""
+            end
+        ) + "\n"
     elif .type == "expand" then
         "<details>\n<summary>" + (.attrs.title // "詳細") + "</summary>\n\n" + ([.content[]? | convert_node($indent)] | join("")) + "</details>\n"
     elif .type == "panel" then
@@ -228,7 +235,14 @@ def convert_node($indent):
     elif .type == "mediaSingle" or .type == "mediaGroup" then
         "![MEDIA:" + (.content[0]?.attrs.id // "unknown") + ":" + (.content[0]?.attrs.alt // "") + "]\n"
     elif .type == "table" then
-        "[テーブル]\n"
+        ([.content[]? |
+            "| " + ([.content[]? | (.content | extract_text | gsub("\n"; " "))] | join(" | ")) + " |"
+        ] | . as $rows |
+            if ($rows | length) > 0 then
+                $rows[0] + "\n" + ($rows[0] | gsub("[^|]"; "-")) + "\n" + ($rows[1:] | join("\n"))
+            else ""
+            end
+        ) + "\n"
     elif .type == "expand" then
         "<details>\n<summary>" + (.attrs.title // "詳細") + "</summary>\n\n" + ([.content[]? | convert_node($indent)] | join("")) + "</details>\n"
     elif .type == "panel" then
