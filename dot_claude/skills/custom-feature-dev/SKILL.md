@@ -114,6 +114,13 @@ DEFAULT_BRANCH=$(git remote show origin | sed -n 's/.*HEAD branch: //p')
 git fetch origin && git switch -c "feature/$FEATURE_ID" "origin/$DEFAULT_BRANCH"
 ```
 
+After creating the branch, ask the user to push and set upstream:
+
+> ブランチを作成しました。以下を実行してupstreamを設定してください:
+> `git push -u origin feature/$FEATURE_ID`
+
+**Wait for the user to confirm before proceeding.** Without upstream, `git push` / `gp` will fail or push to the wrong branch.
+
 Otherwise (no, empty, or ambiguous): proceed on the current branch as-is.
 
 ## Step 7: Launch /feature-dev
