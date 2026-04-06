@@ -158,7 +158,7 @@ end
             if [[ -n "$filename" ]]; then
                 escaped_id=$(echo "$media_id" | sed 's/[[\.*^$()+?{|]/\\&/g')
                 escaped_alt=$(echo "$alt_name" | sed 's/[[\.*^$()+?{|]/\\&/g')
-                DESCRIPTION=$(echo "$DESCRIPTION" | sed "s|\!\[MEDIA:${escaped_id}:${escaped_alt}\]|![$filename](./images/$filename)|g")
+                DESCRIPTION=$(echo "$DESCRIPTION" | sed "s|\!\[MEDIA:${escaped_id}:${escaped_alt}\]|![$filename](./attachments/$filename)|g")
             fi
         fi
     done < <(echo "$BODY" | jq -r '
@@ -169,24 +169,33 @@ end
     OUTPUT_DIR="$PROJECT_ROOT/.claude/tasks/${KEY}"
     mkdir -p "$OUTPUT_DIR"
 
-    # 画像ダウンロード
-    IMAGE_DIR="$OUTPUT_DIR/images"
-    ATTACHMENT_COUNT=$(echo "$BODY" | jq '[.fields.attachment[]? | select(.mimeType | startswith("image/"))] | length')
+    # 添付ファイルダウンロード (画像/動画/Excel)
+    ATTACHMENTS_DIR="$OUTPUT_DIR/attachments"
+    ATTACHMENT_COUNT=$(echo "$BODY" | jq '[.fields.attachment[]? | select(
+        (.mimeType | startswith("image/")) or
+        (.mimeType | startswith("video/")) or
+        (.mimeType | test("spreadsheet|excel|officedocument\\.spreadsheet"))
+    )] | length')
 
     if [[ "$ATTACHMENT_COUNT" -gt 0 ]]; then
-        mkdir -p "$IMAGE_DIR"
-        echo "Downloading ${ATTACHMENT_COUNT} images..."
+        mkdir -p "$ATTACHMENTS_DIR"
+        echo "Downloading ${ATTACHMENT_COUNT} attachments..."
 
-        echo "$BODY" | jq -r '.fields.attachment[]? | select(.mimeType | startswith("image/")) | "\(.content)\t\(.filename)"' | while IFS=$'\t' read -r url filename; do
+        echo "$BODY" | jq -r '.fields.attachment[]? | select(
+            (.mimeType | startswith("image/")) or
+            (.mimeType | startswith("video/")) or
+            (.mimeType | test("spreadsheet|excel|officedocument\\.spreadsheet"))
+        ) | "\(.content)\t\(.filename)"' | while IFS=$'\t' read -r url filename; do
             if [[ -n "$url" && -n "$filename" ]]; then
                 echo "  - ${filename}"
                 curl -s -L \
                     -H "Authorization: Basic ${AUTH}" \
-                    -o "${IMAGE_DIR}/${filename}" \
+                    -o "${ATTACHMENTS_DIR}/${filename}" \
                     "$url"
             fi
         done
     fi
+
 
     # コメント取得 (ADF形式からテキスト抽出)
     COMMENTS=$(echo "$BODY" | jq -r '
@@ -272,7 +281,7 @@ end
             if [[ -n "$filename" ]]; then
                 escaped_id=$(echo "$media_id" | sed 's/[[\.*^$()+?{|]/\\&/g')
                 escaped_alt=$(echo "$alt_name" | sed 's/[[\.*^$()+?{|]/\\&/g')
-                COMMENTS=$(echo "$COMMENTS" | sed "s|\!\[MEDIA:${escaped_id}:${escaped_alt}\]|![$filename](./images/$filename)|g")
+                COMMENTS=$(echo "$COMMENTS" | sed "s|\!\[MEDIA:${escaped_id}:${escaped_alt}\]|![$filename](./attachments/$filename)|g")
             fi
         fi
     done < <(echo "$BODY" | jq -r '
