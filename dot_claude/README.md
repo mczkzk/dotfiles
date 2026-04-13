@@ -49,6 +49,7 @@ dot_claude/
    - Small: Direct instructions or `/feature-dev:feature-dev`
    - Medium: `/custom-feature-dev [ticket or feature]`
    - Large (repetitive): `/batch [instruction]` (e.g. migrate all files from X to Y)
+   - Stuck / 2nd opinion: `/codex:rescue [what to investigate or fix]` (delegate to Codex)
 2. **Commit** — `/commit` after each step (git push is always done manually)
 3. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
 4. **Simplify** — Pick by scale:
@@ -57,15 +58,13 @@ dot_claude/
 5. **PR** — `/create-draft-pr` to create draft PR with auto-filled template
 6. **Review** — Fix and re-commit if needed
    - Local: `/pr-review` (with agents + JIRA/Slack/plan.md)
+   - Cross-model: `/codex:review` (Codex perspective) or `/codex:adversarial-review` (challenge design choices)
    - Post to PR: `/code-review:code-review`
 7. **Respond** — `/pr-review-respond` when reviewer leaves comments (especially useful for English replies)
 8. **Archive** — Move completed tasks to `.claude/tasks/archive/`
 
 ### Reviewing others' PRs
-1. **Review**
-   - Local: `/pr-review` (with agents + JIRA/Slack/plan.md)
-   - Post to PR: `/code-review:code-review`
-2. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
+Same as **My PR flow** Step 6 (Review) + Step 3 (E2E, optional).
 
 ## Agents (subagents)
 
@@ -100,6 +99,9 @@ Note: `/deep-dive` also supports **agent teams** (experimental) for parallel hyp
 - [feature-dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev) — Guided feature development with codebase exploration and architecture design
 - [code-review](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-review) — PR code review with auto-comment. `/pr-review` is the local alternative with JIRA/Slack/plan.md context
 - [skill-creator](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) — Create, modify, and eval custom skills
+
+### Plugins (third-party)
+- [codex-plugin-cc](https://github.com/openai/codex-plugin-cc) — Delegate investigation or fixes to Codex CLI as a rescue subagent (`/codex:rescue`, `/codex:setup`)
 
 ### MCP servers
 - [context7](https://github.com/upstash/context7) — Library docs lookup (MCP registry, by Upstash)
