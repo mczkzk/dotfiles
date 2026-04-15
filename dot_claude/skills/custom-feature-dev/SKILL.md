@@ -33,7 +33,7 @@ Set `$FEATURE_ID` to the resolved identifier (e.g. `PROJ-123`, `issue-45`, or `a
 ### JIRA Ticket
 
 1. Run `/jira-fetch $FEATURE_ID`
-2. Read the generated `.claude/tasks/$FEATURE_ID/jira.md`
+2. Read the generated `.claude/tasks/$FEATURE_ID/jira/jira.md`
 3. Check for linked issues, subtasks, parent tickets in jira.md
 4. If there are important linked tickets (blockers, "is caused by", related work), fetch those too with `/jira-fetch` and note their summaries
 
@@ -128,7 +128,7 @@ Read the prompt template from `${CLAUDE_SKILL_DIR}/references/feature-dev-prompt
 - `$TITLE` -- ticket summary or feature description
 - `$REQUIREMENTS` -- same as plan.md
 - `$CONTEXT` -- key info from JIRA comments, linked tickets, GitHub issue discussion. Include file pointers:
-  - JIRA: "Full ticket details are in `.claude/tasks/$FEATURE_ID/jira.md`"
+  - JIRA: "Full ticket details are in `.claude/tasks/$FEATURE_ID/jira/jira.md`"
   - GitHub: "Full issue details are in `.claude/tasks/$FEATURE_ID/issue.md`"
 - `$FEATURE_ID` -- the resolved identifier
 
