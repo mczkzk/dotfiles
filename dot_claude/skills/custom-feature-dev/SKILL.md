@@ -16,13 +16,13 @@ Classify `$ARGUMENTS` into one of:
 | Pattern | Type | Example |
 |---|---|---|
 | `^[A-Z]+-\d+$` | JIRA ticket | `PROJ-123` |
-| Number-only (and `.claude/config.yaml` の `jira.prefix` exists) | JIRA ticket | `123` -> `{PREFIX}-123` |
+| Number-only (and `.claude/config.yaml`'s `jira.prefix` exists) | JIRA ticket | `123` -> `{PREFIX}-123` |
 | `^#?\d+$` | GitHub Issue | `#45` or `45` (stored as `issue-45`) |
 | URL containing `atlassian` | JIRA ticket | extract key from URL |
 | URL containing `github.com` with `/issues/` | GitHub Issue | extract owner/repo and number |
 | Everything else | Feature description | `add-user-auth` |
 
-**If ambiguous** (e.g. bare number with no `.claude/config.yaml` の `jira.prefix`): ask the user what it is.
+**If ambiguous** (e.g. bare number with no `.claude/config.yaml`'s `jira.prefix`): ask the user what it is.
 
 For feature descriptions, propose a kebab-case `feature-name` to the user for confirmation (used as directory name).
 
@@ -102,24 +102,19 @@ If the SSoT block already exists, skip.
 
 ## Step 6: Branch Strategy
 
-Use `AskUserQuestion` to ask whether to create a feature branch:
-
-- **Question**: "Create a feature branch `feature/$FEATURE_ID` from the latest default branch? (default: continue on the current branch)"
-- **Default**: continue on the current branch
-
-If the user answers yes:
+Auto-create a branch only when on the default branch (main/master). Otherwise keep the current branch (assume the user prepared it).
 
 ```bash
-DEFAULT_BRANCH=$(git remote show origin | sed -n 's/.*HEAD branch: //p')
-git fetch origin && git switch -c "feature/$FEATURE_ID" "origin/$DEFAULT_BRANCH"
+CURRENT=$(git branch --show-current)
+DEFAULT_BRANCH=$(git remote show origin 2>/dev/null | sed -n 's/.*HEAD branch: //p')
+[ -z "$DEFAULT_BRANCH" ] && DEFAULT_BRANCH=main
+
+if [ "$CURRENT" = "$DEFAULT_BRANCH" ]; then
+  git fetch origin 2>/dev/null
+  git switch -c "feature/$FEATURE_ID" "origin/$DEFAULT_BRANCH"
+  echo "Created branch feature/$FEATURE_ID. To push: git push -u origin feature/$FEATURE_ID"
+fi
 ```
-
-After creating the branch, ask the user to push and set upstream:
-
-> ブランチを作成しました。以下を実行してupstreamを設定してください:
-> `git push -u origin feature/$FEATURE_ID`
-
-Otherwise (no, empty, or ambiguous): proceed on the current branch as-is.
 
 ## Step 7: Launch /feature-dev
 
