@@ -65,16 +65,31 @@ Launch **ALL of the following in parallel**. Each agent returns a list of issues
 
 **CRITICAL instruction for ALL agents**: Do NOT create any files (no `review.md`, no reports). Return findings as text output only. File writing is handled exclusively in Phase 6.
 
+Agents are grouped by analysis scope. All 9 run in parallel.
+
+**Group 1 — Diff-level scan** (analyzes the diff itself)
+
 | Agent | Type | Responsibility |
 |-------|------|----------------|
-| **A** | `convention-checker` | Audit changes for compliance with CLAUDE.md and loaded rules/skills from 2b. Note: CLAUDE.md is guidance for Claude writing code, so not all instructions apply during review |
+| **A** | general-purpose (sonnet) | Shallow scan of the diff for obvious bugs. Focus on large bugs only, avoid nitpicks. Ignore likely false positives |
 | **B** | `security-reviewer` | OWASP vulnerabilities, auth/authz, data exposure |
-| **C** | `reuse-finder` | New definitions that duplicate existing code in the codebase |
-| **D** | `git-historian` | Read git blame and history of modified code to identify bugs in light of historical context (e.g., reverted patterns being reintroduced) |
-| **E** | `past-pr-reviewer` | Read previous PRs that touched these files, check for review comments that may also apply |
-| **F** | `code-comment-checker` | Read code comments (TODO, NOTE, FIXME, invariants, contracts) in modified files, verify the PR complies |
-| **G** | general-purpose (sonnet) | Shallow scan of the diff for obvious bugs. Focus on large bugs only, avoid nitpicks. Ignore likely false positives |
-| **H** | `performance-checker` | Detect cost profile changes in shared code (selectors, utilities, middleware) and trace callers on hot paths (render, stateChanged, animation loops). Verify memoization integrity |
+| **C** | `convention-checker` | Audit changes for compliance with CLAUDE.md and loaded rules/skills from 2b. Note: CLAUDE.md is guidance for Claude writing code, so not all instructions apply during review |
+| **D** | `code-comment-checker` | Read code comments (TODO, NOTE, FIXME, invariants, contracts) in modified files, verify the PR complies |
+
+**Group 2 — Impact & dependency analysis** (reads beyond the diff to trace ripple effects)
+
+| Agent | Type | Responsibility |
+|-------|------|----------------|
+| **E** | `code-tracer` | Trace the impact radius of changed functions/modules: enumerate callers and callees, follow data flow through transformations, detect circular or broken dependency chains. Focus on non-obvious indirect effects the diff alone does not reveal |
+| **F** | `performance-checker` | Detect cost profile changes in shared code (selectors, utilities, middleware) and trace callers on hot paths (render, stateChanged, animation loops). Verify memoization integrity |
+| **G** | `reuse-finder` | New definitions that duplicate existing code in the codebase |
+
+**Group 3 — Historical context** (leverages git history and prior PRs)
+
+| Agent | Type | Responsibility |
+|-------|------|----------------|
+| **H** | `git-historian` | Read git blame and history of modified code to identify bugs in light of historical context (e.g., reverted patterns being reintroduced) |
+| **I** | `past-pr-reviewer` | Read previous PRs that touched these files, check for review comments that may also apply |
 
 Also in parallel with the agents above (optional, skip if MCP unavailable):
 
@@ -82,7 +97,7 @@ Also in parallel with the agents above (optional, skip if MCP unavailable):
   - **Slack**: Search for the PR URL or ticket key in relevant channels. Check for urgency signals
   - **Jira (related tickets)**: If the main ticket has issue links or belongs to an Epic, fetch linked issues
 
-**Wait for ALL 8 agents to complete before proceeding to Phase 4.** External Context may still be in progress; it will be used in Phase 5.
+**Wait for ALL 9 agents to complete before proceeding to Phase 4.** External Context may still be in progress; it will be used in Phase 5.
 
 ### Phase 4: Confidence Scoring (depends on Phase 3 agents ALL complete)
 

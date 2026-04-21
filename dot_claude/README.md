@@ -78,7 +78,7 @@ Defined in `agents/`, invoked by skills via the Agent tool.
 | `convention-checker` | sonnet | pr-review, custom-simplify | Project convention compliance |
 | `complexity-analyzer` | sonnet | scrum-poker | Code complexity metrics |
 | `web-researcher` | sonnet | — | Web search for docs and solutions |
-| `code-tracer` | sonnet | — | Code path and dependency tracing |
+| `code-tracer` | sonnet | pr-review | Code path and dependency tracing |
 | `git-historian` | sonnet | pr-review | Git blame, log, and change pattern analysis |
 | `past-pr-reviewer` | sonnet | pr-review | Past PR comment re-applicability check |
 | `code-comment-checker` | sonnet | pr-review | Code comment compliance verification |
