@@ -44,27 +44,29 @@ dot_claude/
 ## Development Workflow
 
 ### My PR flow
-0. **Spike** (if needed) — `/spike-branch` when the task is too complex to split upfront. Explore, learn, then split into subtasks
+
+0. **Spike** (if needed) — `/spike-branch` when the task is too complex to split upfront
 1. **Implement** — Pick by scale:
    - Small: Direct instructions or `/feature-dev:feature-dev`
    - Medium: `/custom-feature-dev [ticket or feature]`
    - Large (repetitive): `/batch [instruction]` (e.g. migrate all files from X to Y)
    - Stuck / 2nd opinion: `/codex:rescue [what to investigate or fix]` (delegate to Codex)
-2. **Commit** — `/commit` after each step (git push is always done manually)
-3. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
-4. **Simplify** — Pick by scale:
+2. **Simplify** — Pick by scale:
    - Small: `/simplify`
    - Medium/Large: `/custom-simplify [target]` (convention check + test + simplify)
-5. **PR** — `/create-draft-pr` to create draft PR with auto-filled template
-6. **Review** — Fix and re-commit if needed
+3. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
+4. **PR** — `/create-draft-pr` to create draft PR with auto-filled template
+5. **Review** — fix if needed
    - Local: `/pr-review` (with agents + JIRA/Slack/plan.md)
-   - Cross-model: `/codex:review` (Codex perspective) or `/codex:adversarial-review` (challenge design choices)
-   - Post to PR: `/code-review:code-review`
-7. **Respond** — `/pr-review-respond` when reviewer leaves comments (especially useful for English replies)
-8. **Archive** — Move completed tasks to `.claude/tasks/archive/`
+   - Cross-model (when worried): `/codex:review`, or `/codex:adversarial-review` to challenge design choices
+   - Post review to PR: `/code-review:code-review`
+6. **Respond** — `/pr-review-respond` when reviewer leaves comments (especially useful for English replies); fix if needed
+7. **Archive** — Move completed tasks to `.claude/tasks/archive/`
+
+`/commit` after each meaningful change. Push is always manual.
 
 ### Reviewing others' PRs
-Same as **My PR flow** Step 6 (Review) + Step 3 (E2E, optional).
+Run **Step 3** (E2E, optional) then **Step 5** (Review) from My PR flow.
 
 ## Agents (subagents)
 
