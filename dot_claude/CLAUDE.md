@@ -1,4 +1,4 @@
-# CLAUDE.md
+# Global Instructions
 
 ## Interaction
 - Respond in Japanese
@@ -16,10 +16,10 @@
 
 ## chezmoi
 - Before editing any file under `~/`, run `chezmoi managed | grep <filename>` to check
-- If managed: NEVER edit `~/` directly. Edit the chezmoi source instead. See `chezmoi-edit` skill for path mapping and details
+- If managed: NEVER edit `~/` directly. Edit the chezmoi source instead
 
-## Claude Code Config
-- When writing hooks, settings.json, MCP config, skills, or agents: if unsure about syntax or field names, run `/cc-reference <topic>` to check official docs first
+## Tool Config
+- When writing hooks, settings.json/config.toml, MCP config, plugins, skills, or agents: if there is any uncertainty about syntax, field names, or current behavior, search the latest official docs first instead of relying on memory
 
 ## Code Style
 - Before writing code, read existing code in the same file/directory to match its patterns
