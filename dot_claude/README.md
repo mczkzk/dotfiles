@@ -48,20 +48,19 @@ dot_claude/
 ### My PR flow
 
 0. **Spike** (if needed) — `/spike-branch` when the task is too complex to split upfront
-1. **Implement** — Pick by scale:
+1. **Implement** —
    - Small: Direct instructions or `/feature-dev:feature-dev`
    - Medium: `/custom-feature-dev [ticket or feature]`
-   - Large (repetitive): `/batch [instruction]` (e.g. migrate all files from X to Y)
-   - Stuck / 2nd opinion: `/codex:rescue [what to investigate or fix]` (delegate to Codex)
-2. **Simplify** — Pick by scale:
+   - Large: `/batch [instruction]` (repetitive; e.g. migrate all files from X to Y)
+   - Stuck: `/codex:rescue [what to investigate or fix]` (2nd opinion, delegate to Codex)
+2. **Simplify** —
    - Small: `/simplify`
    - Medium/Large: `/custom-simplify [target]` (convention check + test + simplify)
-3. **E2E** (optional) — `/e2e-verify` to verify UI changes with Playwright
+3. **E2E** — `/e2e-verify` to verify UI changes with Playwright (optional)
 4. **PR** — `/create-draft-pr` to create draft PR with auto-filled template
 5. **Review** — fix if needed
    - Local: `/pr-review` (with agents + JIRA/Slack/plan.md)
-   - Cross-model (when worried): `/codex:review`, or `/codex:adversarial-review` to challenge design choices
-   - Post review to PR: `/code-review:code-review`
+   - Cross-model: `/codex:review` or `/codex:adversarial-review` (when worried; latter challenges design choices)
 6. **Respond** — `/pr-review-respond` when reviewer leaves comments (especially useful for English replies); fix if needed
 7. **Archive** — Move completed tasks to `.claude/tasks/archive/`
 
@@ -104,7 +103,6 @@ Note: `/deep-dive` also supports **agent teams** (experimental) for parallel hyp
 
 ### Plugins (claude-plugins-official)
 - [feature-dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev) — Guided feature development with codebase exploration and architecture design
-- [code-review](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-review) — PR code review with auto-comment. `/pr-review` is the local alternative with JIRA/Slack/plan.md context
 - [skill-creator](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) — Create, modify, and eval custom skills
 
 ### Plugins (third-party)
