@@ -52,15 +52,15 @@ dot_claude/
    - Small: Direct instructions or `/feature-dev:feature-dev`
    - Medium: `/custom-feature-dev [ticket or feature]`
    - Large: `/batch [instruction]` (repetitive; e.g. migrate all files from X to Y)
-   - Stuck: `/codex:rescue [what to investigate or fix]` (2nd opinion, delegate to Codex)
+   - Stuck: `/codex:rescue [what to investigate or fix]` (delegate investigation/fix to Codex)
 2. **Simplify** —
    - Small: `/simplify`
    - Medium/Large: `/custom-simplify [target]` (convention check + test + simplify)
 3. **E2E** — `/e2e-verify` to verify UI changes with Playwright (optional)
 4. **PR** — `/create-draft-pr` to create draft PR with auto-filled template
 5. **Review** — fix if needed
-   - Local: `/pr-review` (with agents + JIRA/Slack/plan.md)
-   - Cross-model: `/codex:review` or `/codex:adversarial-review` (when worried; latter challenges design choices)
+   - Default: `/pr-review` (with agents + JIRA/Slack/plan.md)
+   - Worried: `/codex:review` or `/codex:adversarial-review` (cross-model; latter challenges design choices)
 6. **Respond** — `/pr-review-respond` when reviewer leaves comments (especially useful for English replies); fix if needed
 7. **Archive** — Move completed tasks to `.claude/tasks/archive/`
 
