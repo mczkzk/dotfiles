@@ -27,8 +27,8 @@ dot_claude/
 
 | Skill | Invoke | Usage |
 |-------|--------|-------|
-| `/custom-feature-dev` | manual | Fetches JIRA/GitHub context, creates plan.md/SPEC.md, launches `/feature-dev:feature-dev` |
 | `/commit` | manual | One-shot. Commits and done |
+| `/custom-feature-dev` | manual | Fetches JIRA/GitHub context, creates plan.md/SPEC.md, launches `/feature-dev:feature-dev` |
 | `/custom-simplify` | manual | Convention check + test → `/simplify` with context |
 | `/create-draft-pr` | manual | One-shot. Creates draft PR with auto-filled template |
 | `/pr-review` | manual | Orchestrated PR review: 10 parallel agents + confidence scoring + JIRA/Slack/plan.md context |
