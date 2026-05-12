@@ -116,7 +116,8 @@
       }
     }
   },
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "skipAutoPermissionPrompt": true,
-  "tui": "fullscreen"
+  "effortLevel": "xhigh"
 }

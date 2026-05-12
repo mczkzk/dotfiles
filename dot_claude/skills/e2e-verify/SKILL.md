@@ -57,13 +57,15 @@ Playwright MCP を使って UI 変更を視覚的に検証する。
 
 ### Screenshot output
 
-スクリーンショットは `.playwright-mcp/` ディレクトリに保存する。`filename` パラメータに必ずディレクトリを含める:
+スクリーンショットはタスクスコープに保存する:
 
 ```
-filename: ".playwright-mcp/e2e-step1-description.png"
+filename: ".claude/tasks/{ISSUE-KEY}/screenshots/<step-N>-<description>.png"
 ```
 
-リポジトリルートにファイルを散らかさないこと。
+タスクが特定できない場合 (PR ベース等) は `.playwright-mcp/` にフォールバック。**リポジトリルートにファイルを散らかさない。**
+
+撮影と同じディレクトリに **`README.md`** を必ず置く。スクショだけだと後から「何の画面か」が分からなくなるので、ファイル別の観察事項 + 検証結果サマリ + 未確認/制約 を書く。
 
 ### On failure
 
