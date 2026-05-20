@@ -41,7 +41,12 @@ Create a draft GitHub PR for the current branch, auto-filling the repo's PR temp
 5. **Fill Template**
    - Analyze diff and commit history
    - Cross-reference with plan document if available
-   - If template found: fill each section present in the template based on actual changes
+   - If template found: **preserve the template structure verbatim**, only filling in the variable parts
+     - **Preserve as-is**: section headings, fixed instructional text, checklists (`- [ ]`), HTML comments (`<!-- ... -->`), tables, links, and any boilerplate
+     - **Only modify**: empty placeholders, areas explicitly marked for input (e.g., `<!-- describe here -->`), or sections that clearly expect free-form content
+     - **Do NOT omit a section just because there is nothing to add**. If a section is not applicable, write `N/A` (or follow the template's own convention if it specifies one) rather than deleting it
+     - **Do NOT rewrite or paraphrase fixed text**. If unsure whether a line is fixed boilerplate or a placeholder, keep it
+     - Checklists: leave items unchecked unless the diff clearly satisfies them
    - If no template: write a Summary of what changed and why
    - If the branch name contains a recognizable issue/ticket ID, include it (e.g., `Fixes #123`, `Fixes FOO-123`). If none found, skip
    - **PR title**: Search `.github/` for title validation rules (e.g., `pr-title-checker-config.json`, workflows with title checks, commitlint/semantic-release configs). If found, generate a title matching the required pattern. If none found, generate a concise title (under 70 chars)
@@ -64,6 +69,7 @@ Create a draft GitHub PR for the current branch, auto-filling the repo's PR temp
 ## Mandatory Rules
 
 - **Explicit user confirmation is required before creating the PR**
+- **Never delete or paraphrase fixed text in the PR template** (headings, instructions, checklists, HTML comments, boilerplate). Only fill variable parts. "No change needed" does NOT mean "can be omitted"
 - Never run `gh pr create` without approval
 - Never force-push or modify commit history
 - Never push branches automatically; ask the user to push if needed
