@@ -31,6 +31,7 @@ Create a draft GitHub PR for the current branch, auto-filling the repo's PR temp
    - `git log --oneline $(git merge-base HEAD origin/<base>)..HEAD` for commit history
    - `git diff origin/<base>...HEAD` for full diff
    - If `.claude/tasks/*/plan.md` exists matching current branch or ticket ID, read it as supplemental context
+   - **Past PRs as style reference**: `gh pr list --author "@me" --state merged --base <base> --limit 5 --json title,body,labels` to learn the user's typical title format, summary granularity, section usage, and frequently-applied labels. If none returned (e.g., first PR in this repo), skip silently
 
 4. **Find PR Template**
    - Search tracked files: `git ls-files | grep -i pull_request_template`
@@ -49,11 +50,12 @@ Create a draft GitHub PR for the current branch, auto-filling the repo's PR temp
      - Checklists: leave items unchecked unless the diff clearly satisfies them
    - If no template: write a Summary of what changed and why
    - If the branch name contains a recognizable issue/ticket ID, include it (e.g., `Fixes #123`, `Fixes FOO-123`). If none found, skip
-   - **PR title**: Search `.github/` for title validation rules (e.g., `pr-title-checker-config.json`, workflows with title checks, commitlint/semantic-release configs). If found, generate a title matching the required pattern. If none found, generate a concise title (under 70 chars)
+   - **PR title**: Search `.github/` for title validation rules (e.g., `pr-title-checker-config.json`, workflows with title checks, commitlint/semantic-release configs). If found, generate a title matching the required pattern. If none found, generate a concise title (under 70 chars). When past PRs were fetched in step 3, mirror their title format (prefix conventions, casing, length) as a secondary guide
+   - **Style alignment with past PRs**: If past PRs were fetched, match their tone and granularity (bullet vs. prose, depth of detail, presence/absence of optional sections). Validation rules and template structure still take precedence over past-PR style
 
 6. **Fetch Available Labels**
    - `gh label list --limit 200`
-   - Recommend 1-3 high-signal labels with short reasons
+   - Recommend 1-3 high-signal labels with short reasons. If past PRs were fetched in step 3, prefer labels the user has actually applied before when they fit the current diff
 
 7. **Confirm and Create**
    - Display: base branch, title, body, label recommendations
