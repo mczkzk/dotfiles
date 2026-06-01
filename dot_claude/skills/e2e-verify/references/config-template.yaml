@@ -1,6 +1,13 @@
 # .claude/e2e-verify/config.yaml
-url: "http://localhost:3000"
+url: "http://localhost:3000"                # default target (single-env case)
+account: "local"                            # default login account key in .claude/config.yaml `accounts`
+
+environments:                               # optional: per-env url + account, select via arg e.g. `/e2e-verify pr dev`
+  local: { url: "http://localhost:3000",   account: "local" }
+  dev:   { url: "https://dev.example.com", account: "dev" }
+  stg:   { url: "https://stg.example.com", account: "stg" }
+  # prod is intentionally excluded: e2e-verify targets un-released PR changes, and write steps against prod are unsafe
+
 prefer-selector: "data-testid"              # optional: priority attribute for element selection
 component-gotchas: ".claude/e2e-verify/component-gotchas.md"  # optional
 navigation-recipes: ".claude/e2e-verify/recipes.yaml"          # optional
-account: "developer"                        # optional: login account key in .claude/config.yaml `accounts` (default: developer)
