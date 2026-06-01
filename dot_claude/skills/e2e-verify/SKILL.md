@@ -14,6 +14,7 @@ Playwright MCP を使って UI 変更を視覚的に検証する。
 2. **Playwright MCP** — `ToolSearch` で `mcp__playwright__browser_navigate` を取得。なければ中断。
 3. **Component Gotchas** — 設定の `component-gotchas` パスがあれば Read ツールで読み込む。
 4. **App running** — 設定の `url` にアクセスできること。
+5. **認証情報（ログイン必須アプリのみ）** — `.claude/config.yaml` の `accounts.developer`（email/password）を Read で取得。別キーは e2e-verify config の `account:` で指定。`accounts` が無ければスキップ。
 
 ## Verification Steps の取得
 
@@ -50,10 +51,11 @@ Playwright MCP を使って UI 変更を視覚的に検証する。
 ## Execution
 
 1. **Navigate** — 設定の `url` にアクセス。
-2. **Follow steps** — スナップショットで要素を特定 → クリック/入力 → 次のステップ。
-3. **Screenshot at key points** — 検証ポイントで `browser_take_screenshot` を撮影。
-4. **Rapid capture** — クリック直後の状態（スピナー等）を撮りたい場合は `browser_run_code` で操作とスクリーンショットを一括実行。
-5. **Wait appropriately** — ページ遷移やデータロード後は `browser_wait_for` で 2-5 秒待つ。
+2. **Login** — ログインフォームが出たら email/password を入力して送信、`browser_wait_for` で遷移を待つ。出なければスキップ。
+3. **Follow steps** — スナップショットで要素を特定 → クリック/入力 → 次のステップ。
+4. **Screenshot at key points** — 検証ポイントで `browser_take_screenshot` を撮影。
+5. **Rapid capture** — クリック直後の状態（スピナー等）を撮りたい場合は `browser_run_code` で操作とスクリーンショットを一括実行。
+6. **Wait appropriately** — ページ遷移やデータロード後は `browser_wait_for` で 2-5 秒待つ。
 
 ### Screenshot output
 
