@@ -24,5 +24,6 @@
 ## Code Style
 - Before writing code, read existing code in the same file/directory to match its patterns
 - Comments: only write intent (Why), not obvious operations (What)
+- Comments must be plain language anyone can understand. No jargon or abbreviations that require prior knowledge (e.g., "no-op")
 - Comments language: match existing comments in the file. New files use English
 - When date/day-of-week matters, always run `date` to get the actual value. Never guess

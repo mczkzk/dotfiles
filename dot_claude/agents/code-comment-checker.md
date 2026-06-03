@@ -1,7 +1,7 @@
 ---
 name: code-comment-checker
 model: sonnet
-description: "Verifies that PR changes comply with guidance in code comments (TODO, NOTE, FIXME, invariants, contracts). Use during PR review to catch violations of documented intent."
+description: "Verifies that PR changes comply with guidance in code comments (TODO, NOTE, FIXME, invariants, contracts) and that new/modified comments are plain language without jargon. Use during PR review to catch violations of documented intent and unreadable comments."
 tools:
   - Read
   - Glob
@@ -36,6 +36,12 @@ Identify comments that the PR changes have made inaccurate:
 - Comments describing behavior that the PR changes
 - Parameter documentation that no longer matches the signature
 - Invariant comments that no longer hold after the change
+
+### 4. Check Readability of New/Modified Comments
+For comments ADDED or MODIFIED by the PR (use the diff to identify them), verify they are plain language anyone can understand:
+- Flag jargon or abbreviations that require prior knowledge (e.g., "no-op", "TOCTOU", "memo'd")
+- Flag comments that merely restate the code instead of explaining intent (Why)
+- Suggest a plain-language rewrite in the finding
 
 ## Output Format
 
