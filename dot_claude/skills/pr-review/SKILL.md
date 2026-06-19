@@ -159,7 +159,7 @@ For CLAUDE.md-flagged issues, the scorer must verify the CLAUDE.md actually call
 - **Logic**: Implementation, edge cases
 - **Performance**: Cost profile changes in shared code, hot path impact, caching correctness
 - **Security**: Authorization in call chain, data access checks, cross-resource ownership, entry point validation
-- **Smells**: Duplication, dead code, hardcoded values, reinventing existing definitions
+- **Smells**: Duplication, dead code, hardcoded values, magic numbers, reinventing existing definitions
 - **Architecture**: Pattern violations, separation of concerns
 - **Testing**: Coverage, quality
 
