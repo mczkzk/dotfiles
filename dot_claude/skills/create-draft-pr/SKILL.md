@@ -48,7 +48,7 @@ Create a draft GitHub PR for the current branch, auto-filling the repo's PR temp
      - **Do NOT omit a section just because there is nothing to add**. If a section is not applicable, write `N/A` (or follow the template's own convention if it specifies one) rather than deleting it
      - **Do NOT rewrite or paraphrase fixed text**. If unsure whether a line is fixed boilerplate or a placeholder, keep it
      - Checklists: leave items unchecked unless the diff clearly satisfies them
-   - **Testing/verification sections**: Check `.github/workflows/` for what runs automatically on PRs (tests, lint, type checks). Do NOT list those runs in the testing plan; CI already reports them on the PR. Write only verification CI does not cover: manual testing steps, visual/UI checks, local-only scripts, environment-specific checks. If nothing beyond CI was done, state that briefly (e.g., `Covered by CI`)
+   - **Testing/verification sections**: Fill per the testing-plan rule in Mandatory Rules
    - If no template: write a Summary of what changed and why
    - If the branch name contains a recognizable issue/ticket ID, include it (e.g., `Fixes #123`, `Fixes FOO-123`). If none found, skip
    - **PR title**: Search `.github/` for title validation rules (e.g., `pr-title-checker-config.json`, workflows with title checks, commitlint/semantic-release configs). If found, generate a title matching the required pattern. If none found, generate a concise title (under 70 chars). When past PRs were fetched in step 3, mirror their title format (prefix conventions, casing, length) as a secondary guide
@@ -72,6 +72,7 @@ Create a draft GitHub PR for the current branch, auto-filling the repo's PR temp
 ## Mandatory Rules
 
 - **Explicit user confirmation is required before creating the PR**
+- **Testing plan excludes everything CI runs.** Before filling any testing/verification section, check `.github/workflows/` for what runs automatically on PRs. Whatever CI runs (unit tests, lint, type checks, build) is NEVER reviewer verification and must NOT appear in the testing plan — CI already reports it. Example: if a workflow runs unit tests, do not write "run unit tests" as a verification step. List ONLY what CI cannot do: manual UI steps, visual verification, environment-specific or local-only checks. If nothing beyond CI applies, write `Covered by CI`
 - **Never delete or paraphrase fixed text in the PR template** (headings, instructions, checklists, HTML comments, boilerplate). Only fill variable parts. "No change needed" does NOT mean "can be omitted"
 - Never run `gh pr create` without approval
 - Never force-push or modify commit history
