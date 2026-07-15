@@ -9,6 +9,9 @@ $REQUIREMENTS
 ## Related Context
 $RELATED_CONTEXT
 
+## Edge & Negative Cases
+*The ticket's examples are the happy path. List inputs where they don't generalize (unbalanced-per-partition, unassigned/zero/empty) and whether the feature can return no valid output. Cover each with a test.*
+
 ## Investigation Notes
 *Populated during feature-dev exploration. Keep updated.*
 

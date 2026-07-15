@@ -60,6 +60,8 @@ Read the template from `${CLAUDE_SKILL_DIR}/references/plan-template.md` and fil
 - `$REQUIREMENTS` -- from JIRA/GitHub/user description, be specific
 - `$RELATED_CONTEXT` -- links to related tickets (with status and summary), key decisions from comments/discussions
 
+Leave the template's **Edge & Negative Cases** section for feature-dev to fill during exploration; seed a bullet now only if a negative case is already obvious from the ticket.
+
 Save to `.claude/tasks/$FEATURE_ID/plan.md`.
 
 This file is intentionally lean. feature-dev fills in architecture and implementation details during its phases.

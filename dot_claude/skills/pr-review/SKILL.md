@@ -65,7 +65,7 @@ Launch **ALL of the following in parallel**. Each agent returns a list of issues
 
 **CRITICAL instruction for ALL agents**: Do NOT create any files (no `review.md`, no reports). Return findings as text output only. File writing is handled exclusively in Phase 6.
 
-Agents are grouped by analysis scope. All 11 run in parallel.
+Agents are grouped by analysis scope. All 12 run in parallel.
 
 **Group 1 — Surface scan** (general defects visible in the diff)
 
@@ -103,13 +103,19 @@ Agents are grouped by analysis scope. All 11 run in parallel.
 | **J** | `git-historian` | Read git blame and history of modified code to identify bugs in light of historical context (e.g., reverted patterns being reintroduced) |
 | **K** | `past-pr-reviewer` | Read previous PRs that touched these files, check for review comments that may also apply |
 
+**Group 6 — Behavioral / adversarial** (attacks the feature's output validity, not just the diff's correctness)
+
+| Agent | Type | Responsibility |
+|-------|------|----------------|
+| **L** | `output-validity-checker` | Attack the feature's output validity: treat the ticket's worked examples as the happy path, construct normal-but-unbalanced / partitioned inputs they do NOT cover, and **reproduce empirically** whether the change can return **no valid output** (infeasible / empty / error). Skips itself if the diff touches no solver / optimizer / validator / allocator / calculation and no input-partitioning rule. See the agent definition for method |
+
 Also in parallel with the agents above (optional, skip if MCP unavailable):
 
 - **External Context**:
   - **Slack**: Search for the PR URL or ticket key in relevant channels. Check for urgency signals
   - **Jira (related tickets)**: If the main ticket has issue links or belongs to an Epic, fetch linked issues
 
-**Wait for ALL 11 agents to complete before proceeding to Phase 4.** External Context may still be in progress; it will be used in Phase 5.
+**Wait for ALL 12 agents to complete before proceeding to Phase 4.** External Context may still be in progress; it will be used in Phase 5.
 
 ### Phase 4: Confidence Scoring (depends on Phase 3 agents ALL complete)
 
@@ -121,6 +127,8 @@ For each finding from Phase 3, launch a **separate haiku agent** to score it ind
   - `100`: Absolutely certain. Double-checked and confirmed. Happens frequently, evidence directly confirms
 
 For CLAUDE.md-flagged issues, the scorer must verify the CLAUDE.md actually calls out that issue specifically.
+
+Do not downgrade an output-validity finding (feature can return no valid result) on reachability alone: a score below `50` requires a reproduction attempt that failed to trigger it, not an "unrealistic input" argument.
 
 **Wait for ALL scorers to complete before proceeding.**
 
@@ -135,6 +143,7 @@ For CLAUDE.md-flagged issues, the scorer must verify the CLAUDE.md actually call
   - Prepend `[URGENT]` if urgency signals found (direct mentions requesting review, deadline pressure, CVE/security fixes)
 - **Important**: Only flag findings in files tracked by git (`git ls-files`). Do NOT flag content in `.gitignore`d or auto-generated files
 - Create Verification Plan: prerequisites, setup, test scenarios, expected results
+  - Include one **negative scenario** for the core output (from agent L), and mark it **MUST-EXECUTE before merge** (via `/e2e-verify` or a unit repro)
 
 ### Phase 6: Output (depends on Phase 5)
 
@@ -151,7 +160,8 @@ For CLAUDE.md-flagged issues, the scorer must verify the CLAUDE.md actually call
 - Flag verifiable problems only
 - Ask questions when uncertain
 - Don't criticize patterns already established in the project
-- **Review language**: Detect the PR language from title/body/comments. If the PR is in English, each finding in `review.md` must include a `> **PR Comment (EN):**` block right after the Japanese explanation. This block should be copy-pasteable as a GitHub review comment. If the PR is in Japanese, Japanese only.
+- **The worked examples are the happy path, not the spec** — for solvers/validators/calculations or input-partitioning changes, reproduce whether normal-but-unbalanced input can yield no valid result
+- **Review language**: Detect the PR language from title/body/comments. If the PR is in English, each finding in `review.md` must include a **PR Comment (EN)** block right after the Japanese explanation, written as a fenced code block so it copies cleanly (no `>` blockquote prefixes). If the PR is in Japanese, Japanese only. Do NOT use `>` blockquotes for these comment blocks.
 
 ## Criteria
 
@@ -178,20 +188,24 @@ For CLAUDE.md-flagged issues, the scorer must verify the CLAUDE.md actually call
    - `[QUESTION]`: Clarifications needed
    - `[FYI]`: Notes and references
 
-   For English PRs, each finding in `review.md` should follow this format:
+   For English PRs, each finding in `review.md` should follow this format
+   (the PR Comment goes in a fenced code block — NOT a `>` blockquote — so it
+   copies cleanly into a GitHub review comment):
 
-   ```markdown
+   ````markdown
    ### [SHOULD] 日本語の説明タイトル (confidence: 85)
 
    https://github.com/{owner}/{repo}/blob/{full-sha}/path/to/file.ext#L13-L17
 
    日本語での詳細説明...
 
-   > **PR Comment (EN):**
-   > `_setShrink` is missing the `private` modifier. Other event handlers
-   > in this file (`_setIncludesStockpileVolume`, `_setIsShrinkMenuOn`)
-   > all use `private`.
+   **PR Comment (EN):**
+
    ```
+   `_setShrink` is missing the `private` modifier. Other event handlers in this
+   file (`_setIncludesStockpileVolume`, `_setIsShrinkMenuOn`) all use `private`.
+   ```
+   ````
 
    For Japanese PRs:
 

@@ -31,7 +31,7 @@ dot_claude/
 | `/custom-feature-dev` | manual | Fetches JIRA/GitHub context, creates plan.md/SPEC.md, launches `/feature-dev:feature-dev` |
 | `/custom-simplify` | manual | Convention check + test → `/simplify` with context |
 | `/create-draft-pr` | manual | One-shot. Creates draft PR with auto-filled template |
-| `/pr-review` | manual | Orchestrated PR review: 10 parallel agents + confidence scoring + JIRA/Slack/plan.md context |
+| `/pr-review` | manual | Orchestrated PR review: 11 parallel agents + confidence scoring + JIRA/Slack/plan.md context |
 | `/pr-review-respond` | manual | Interactive. Refine reply text |
 | `/scrum-poker` | manual | One-shot. Returns estimate only |
 | `/jira-fetch` | manual | One-shot. Fetches JIRA ticket to `.claude/tasks/` |
@@ -88,6 +88,7 @@ Defined in `agents/`, invoked by skills via the Agent tool.
 | `claim-verifier` | sonnet | pr-review | Verify strong claims in comments match code behavior |
 | `performance-checker` | sonnet | pr-review | Detect performance regressions on hot paths |
 | `symmetry-checker` | sonnet | pr-review | Find asymmetric validation / control-flow gaps |
+| `output-validity-checker` | sonnet | pr-review | Adversarially test whether normal input can yield no valid result |
 
 Note: `/deep-dive` also supports **agent teams** (experimental) for parallel hypothesis-driven investigation where teammates debate and disprove each other's theories. Enabled via `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` in settings.json.
 
