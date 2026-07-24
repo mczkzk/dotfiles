@@ -48,6 +48,7 @@ Create a draft GitHub PR for the current branch, auto-filling the repo's PR temp
      - **Do NOT omit a section just because there is nothing to add**. If a section is not applicable, write `N/A` (or follow the template's own convention if it specifies one) rather than deleting it
      - **Do NOT rewrite or paraphrase fixed text**. If unsure whether a line is fixed boilerplate or a placeholder, keep it
      - Checklists: leave items unchecked unless the diff clearly satisfies them
+   - **Describe behavior, not files**: In any free-form description section (whatever the template names it), explain what changes for the user and why. Do NOT produce a file-by-file breakdown (`path — did X`); the diff already lists the files. Naming the 1-2 riskiest files for reviewers is fine, a full per-file inventory is not
    - **Testing/verification sections**: Fill per the testing-plan rule in Mandatory Rules
    - If no template: write a Summary of what changed and why
    - If the branch name contains a recognizable issue/ticket ID, include it (e.g., `Fixes #123`, `Fixes FOO-123`). If none found, skip
@@ -83,6 +84,6 @@ Create a draft GitHub PR for the current branch, auto-filling the repo's PR temp
 
 - English title and summary
 - Label names are case-sensitive; use exact repository label names
-- **Prioritize over enumerate**: Only include high-impact changes. Skip trivial details
+- **Prioritize over enumerate**: Only include high-impact changes. Skip trivial details. "Enumerate" includes file-by-file breakdowns — describe behavior, not a per-file change list
 - Leverage plan context when available
 - If PR already exists for this branch, notify the user and abort
