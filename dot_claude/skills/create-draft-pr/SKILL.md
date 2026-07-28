@@ -97,8 +97,9 @@ Author a PR body for the current branch, filling the repo's template.
 ## Mandatory Rules
 
 - **Get explicit approval before creating or updating a PR.** Never run `gh pr create` or `gh pr edit` unattended
-- **Build the testing plan as one numbered list, each step an action → the observed result.** No parallel "what I verified" section: it restates every claim twice, once past tense and once imperative. If a bullet in one section maps 1:1 onto a step in another, they are the same list. Three further constraints:
+- **Build the testing plan as one numbered list, each step an action → the observed result.** No parallel "what I verified" section: it restates every claim twice, once past tense and once imperative. If a bullet in one section maps 1:1 onto a step in another, they are the same list. Four further constraints:
   - **The result must be checkable by the reviewer, not just by you.** "16,874 chars" is your measurement and means nothing on their data; "`diff` prints nothing" is a criterion they can apply. Quote your own counts only as corroboration, never as the pass condition
+  - **State preconditions as requirements, then give an example.** "Needs an area split so that some rows carry a layer range and others do not. For example: …" reads as a condition the reviewer can satisfy their own way. "Setup: one area split, three distributions" reads as an order to reproduce your exact data
   - **Exclude everything CI runs.** Check `.github/workflows/` first; unit tests, lint, type checks and builds are never reviewer verification. List only what CI cannot do: manual UI steps, visual checks, environment-specific work. If nothing remains, write `Covered by CI`
   - **Keep the evidence symmetric.** If some steps carry a screenshot and one does not, that gap reads as an oversight. Either give it evidence or say plainly why it has none
 - **Execute every procedure you write.** Menu paths, commands and file pairings go in only after you have run them and seen the result. A path recalled from memory is a guess, and a wrong one costs the reviewer more time than the whole section saves
