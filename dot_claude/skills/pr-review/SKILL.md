@@ -61,7 +61,14 @@ Launch **2a and 2b in parallel**:
 
 ### Phase 3: Review + External Context (batched, depends on Phase 2)
 
-Launch the agents below in **3 batches**. Wait for every agent in a batch to report before launching the next batch. **Never have more than 5 agents running at the same time.** A wider fan-out has twice broken every file operation in the session (Bash / Read / Write / Agent all failing with `EPERM`, unrecoverable from inside the session), because the harness cannot keep up with creating the per-agent bookkeeping files.
+Launch the agents below in **3 batches**. Wait for every agent in a batch to report before launching the next batch.
+
+**Two hard limits, both required:**
+
+1. **Never pass `name` to the Agent tool.** A named agent becomes a persistent background session: after reporting it goes `idle: available` instead of terminating, and keeps its mailbox and transcript files alive for the rest of the session. An unnamed agent returns its report as an ordinary tool result and exits. Naming also routes reports through the mailbox, which is where they start getting silently dropped first.
+2. **Never exceed 12 agents for the entire session.** The batch table below is exactly 12. Batching alone bounds nothing, because reporting is not terminating. What exhausts the harness is the cumulative number of live agents, not how many run at once.
+
+Exceeding either has three times broken every file operation in the session (Bash / Read / Write / Agent all failing with `EPERM`, unrecoverable from inside the session). **The first symptom is agents' final reports not arriving and having to be re-requested by message.** If that starts happening, stop launching agents and finish the review with what you already have.
 
 | Batch | Agents | Count |
 |-------|--------|-------|
@@ -72,6 +79,8 @@ Launch the agents below in **3 batches**. Wait for every agent in a batch to rep
 External Context (Slack / Jira, listed at the end of this phase) may be fetched together with batch 1.
 
 While Phase 3 is running, do **not** use `Monitor` and do **not** start background `Bash` commands. Agent completion arrives on its own as a task notification, so a waiting loop is never needed. If a test suite has to be run, run it by itself either before batch 1 or after batch 3.
+
+Watch for the degradation signal: if an agent finishes but its report never arrives, that is bookkeeping-write pressure, not a stalled agent. Re-request it once, and treat a second occurrence as a stop signal for launching anything further.
 
 **CRITICAL instructions for ALL agents** (pass these verbatim to every agent):
 - Do NOT create any files inside the repository (no `review.md`, no reports, no scratch spec files). Return findings as text output only. File writing is handled exclusively in Phase 6
@@ -137,18 +146,20 @@ Also in parallel with the agents above (optional, skip if MCP unavailable):
 
 ### Phase 4: Confidence Scoring (depends on Phase 3 agents ALL complete)
 
-Score the Phase 3 findings with **haiku agents, up to 5 findings per agent** (5 findings or fewer in total = a single agent). Independence comes from the scorer being a different agent than the one that raised the finding, not from one agent per finding. The concurrent agent limit of 5 applies here too. Each scorer receives: the PR diff, the findings assigned to it, and the list of CLAUDE.md/rules files from 2b, and returns a score (0-100) per finding. Scoring rubric (give verbatim to each scorer agent):
+Score the Phase 3 findings **yourself, inline. Do not spawn scorer agents.** The 12-agent budget is fully consumed by Phase 3, and the scorers were the agents alive at the moment the session's file I/O collapsed the last time this was attempted. Independence is preserved without them: you raised none of these findings, so you are already a different reader than the agent that produced each one.
+
+Score each finding against the rubric below, re-reading the diff and the cited lines rather than trusting the raising agent's framing. State a score (0-100) and one or two sentences of justification per finding. Scoring rubric:
   - `0`: Not confident at all. False positive that doesn't stand up to light scrutiny, or a pre-existing issue
   - `25`: Somewhat confident. Might be real, but could be a false positive. Couldn't verify. If stylistic, not explicitly called out in CLAUDE.md/rules
   - `50`: Moderately confident. Verified real, but a nitpick or rare in practice. Not very important relative to the PR
   - `75`: Highly confident. Double-checked and very likely real and will be hit in practice. Directly mentioned in CLAUDE.md/rules
   - `100`: Absolutely certain. Double-checked and confirmed. Happens frequently, evidence directly confirms
 
-For CLAUDE.md-flagged issues, the scorer must verify the CLAUDE.md actually calls out that issue specifically.
+For CLAUDE.md-flagged issues, verify the CLAUDE.md actually calls out that issue specifically.
 
 Do not downgrade an output-validity finding (feature can return no valid result) on reachability alone: a score below `50` requires a reproduction attempt that failed to trigger it, not an "unrealistic input" argument.
 
-**Wait for ALL scorers to complete before proceeding.**
+**Score every finding before proceeding.** No agent is launched in this phase.
 
 ### Phase 5: Integrate (depends on Phase 3 External Context + Phase 4 BOTH complete)
 
