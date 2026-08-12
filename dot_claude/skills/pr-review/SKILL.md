@@ -59,35 +59,24 @@ Launch **2a and 2b in parallel**:
 
 **Wait for both 2a and 2b to complete before proceeding.**
 
-### Phase 3: Review + External Context (batched, depends on Phase 2)
+### Phase 3: Review + External Context (depends on Phase 2)
 
-Launch the agents below in **3 batches**. Wait for every agent in a batch to report before launching the next batch.
+Launch the 12 agents below. They are independent, so fan them out in parallel rather than one at a time.
 
-**Two hard limits, both required:**
+**Never pass `name` to the Agent tool.** A named agent becomes a persistent background session: it goes `idle: available` instead of terminating, keeps its transcript alive for the rest of the session, and routes its report through a mailbox file under `~/.claude/teams/session-*/inboxes/`. An unnamed agent returns its report as an ordinary tool result, exits, and creates no mailbox at all.
 
-1. **Never pass `name` to the Agent tool.** A named agent becomes a persistent background session: after reporting it goes `idle: available` instead of terminating, and keeps its mailbox and transcript files alive for the rest of the session. An unnamed agent returns its report as an ordinary tool result and exits. Naming also routes reports through the mailbox, which is where they start getting silently dropped first.
-2. **Never exceed 12 agents for the entire session.** The batch table below is exactly 12. Batching alone bounds nothing, because reporting is not terminating. What exhausts the harness is the cumulative number of live agents, not how many run at once.
+Every recorded failure of this workflow used named agents, and in each one the mailbox write was the first thing to fail, followed by every file operation in the session (Bash / Read / Write / Agent all failing with `EPERM`, unrecoverable from inside the session). **The first symptom is an agent finishing but its report never arriving.** If that happens, stop launching anything further and finish the review with what you already have.
 
-Exceeding either has three times broken every file operation in the session (Bash / Read / Write / Agent all failing with `EPERM`, unrecoverable from inside the session). **The first symptom is agents' final reports not arriving and having to be re-requested by message.** If that starts happening, stop launching agents and finish the review with what you already have.
+Agent completion arrives on its own as a task notification, so never poll for it with a waiting loop.
 
-| Batch | Agents | Count |
-|-------|--------|-------|
-| **1** | Group 1 (A surface, B security) + Group 2 (C convention, D comments) | 4 |
-| **2** | Group 3 (E symmetry, F claims) + Group 4 (G tracer, H perf, I reuse) | 5 |
-| **3** | Group 5 (J history, K past-pr) + Group 6 (L output-validity) | 3 |
-
-External Context (Slack / Jira, listed at the end of this phase) may be fetched together with batch 1.
-
-While Phase 3 is running, do **not** use `Monitor` and do **not** start background `Bash` commands. Agent completion arrives on its own as a task notification, so a waiting loop is never needed. If a test suite has to be run, run it by itself either before batch 1 or after batch 3.
-
-Watch for the degradation signal: if an agent finishes but its report never arrives, that is bookkeeping-write pressure, not a stalled agent. Re-request it once, and treat a second occurrence as a stop signal for launching anything further.
+External Context (listed at the end of this phase) may be fetched in parallel with the agents.
 
 **CRITICAL instructions for ALL agents** (pass these verbatim to every agent):
 - Do NOT create any files inside the repository (no `review.md`, no reports, no scratch spec files). Return findings as text output only. File writing is handled exclusively in Phase 6
 - If a reproduction test really is unavoidable, put it **only** under the scratchpad directory given in the prompt. Creating files anywhere in the repository working tree is forbidden, even if they are deleted afterwards
 - Before returning, run `git status --short`, confirm the working tree is clean, and report that result
 
-Each agent returns a list of issues with the reason each was flagged. Agents are grouped by analysis scope.
+Each agent returns a list of issues with the reason each was flagged.
 
 **Group 1 — Surface scan** (general defects visible in the diff)
 
@@ -137,7 +126,7 @@ Also in parallel with the agents above (optional, skip if MCP unavailable):
   - **Slack**: Search for the PR URL or ticket key in relevant channels. Check for urgency signals
   - **Jira (related tickets)**: If the main ticket has issue links or belongs to an Epic, fetch linked issues
 
-**Wait for every agent in a batch to report before launching the next batch, and for all 3 batches to finish before proceeding to Phase 4.** External Context may still be in progress; it will be used in Phase 5.
+**All 12 agents must report before Phase 4.** External Context may still be in progress; it is used in Phase 5.
 
 **If an agent becomes unresponsive** and cannot be revived:
 - Write its scope into an **Uncovered areas (未カバー領域)** section of Findings, naming the agent and what it was supposed to check
@@ -146,7 +135,7 @@ Also in parallel with the agents above (optional, skip if MCP unavailable):
 
 ### Phase 4: Confidence Scoring (depends on Phase 3 agents ALL complete)
 
-Score the Phase 3 findings **yourself, inline. Do not spawn scorer agents.** The 12-agent budget is fully consumed by Phase 3, and the scorers were the agents alive at the moment the session's file I/O collapsed the last time this was attempted. Independence is preserved without them: you raised none of these findings, so you are already a different reader than the agent that produced each one.
+Score the Phase 3 findings **yourself, inline. Do not spawn scorer agents.** Independence does not require them: you raised none of these findings, so you are already a different reader than the agent that produced each one, and scoring inline forces you to re-read the diff yourself.
 
 Score each finding against the rubric below, re-reading the diff and the cited lines rather than trusting the raising agent's framing. State a score (0-100) and one or two sentences of justification per finding. Scoring rubric:
   - `0`: Not confident at all. False positive that doesn't stand up to light scrutiny, or a pre-existing issue
@@ -190,7 +179,7 @@ Do not downgrade an output-validity finding (feature can return no valid result)
 - Ask questions when uncertain
 - Don't criticize patterns already established in the project
 - **The worked examples are the happy path, not the spec** — for solvers/validators/calculations or input-partitioning changes, reproduce whether normal-but-unbalanced input can yield no valid result
-- **Review language**: Detect the PR language from title/body/comments. If the PR is in English, each finding in `review.md` must include a **PR Comment (EN)** block right after the Japanese explanation, written as a fenced code block so it copies cleanly (no `>` blockquote prefixes). If the PR is in Japanese, Japanese only. Do NOT use `>` blockquotes for these comment blocks.
+- **Review language**: Detect the PR language from title/body/comments. For an English PR, each finding in `review.md` gets a **PR Comment (EN)** block right after the Japanese explanation, written as a fenced code block (never a `>` blockquote) so it copies cleanly. For a Japanese PR, Japanese only
 
 ## Criteria
 
@@ -217,9 +206,7 @@ Do not downgrade an output-validity finding (feature can return no valid result)
    - `[QUESTION]`: Clarifications needed
    - `[FYI]`: Notes and references
 
-   For English PRs, each finding in `review.md` should follow this format
-   (the PR Comment goes in a fenced code block — NOT a `>` blockquote — so it
-   copies cleanly into a GitHub review comment):
+   For English PRs, each finding in `review.md` follows this format:
 
    ````markdown
    ### [SHOULD] 日本語の説明タイトル (confidence: 85)
@@ -245,4 +232,3 @@ Do not downgrade an output-validity finding (feature can return no valid result)
 
    詳細説明...
    ```
-
