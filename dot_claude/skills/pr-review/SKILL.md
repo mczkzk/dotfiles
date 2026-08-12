@@ -59,13 +59,26 @@ Launch **2a and 2b in parallel**:
 
 **Wait for both 2a and 2b to complete before proceeding.**
 
-### Phase 3: Review + External Context (parallel, depends on Phase 2)
+### Phase 3: Review + External Context (batched, depends on Phase 2)
 
-Launch **ALL of the following in parallel**. Each agent returns a list of issues with the reason each was flagged.
+Launch the agents below in **3 batches**. Wait for every agent in a batch to report before launching the next batch. **Never have more than 5 agents running at the same time.** A wider fan-out has twice broken every file operation in the session (Bash / Read / Write / Agent all failing with `EPERM`, unrecoverable from inside the session), because the harness cannot keep up with creating the per-agent bookkeeping files.
 
-**CRITICAL instruction for ALL agents**: Do NOT create any files (no `review.md`, no reports). Return findings as text output only. File writing is handled exclusively in Phase 6.
+| Batch | Agents | Count |
+|-------|--------|-------|
+| **1** | Group 1 (A surface, B security) + Group 2 (C convention, D comments) | 4 |
+| **2** | Group 3 (E symmetry, F claims) + Group 4 (G tracer, H perf, I reuse) | 5 |
+| **3** | Group 5 (J history, K past-pr) + Group 6 (L output-validity) | 3 |
 
-Agents are grouped by analysis scope. All 12 run in parallel.
+External Context (Slack / Jira, listed at the end of this phase) may be fetched together with batch 1.
+
+While Phase 3 is running, do **not** use `Monitor` and do **not** start background `Bash` commands. Agent completion arrives on its own as a task notification, so a waiting loop is never needed. If a test suite has to be run, run it by itself either before batch 1 or after batch 3.
+
+**CRITICAL instructions for ALL agents** (pass these verbatim to every agent):
+- Do NOT create any files inside the repository (no `review.md`, no reports, no scratch spec files). Return findings as text output only. File writing is handled exclusively in Phase 6
+- If a reproduction test really is unavoidable, put it **only** under the scratchpad directory given in the prompt. Creating files anywhere in the repository working tree is forbidden, even if they are deleted afterwards
+- Before returning, run `git status --short`, confirm the working tree is clean, and report that result
+
+Each agent returns a list of issues with the reason each was flagged. Agents are grouped by analysis scope.
 
 **Group 1 — Surface scan** (general defects visible in the diff)
 
@@ -115,11 +128,16 @@ Also in parallel with the agents above (optional, skip if MCP unavailable):
   - **Slack**: Search for the PR URL or ticket key in relevant channels. Check for urgency signals
   - **Jira (related tickets)**: If the main ticket has issue links or belongs to an Epic, fetch linked issues
 
-**Wait for ALL 12 agents to complete before proceeding to Phase 4.** External Context may still be in progress; it will be used in Phase 5.
+**Wait for every agent in a batch to report before launching the next batch, and for all 3 batches to finish before proceeding to Phase 4.** External Context may still be in progress; it will be used in Phase 5.
+
+**If an agent becomes unresponsive** and cannot be revived:
+- Write its scope into an **Uncovered areas (未カバー領域)** section of Findings, naming the agent and what it was supposed to check
+- Never invent results, and never write up a verification you did not actually run as if it had run
+- If file writing itself has stopped working, skip `review.md` (Phase 6a) and output the full review text in the conversation instead
 
 ### Phase 4: Confidence Scoring (depends on Phase 3 agents ALL complete)
 
-For each finding from Phase 3, launch a **separate haiku agent** to score it independently (0-100). The scorer receives: the PR diff, the finding description, and the list of CLAUDE.md/rules files from 2b. Scoring rubric (give verbatim to each scorer agent):
+Score the Phase 3 findings with **haiku agents, up to 5 findings per agent** (5 findings or fewer in total = a single agent). Independence comes from the scorer being a different agent than the one that raised the finding, not from one agent per finding. The concurrent agent limit of 5 applies here too. Each scorer receives: the PR diff, the findings assigned to it, and the list of CLAUDE.md/rules files from 2b, and returns a score (0-100) per finding. Scoring rubric (give verbatim to each scorer agent):
   - `0`: Not confident at all. False positive that doesn't stand up to light scrutiny, or a pre-existing issue
   - `25`: Somewhat confident. Might be real, but could be a false positive. Couldn't verify. If stylistic, not explicitly called out in CLAUDE.md/rules
   - `50`: Moderately confident. Verified real, but a nitpick or rare in practice. Not very important relative to the PR
