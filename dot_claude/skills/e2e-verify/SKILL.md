@@ -157,7 +157,14 @@ async (page) => {
 タグは**証拠になっている値（サイズ列・件数・日時など）に被せない**。空いている列や余白に置く。
 色: 🔴 変化した主役 / 🟠 対になる別の側 / 🟢 不変の対照。
 
-#### 3. 実装
+#### 3. DevTools の画面が要るとき
+
+Network の Payload、Console、Performance など **DevTools 自体**を撮る必要があるなら
+`references/devtools-capture.md` を読む。Playwright MCP のブラウザでは撮れないが、
+**DevTools ウィンドウは CDP の page ターゲットなので、ポート付きで起動した Chrome になら
+接続して撮れる**（追加ライブラリ不要）。「撮れないからテキストで代用」は最後の手段。
+
+#### 4. 実装
 
 `browser_evaluate` で **ライブ画面に overlay div を注入 → そのまま撮影**（ピクセル完全一致、
 外部ライブラリ不要）。枠は `position:fixed` / `border:3px solid` / `pointerEvents:none` /
