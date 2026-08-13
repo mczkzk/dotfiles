@@ -102,7 +102,7 @@ SKIP してはいけない。その場合は次節の手順で前提条件を能
 1. **Navigate** — Setup 4 で決めたターゲット URL にアクセス。
 2. **Login** — ログインフォームが出たら email/password を入力して送信、`browser_wait_for` で遷移を待つ。出なければスキップ。
 3. **Follow steps** — スナップショットで要素を特定 → クリック/入力 → 次のステップ。
-4. **Screenshot at key points** — 検証ポイントで `browser_take_screenshot` を撮影。差分の核心（変わった箇所・状態）は素撮りで終わらせず、**注釈版（枠 + 凡例）も撮る**（下記「Annotated screenshots」）。
+4. **Screenshot at key points** — 検証ポイントで撮影。**全画面の素撮りをそのまま証拠にしない。関係する領域だけに切り取る**（下記「Cropping and annotation」）。
 5. **Rapid capture** — クリック直後の状態（スピナー等）を撮りたい場合は `browser_run_code` で操作とスクリーンショットを一括実行。
 6. **Wait appropriately** — ページ遷移やデータロード後は `browser_wait_for` で 2-5 秒待つ。
 
@@ -118,17 +118,57 @@ filename: ".claude/tasks/{ISSUE-KEY}/screenshots/<step-N>-<description>.png"
 
 撮影と同じディレクトリに **`README.md`** を必ず置く。スクショだけだと後から「何の画面か」が分からなくなるので、ファイル別の観察事項 + 検証結果サマリ + 未確認/制約 を書く。
 
-### Annotated screenshots（枠 + 凡例）— 差分が一目でわかる証拠にする
+### Cropping and annotation — 貼って伝わる証拠にする
 
-素の全画面スクショは「どこがポイントか」が伝わらない。**注目箇所を色枠で囲み、空きスペースに凡例を置いた注釈版**を撮る。ボタン・入力・トグル・バッジ・グラフ・表など UI の種類を問わず、変化した部分・確認した部分に使える。これを PR に貼れば「どこがどう変わるか」が自明になる。
+**1600×900 の素撮りで関係箇所が 2 割しかない画像は醜い。まず切り取る。** 注釈はその後、
+「切り取っただけでは結論が読めないとき」にだけ足す。順序を逆にすると枠とラベルが増殖する。
 
-やり方（`browser_evaluate` で **ライブ画面に overlay div を注入 → そのまま撮影**。ピクセル完全一致で、外部画像ライブラリ不要）:
+#### 1. 切り取り（必須）
 
-1. 対象要素を `getBoundingClientRect()` で測り、`position:fixed` の枠 div（`border:3px solid <color>` / `pointerEvents:none` / 大きい `zIndex`）を `document.body` に足す。**枠は中身を隠さないよう対象の外周だけ**。
-2. 説明ラベルは**対象に被せない**。余白（空きパネル等）に凡例ボックス（色チップ + 一言）を置く。対象そのものを隠すのは NG。
-3. `browser_take_screenshot` で撮る。後片付けに `document.querySelectorAll('.__hl').forEach(e=>e.remove())`。
-4. 色の使い分け例: 🔴 変化した主役 / 🟠 消えた・無効化された箇所 / 🟢 対照（不変・別軸）の箇所。
-5. **before/after は同一フレーミング**で撮る（対象が画面外なら `scrollIntoView({block:'center'})` してから枠を描く）。1箇所だけ変わる並びにすると差分が刺さる。
+`browser_take_screenshot` に clip は無いので `browser_run_code_unsafe` から
+`page.screenshot({path, clip})` を使う。**clip は対象の外接矩形 + 余白 28px 程度**。
+0〜8px だと枠線が画像の縁に接してギリギリに見える。
+
+```js
+async (page) => {
+  const b = JSON.parse(await page.evaluate(() => { /* 対象の rect を返す */ }));
+  const P = 28, vw = 1680, vh = 900;
+  const clip = {x: Math.max(0, b.x1-P), y: Math.max(0, b.y1-P),
+    width: Math.min(vw, b.x2+P) - Math.max(0, b.x1-P),
+    height: Math.min(vh, b.y2+P) - Math.max(0, b.y1-P)};
+  await page.screenshot({path: '<abs path>', clip});
+}
+```
+
+モーダルやダイアログは**そのモーダルの矩形**を clip にする。左パネルの 1 項目なら
+その項目 + 数十 px。対象が画面外なら `scrollIntoView({block:'center'})` してから測る。
+
+#### 2. 注釈は「素の画像で結論が出ないとき」だけ
+
+判定: **レビュアーに何を結論させたいかを言葉にして、切り取った画像だけでそれが強制されるか**を問う。
+
+| 状況 | 注釈 |
+|---|---|
+| 画面の中身がそのまま結論（ファイル名と件数が主張、項目が 1 つだけ変わった） | **枠なし**。切り取りだけ |
+| どこを見るかが曖昧（画面内に似た要素が並ぶ） | **枠 1 つ**。ラベルなし（手順の本文が説明している） |
+| N 件の対比が主張（3 件 + 1 件、リンクあり/なし） | **枠を N 件すべてに**。1 件だけ囲むと「これが壊れている」に読める。短いタグを添える |
+
+ラベルは長文の凡例ボックスではなく **数語のタグ**（`spreading x3` など）で足りることが多い。
+タグは**証拠になっている値（サイズ列・件数・日時など）に被せない**。空いている列や余白に置く。
+色: 🔴 変化した主役 / 🟠 対になる別の側 / 🟢 不変の対照。
+
+#### 3. 実装
+
+`browser_evaluate` で **ライブ画面に overlay div を注入 → そのまま撮影**（ピクセル完全一致、
+外部ライブラリ不要）。枠は `position:fixed` / `border:3px solid` / `pointerEvents:none` /
+大きい `zIndex`、**対象の外周だけ**を囲んで中身を隠さない。撮影後に
+`document.querySelectorAll('.__hl').forEach(e=>e.remove())` で必ず片付ける。
+
+**UI の見た目を撮影用に改変しない**（列幅を CSS で広げて省略表示を解除する等）。
+レビュアーが実際に見る画面と違うものを見せることになる。名前が省略されて主張が読めないなら、
+タグや手順本文の文字で補う。
+
+**before/after は同一フレーミング**で撮る。1 箇所だけ変わる並びにすると差分が刺さる。
 
 再利用スニペット:
 
