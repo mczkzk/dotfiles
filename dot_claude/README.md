@@ -30,7 +30,7 @@ dot_claude/
 | `/commit` | manual | One-shot. Commits and done |
 | `/custom-feature-dev` | manual | Fetches JIRA/GitHub context, creates plan.md/SPEC.md, launches `/feature-dev:feature-dev` |
 | `/custom-simplify` | manual | Convention check + test → `/simplify` with context |
-| `/create-draft-pr` | manual | One-shot. Creates draft PR with auto-filled template |
+| `/create-pr` | manual | One-shot. Opens a PR with auto-filled template. A repo can ship its own PR skill that supersedes this |
 | `/pr-review` | manual | Orchestrated PR review: 11 parallel agents + confidence scoring + JIRA/Slack/plan.md context |
 | `/pr-review-respond` | manual | Interactive. Refine reply text |
 | `/scrum-poker` | manual | One-shot. Returns estimate only |
@@ -57,7 +57,7 @@ dot_claude/
    - Small: `/simplify`
    - Medium/Large: `/custom-simplify [target]` (convention check + test + simplify)
 3. **E2E** — `/e2e-verify` to verify UI changes with Playwright (optional)
-4. **PR** — `/create-draft-pr` to create draft PR with auto-filled template
+4. **PR** — `/create-pr` to open a PR with auto-filled template
 5. **Review** — fix if needed
    - Default: `/pr-review` (with agents + JIRA/Slack/plan.md)
    - Worried: `/codex:review` or `/codex:adversarial-review` (cross-model; latter challenges design choices)
