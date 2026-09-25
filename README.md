@@ -12,6 +12,11 @@
 1. `cadd <filepath>`
 2. `cpush`
 
+**When `cpush` shows `BOTH: <file>`:**
+Both the home file and the chezmoi source changed, so `cpush` stops without committing. Pick one side, then run `cpush` again:
+- `chezmoi re-add ~/<file>` (keep the home version)
+- `chezmoi apply ~/<file>` (keep the chezmoi source version)
+
 **Sync changes from other PCs:**
 - `cupdate`
 
