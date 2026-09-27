@@ -113,10 +113,12 @@ DEFAULT_BRANCH=$(git remote show origin 2>/dev/null | sed -n 's/.*HEAD branch: /
 
 if [ "$CURRENT" = "$DEFAULT_BRANCH" ]; then
   git fetch origin 2>/dev/null
-  git switch -c "feature/$FEATURE_ID" "origin/$DEFAULT_BRANCH"
-  echo "Created branch feature/$FEATURE_ID. To push: git push -u origin feature/$FEATURE_ID"
+  git switch -c "feature/$FEATURE_ID" --no-track "origin/$DEFAULT_BRANCH"
+  echo "Created branch feature/$FEATURE_ID. Push with plain 'git push' (push.autoSetupRemote creates origin/feature/$FEATURE_ID)."
 fi
 ```
+
+`--no-track` is required: starting from `origin/<default>` otherwise sets the new branch's upstream to the default branch, so `push.autoSetupRemote` never kicks in and `git push` fails with "upstream branch does not match the name of your current branch".
 
 ## Step 7: Launch /feature-dev
 
