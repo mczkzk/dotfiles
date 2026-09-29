@@ -37,6 +37,7 @@ dot_claude/
 | `/jira-fetch` | manual | One-shot. Fetches JIRA ticket to `.claude/tasks/` |
 | `/e2e-verify` | manual | Interactive. Verify UI with Playwright, take screenshots |
 | `/video-debug` | manual | Extract frames from screen recording for visual debugging |
+| `/catchup` | manual/auto | One-shot. Rebuilds context on the current branch's task from `.claude/tasks/`, git, and the PR, then reports progress and the next step |
 | `/spike-branch` | manual | Interactive. Spike implementation on throwaway branch, document findings, split into subtasks |
 | `/deep-dive` | manual | Interactive. Discuss based on findings |
 | `/cc-reference` | manual/auto | Check docs before writing config |
@@ -64,7 +65,7 @@ dot_claude/
 6. **Respond** — `/pr-review-respond` when reviewer leaves comments (especially useful for English replies); fix if needed
 7. **Archive** — Move completed tasks to `.claude/tasks/archive/`
 
-`/commit` after each meaningful change. Push is always manual.
+`/commit` after each meaningful change. Push is always manual. `/catchup` to resume a task at any step (new session or after a context reset).
 
 ### Reviewing others' PRs
 Run **Step 3** (E2E, optional) then **Step 5** (Review) from My PR flow.
