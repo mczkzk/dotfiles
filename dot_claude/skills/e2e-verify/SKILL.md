@@ -1,7 +1,7 @@
 ---
 name: e2e-verify
 description: "Playwright MCP で PR の UI 変更を視覚的に検証する。E2Eテスト、動作確認、UI確認、スクリーンショット撮影に使う。"
-argument-hint: "[env] [pr | auto | verification steps]"
+argument-hint: "[env] [video] [pr | auto | verification steps]"
 ---
 
 # E2E Verification
@@ -14,6 +14,7 @@ Playwright MCP を使って UI 変更を視覚的に検証する。
 2. **Playwright MCP** — `ToolSearch` で `mcp__playwright__browser_navigate` を取得。なければ中断。
 3. **Component Gotchas** — 設定の `component-gotchas` パスがあれば Read ツールで読み込む。
 4. **ターゲット環境決定** — `$ARGUMENTS` のトークンが `environments` のキー（例 `dev`）と一致すればその環境を選び、**そのトークンを `$ARGUMENTS` から除去**する（残りが検証手順の指定）。一致が無ければ top-level `url`（既定=ローカル）。決まった URL にアクセスできること。
+   **`video` トークン**も同様に判定して除去する。あれば録画モードを有効にする（下記「Video (optional)」）。
 5. **認証情報（ログイン必須アプリのみ）** — 使う account は、選んだ環境の `account`、無ければ top-level `account`。`.claude/config.yaml` の `accounts.<key>`（email/password）を Read で取得。`accounts` が無ければスキップ。
 
 ## Verification Steps の取得
@@ -215,6 +216,15 @@ Network の Payload、Console、Performance など **DevTools 自体**を撮る�
 - 要素が intercept → `browser_evaluate` にフォールバック
 - 手順が不明確で進めない → 現在画面のスクリーンショットを撮り、ユーザーに報告
 
+## Video (optional)
+
+`video` 指定時のみ。画像の撮影・切り出しは通常どおり行い、動画は**画像の補足**として追加する（レビュアーは画像なら一目で結果を読めるが、動画は再生しないと読めない）。
+
+- 対象は **NG になったステップ**（再現動画）。NG が無ければ、核心の正常系 1 本だけ撮る。全ステップを撮らない
+- 撮り方は `/e2e-record` スキルに従う（使い捨てデータ、録画なしでの事前通し、1 回のコードで録画、mp4 変換、フレーム一覧での確認）。ここには撮り方を書かない
+- 画像の検証で前提データを作ったなら、録画の前にそのデータを録画前の状態へ戻す
+- 出力の該当ステップに `- **Video**: [path]` を足す
+
 ## Post-verification
 
 **Component Gotchas の更新** — 操作中に新しい gotcha を発見した場合（要素クリックの intercept、disabled 判定の特殊な方法、Shadow DOM の問題など）、`component-gotchas` ファイルに追記する。結果レポートを出す前にこのステップを必ず実行する。
@@ -227,6 +237,7 @@ Network の Payload、Console、Performance など **DevTools 自体**を撮る�
 ### Step 1: [手順の説明]
 - **Status**: OK / NG / SKIP
 - **Screenshot**: [path]
+- (video 指定時、対象ステップのみ) **Video**: [path]
 - **Note**: [観察事項]
 - (SKIP の場合のみ) **SKIP 理由 / 必要セットアップ**: [なぜ実施できなかったか + 実施するなら何が必要か]
 

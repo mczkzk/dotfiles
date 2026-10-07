@@ -35,7 +35,8 @@ dot_claude/
 | `/pr-review-respond` | manual | Interactive. Refine reply text |
 | `/scrum-poker` | manual | One-shot. Returns estimate only |
 | `/jira-fetch` | manual | One-shot. Fetches JIRA ticket to `.claude/tasks/` |
-| `/e2e-verify` | manual | Interactive. Verify UI with Playwright, take screenshots |
+| `/e2e-verify` | manual | Interactive. Verify UI with Playwright, take screenshots. `video` also records the failing step via `/e2e-record` |
+| `/e2e-record` | manual/auto | One-shot. Record a UI flow with Playwright as an mp4 (needs ffmpeg). Standalone, or called by `/e2e-verify video` |
 | `/video-debug` | manual | Extract frames from screen recording for visual debugging |
 | `/catchup` | manual/auto | One-shot. Rebuilds context on the current branch's task from `.claude/tasks/`, git, and the PR, then reports progress and the next step |
 | `/spike-branch` | manual | Interactive. Spike implementation on throwaway branch, document findings, split into subtasks |
@@ -57,7 +58,7 @@ dot_claude/
 2. **Simplify** —
    - Small: `/simplify`
    - Medium/Large: `/custom-simplify [target]` (convention check + test + simplify)
-3. **E2E** — `/e2e-verify` to verify UI changes with Playwright (optional)
+3. **E2E** — `/e2e-verify` to verify UI changes with Playwright (optional). Add `video` for a reproduction video, or `/e2e-record` to record a flow on its own
 4. **PR** — `/create-pr` to open a PR with auto-filled template
 5. **Review** — fix if needed
    - Default: `/pr-review` (with agents + JIRA/Slack/plan.md)
