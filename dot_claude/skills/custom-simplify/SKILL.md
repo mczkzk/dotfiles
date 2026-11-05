@@ -47,6 +47,10 @@ Simplify the following files: [resolved target files]
 
 Convention issues to address:
 [convention-checker findings, if any]
+
+Scope rules:
+- Before keeping any helper the diff adds or calls, grep for an existing function that does the same thing. If the diff calls a file-local copy while a shared one exists, switch to the shared one, even though the copy predates the diff.
+- When the diff passes a key or label between modules (Set.has, map lookup), the producer and the matcher must use the same function.
 ```
 
 ### 3. Post-Check
