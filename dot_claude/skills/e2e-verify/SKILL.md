@@ -12,7 +12,7 @@ Playwright MCP を使って UI 変更を視覚的に検証する。
 
 1. **設定ファイル読み込み** — `.claude/e2e-verify/config.yaml` を Read ツールで読む。なければユーザーに URL を聞く。テンプレートは `${CLAUDE_SKILL_DIR}/references/config-template.yaml` を参照。
 2. **Playwright MCP** — `ToolSearch` で `mcp__playwright__browser_navigate` を取得。なければ中断。
-3. **Component Gotchas** — 設定の `component-gotchas` パスがあれば Read ツールで読み込む。
+3. **Component Gotchas** — 設定の `component-gotchas` パスがあれば Read ツールで読み込む。各項目の `verified:` の日付が 6 か月以上前の項目と `unverified` の項目は、頼る前に今の DOM（必要ならソース）と照合する。
 4. **ターゲット環境決定** — `$ARGUMENTS` のトークンが `environments` のキー（例 `dev`）と一致すればその環境を選び、**そのトークンを `$ARGUMENTS` から除去**する（残りが検証手順の指定）。一致が無ければ top-level `url`（既定=ローカル）。決まった URL にアクセスできること。
    **`video` トークン**も同様に判定して除去する。あれば録画モードを有効にする（下記「Video (optional)」）。
 5. **認証情報（ログイン必須アプリのみ）** — 使う account は、選んだ環境の `account`、無ければ top-level `account`。`.claude/config.yaml` の `accounts.<key>`（email/password）を Read で取得。`accounts` が無ければスキップ。
@@ -109,13 +109,9 @@ SKIP してはいけない。その場合は次節の手順で前提条件を能
 
 ### Screenshot output
 
-スクリーンショットはタスクスコープに保存する:
-
-```
-filename: ".claude/tasks/{ISSUE-KEY}/screenshots/<step-N>-<description>.png"
-```
-
-タスクが特定できない場合 (PR ベース等) は `.playwright-mcp/` にフォールバック。**リポジトリルートにファイルを散らかさない。**
+スクリーンショットはタスクスコープ `.claude/tasks/{ISSUE-KEY}/screenshots/<step-N>-<description>.png` に保存する。
+`browser_take_screenshot` の `filename` は保存先が当てにならない（相対名がリポジトリルートに落ちることがある）ので、`browser_run_code_unsafe` から `page.screenshot({path: <絶対パス>})` で撮る（下記「切り取り」と同じ）。
+タスクが特定できない場合 (PR ベース等) は scratchpad の絶対パスに保存する。**リポジトリルートにファイルを散らかさない。**
 
 撮影と同じディレクトリに **`README.md`** を必ず置く。スクショだけだと後から「何の画面か」が分からなくなるので、ファイル別の観察事項 + 検証結果サマリ + 未確認/制約 を書く。
 
@@ -205,8 +201,7 @@ Network の Payload、Console、Performance など **DevTools 自体**を撮る�
 ```
 
 対象要素の特定は snapshot の `ref` でも、`browser_evaluate` 内で探してもよい。Shadow DOM を貫通するには
-`function* walk(root){for(const el of root.querySelectorAll('*')){yield el; if(el.shadowRoot) yield* walk(el.shadowRoot);}}`
-を使う（詳細は component-gotchas 参照）。
+再帰で shadowRoot をたどる関数を使う。root 自身の shadowRoot を先にたどらないと、渡した要素の中身が 0 件になる（プロジェクトの component-gotchas に定義があればそれを使う）。
 
 凡例に値や状態を書くときは、見た目の読み取りでなく `browser_evaluate` で DOM やコンポーネントの内部プロパティから実値を取る。**PR に載せる値は撮影時に抽出した実値**を使う。
 
@@ -227,7 +222,13 @@ Network の Payload、Console、Performance など **DevTools 自体**を撮る�
 
 ## Post-verification
 
-**Component Gotchas の更新** — 操作中に新しい gotcha を発見した場合（要素クリックの intercept、disabled 判定の特殊な方法、Shadow DOM の問題など）、`component-gotchas` ファイルに追記する。結果レポートを出す前にこのステップを必ず実行する。
+**Component Gotchas の同期** — 結果レポートを出す前に必ず実行する。追記ではなく同期する:
+
+1. 書く前に、操作したコンポーネント・画面の見出しを探す。あればその節を書き換え、なければ新しい見出しを足す。見出しはコンポーネント名か画面名にする（PR 名・チケット名は見出しにしない）。クリック方法やスクショの保存先など全画面に共通する話は「共通ルール」に書き、各節に重複させない
+2. 今回頼って通用した項目は `verified:` を今日の日付（`date +%F`）に更新する
+3. 合わなかった項目は直すか消す。古い記述を残して訂正を追記しない
+4. 新しい癖（クリックの intercept、disabled の判定、Shadow DOM の問題など）を書くときは `(verified: YYYY-MM-DD 実機|ソース|DB|環境)` を付ける
+5. 座標は書かない。セレクタか座標の取り方を書く
 
 ## Output
 

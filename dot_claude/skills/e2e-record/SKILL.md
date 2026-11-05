@@ -15,7 +15,7 @@ Playwright MCP のブラウザで UI 操作を通しで録画し、mp4 にして
 1. **設定** — `/e2e-verify` と同じ `.claude/e2e-verify/config.yaml` を読む（URL、アカウント、`component-gotchas`）。環境トークンの扱いも `/e2e-verify` と同じ。
 2. **Playwright MCP** — `ToolSearch` で `mcp__playwright__browser_run_code_unsafe` を取得。なければ中断。
 3. **ffmpeg** — `which ffmpeg ffprobe`。なければ webm のまま渡し、mp4 にできないことを報告する。
-4. **Component Gotchas** を読む。画面の開き方やクリックの癖はそこにある。
+4. **Component Gotchas** を読む。画面の開き方やクリックの癖はそこにある。`verified:` が 6 か月以上前の項目と `unverified` の項目は、頼る前に今の DOM と照合する。
 
 ## 録画の前に必ずやること
 
@@ -33,7 +33,7 @@ Playwright MCP のブラウザで UI 操作を通しで録画し、mp4 にして
 録画中に要素探しで止まると、動画が無駄になるうえ撮り直しのたびにデータを戻す手間が増える。
 
 - `page.locator('親タグ 子セレクタ')` の CSS は Shadow DOM を貫通する。`fill` / `type` / `check` / `click` はこれで足りることが多い
-- **JS の `element.click()` で反応しない部品がある**（メニュー項目など）。その場合は親のボタンを `page.mouse.click(x, y)` で実クリックしてから、項目を locator でクリックする
+- 部品ごとに効くクリック方法が違う（JS の `.click()` で効くもの、内側の要素を押す必要があるもの、合成イベントでは反応しないもの）。component-gotchas に書かれていればそれに従う
 
 ## 録画
 
@@ -113,7 +113,7 @@ ffmpeg -v error -y -i <scratchpad>/frames/f%02d.png -vf "scale=320:-1,tile=7x3" 
 - 保存先は `/e2e-verify` のスクリーンショットと同じ `.claude/tasks/{ISSUE-KEY}/screenshots/`。ファイル名は `e2e-<シナリオ>-<内容>.mp4`
 - 途中経過の webm、フレーム、失敗した録画は scratchpad に置き、リポジトリに入れない
 - 同じディレクトリの `README.md` に追記する: 何の動画か、長さと解像度、手順の要約、`log` で取れた値、**字幕は録画用に重ねたものでアプリの表示ではないこと**、使ったデータと片付けの結果
-- 新しく分かった操作の癖は `component-gotchas` に追記する
+- 操作の癖は `component-gotchas` に同期する。やり方は `/e2e-verify` の Post-verification と同じ（同じ見出しがあれば書き換え、通用した項目は `verified:` を更新、合わなかった項目は修正か削除、座標は書かない）
 
 ## Output
 
