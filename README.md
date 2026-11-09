@@ -82,10 +82,12 @@ This config makes `shared-claude-sync` copy the contents of `.shared-claude` fro
 
 **3. Set up age key for encrypted files (API keys, tokens, etc.):**
 
-Copy `~/.config/chezmoi/key.txt` from an existing machine, then re-apply:
+The key is backed up in a personal password manager such as 1Password or Bitwarden (not a work account, so it survives leaving a job). Restore it to `~/.config/chezmoi/key.txt`, then re-apply:
 ```bash
+chmod 600 ~/.config/chezmoi/key.txt
 chezmoi apply
 ```
+Never commit `key.txt` or paste the `AGE-SECRET-KEY-...` line anywhere. Losing it makes every encrypted file (e.g. `.jira.env`, `.config/zsh/work.zsh`) unreadable.
 
 To set up encryption from scratch (first machine only):
 ```bash

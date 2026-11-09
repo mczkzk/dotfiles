@@ -14,8 +14,17 @@ Playwright MCP のブラウザで UI 操作を通しで録画し、mp4 にして
 
 1. **設定** — `/e2e-verify` と同じ `.claude/e2e-verify/config.yaml` を読む（URL、アカウント、`component-gotchas`）。環境トークンの扱いも `/e2e-verify` と同じ。
 2. **Playwright MCP** — `ToolSearch` で `mcp__playwright__browser_run_code_unsafe` を取得。なければ中断。
-3. **ffmpeg** — `which ffmpeg ffprobe`。なければ webm のまま渡し、mp4 にできないことを報告する。
-4. **Component Gotchas** を読む。画面の開き方やクリックの癖はそこにある。`verified:` が 6 か月以上前の項目と `unverified` の項目は、頼る前に今の DOM と照合する。
+3. **ffmpeg (変換用)** — `which ffmpeg ffprobe`。なければ webm のまま渡し、mp4 にできないことを報告する。
+4. **ffmpeg (録画用)** — Playwright は録画に**自分の版の** ffmpeg を使う。版が合わないと、エラーも出ずに動画ファイルが空のまま終わる。MCP が使う playwright-core が要求する版を調べ、無ければその playwright-core で入れる。
+   ```bash
+   pid=$(pgrep -f 'node_modules/.bin/playwright-mcp' | head -1)
+   core="$(dirname "$(ps -o command= -p "$pid" | awk '{print $2}')")/../playwright-core"
+   rev=$(node -e "console.log(require('$core/browsers.json').browsers.find(b=>b.name==='ffmpeg').revision)")
+   ls ~/Library/Caches/ms-playwright/ffmpeg-$rev/ffmpeg-mac || (cd "$core" && node cli.js install ffmpeg)
+   ```
+   - 別の版のフォルダをコピーして代用しない。`INSTALLATION_COMPLETE` があると正規の install がスキップされ、空の動画のままになる
+   - 不安なら 3 秒だけの録画を撮り、`dir` にファイルができるか確かめてから本番に入る
+5. **Component Gotchas** を読む。画面の開き方やクリックの癖はそこにある。`verified:` が 6 か月以上前の項目と `unverified` の項目は、頼る前に今の DOM と照合する。
 
 ## 録画の前に必ずやること
 

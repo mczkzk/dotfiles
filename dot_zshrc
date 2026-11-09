@@ -47,6 +47,7 @@ export PATH="$PATH:/opt/homebrew/bin/"
 # ===============================
 
 # Load zsh config files
+# Company-specific settings go in ~/.config/zsh/work.zsh, stored encrypted so they never show in the public repo
 for f in ~/.config/zsh/*.zsh; do
   [ -f "$f" ] && source "$f"
 done
