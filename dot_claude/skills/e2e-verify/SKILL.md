@@ -1,17 +1,17 @@
 ---
 name: e2e-verify
-description: "Playwright MCP で PR の UI 変更を視覚的に検証する。E2Eテスト、動作確認、UI確認、スクリーンショット撮影に使う。"
+description: "Playwright MCP（無ければ Chrome DevTools MCP）で PR の UI 変更を視覚的に検証する。E2Eテスト、動作確認、UI確認、スクリーンショット撮影に使う。"
 argument-hint: "[env] [video] [pr | auto | verification steps]"
 ---
 
 # E2E Verification
 
-Playwright MCP を使って UI 変更を視覚的に検証する。
+Playwright MCP を使って UI 変更を視覚的に検証する。Playwright MCP が無ければ Chrome DevTools MCP で代替する（`references/chrome-devtools-fallback.md`）。
 
 ## Setup
 
 1. **設定ファイル読み込み** — `.claude/e2e-verify/config.yaml` を Read ツールで読む。なければユーザーに URL を聞く。テンプレートは `${CLAUDE_SKILL_DIR}/references/config-template.yaml` を参照。
-2. **Playwright MCP** — `ToolSearch` で `mcp__playwright__browser_navigate` を取得。なければ中断。
+2. **ブラウザ MCP** — `ToolSearch` で `mcp__playwright__browser_navigate` を取得。なければ `mcp__chrome-devtools__navigate_page` を取得し、`${CLAUDE_SKILL_DIR}/references/chrome-devtools-fallback.md` を Read して以降の `browser_*` を読み替える。どちらも無ければ中断。
 3. **Component Gotchas** — 設定の `component-gotchas` パスがあれば Read ツールで読み込む。各項目の `verified:` の日付が 6 か月以上前の項目と `unverified` の項目は、頼る前に今の DOM（必要ならソース）と照合する。
 4. **ターゲット環境決定** — `$ARGUMENTS` のトークンが `environments` のキー（例 `dev`）と一致すればその環境を選び、**そのトークンを `$ARGUMENTS` から除去**する（残りが検証手順の指定）。一致が無ければ top-level `url`（既定=ローカル）。決まった URL にアクセスできること。
    **`video` トークン**も同様に判定して除去する。あれば録画モードを有効にする（下記「Video (optional)」）。
