@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TITLE</title>
+<style>
+  :root { --ink: #1c1f24; --sub: #5b6470; --line: #d9dee5; --bg: #f6f7f9; --card: #ffffff; --accent: #c8102e; --ok: #1a7f4b; --warn-bg: #fff4e5; --warn-line: #f0b25c; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.75 -apple-system, "Hiragino Sans", "Yu Gothic UI", sans-serif; }
+  main { max-width: 1040px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 28px; line-height: 1.35; margin: 0 0 8px; }
+  h2 { font-size: 22px; line-height: 1.4; margin: 0 0 4px; }
+  h3 { font-size: 17px; margin: 28px 0 8px; }
+  p { margin: 0 0 12px; }
+  .lead { color: var(--sub); margin-bottom: 24px; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 28px; margin: 24px 0; }
+  .num { display: inline-block; background: var(--ink); color: #fff; border-radius: 6px; padding: 0 10px; font-weight: 700; margin-right: 8px; }
+  .oneline { font-size: 18px; font-weight: 700; margin: 12px 0 8px; }
+  figure { margin: 16px 0; }
+  figure img, figure svg { max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; display: block; }
+  figure img { background: #14161a; }
+  figcaption { color: var(--sub); font-size: 14px; margin-top: 6px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .pair figure { margin: 8px 0; }
+  .tag { display: inline-block; font-weight: 700; font-size: 14px; border-radius: 4px; padding: 1px 8px; margin-bottom: 6px; color: #fff; background: var(--sub); }
+  .tag.red { background: var(--accent); }
+  .tag.green { background: var(--ok); }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 15px; }
+  th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #eef1f5; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.hit td { background: #fdecef; font-weight: 700; }
+  .box { background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 8px; padding: 14px 16px; margin-top: 20px; }
+  .box b.h { display: block; margin-bottom: 6px; }
+  .box ul { margin: 6px 0 0; padding-left: 22px; }
+  .note { color: var(--sub); font-size: 14px; }
+  .steps { counter-reset: s; list-style: none; padding: 0; margin: 0; }
+  .steps > li { counter-increment: s; border-top: 1px solid var(--line); padding: 18px 0 4px; }
+  .steps > li:first-child { border-top: 0; }
+  .steps > li > b.t::before { content: "手順 " counter(s) "  "; color: var(--sub); }
+  .steps > li > b.t { font-size: 17px; }
+  @media (max-width: 720px) { .pair { grid-template-columns: 1fr; } section { padding: 18px; } }
+  @media print {
+    @page { size: A4; margin: 12mm; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { background: #fff; font-size: 13px; }
+    main { max-width: none; padding: 0; }
+    section { border: 0; padding: 0; margin: 0 0 18px; }
+    figure, table, .pair, .box, .steps > li, ul.opts li { break-inside: avoid; }
+    h2, h3, .oneline { break-after: avoid; }
+    .steps > li > figure img, section > figure img { max-height: 80mm; width: auto; max-width: 100%; margin: 0 auto; }
+    section > figure svg { max-height: 70mm; margin: 0 auto; }
+    .steps > li { padding-top: 10px; }
+    h3 { margin-top: 16px; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+<h1>読み手が知りたい問いをそのまま題名にする</h1>
+<p class="lead">何の資料か。いつ、どの環境で調べたか。どの画像が実物で、どれが模式図か。</p>
+
+<section>
+  <h2><span class="num">1</span>節の題名</h2>
+  <p class="oneline">この節の結論を 1 文で。ここだけ読んでも分かるように書く。</p>
+  <p>補足の説明。</p>
+
+  <!-- 実物の画面。キャプションで「どこを見ればよいか」を言う -->
+  <figure>
+    <img src="screenshots/example.png" alt="画像が出なくても伝わる説明">
+    <figcaption>赤い枠の中が、今回の話の対象。</figcaption>
+  </figure>
+
+  <!-- 同じ場所の比較。タグで条件を示す -->
+  <div class="pair">
+    <figure><span class="tag green">条件 A</span><img src="screenshots/a.png" alt=""><figcaption>A で見えるもの。</figcaption></figure>
+    <figure><span class="tag red">条件 B</span><img src="screenshots/b.png" alt=""><figcaption>B で変わるところ。</figcaption></figure>
+  </div>
+
+  <!-- 手順。番号は自動で付く -->
+  <ol class="steps">
+    <li><b class="t">手順の名前</b><p>何をするか。数えた値は<b>太字</b>で。</p></li>
+    <li><b class="t">次の手順</b><p>…</p></li>
+  </ol>
+
+  <!-- 数字。結論の行は class="hit" -->
+  <table>
+    <tr><th>項目</th><th class="n">A</th><th class="n">B</th></tr>
+    <tr><td>途中の値</td><td class="n">62</td><td class="n">8</td></tr>
+    <tr class="hit"><td>結論になる値</td><td class="n">14</td><td class="n">0</td></tr>
+  </table>
+
+  <!-- 動画 -->
+  <figure>
+    <video src="screenshots/example.mp4" controls muted playsinline style="max-width:100%;border-radius:8px"></video>
+    <figcaption>何秒あたりで何が起きるか。</figcaption>
+  </figure>
+
+  <!-- 模式図は inline SVG。必ず「模式図」と書く -->
+  <figure>
+    <svg viewBox="0 0 960 200" role="img" aria-label="図の説明"><rect width="960" height="200" fill="#f6f7f9"/><text x="20" y="180" font-size="13" fill="#5b6470">模式図。</text></svg>
+    <figcaption>模式図 (実データではない)。</figcaption>
+  </figure>
+
+  <p class="note">数え方、使ったデータ、日付。</p>
+</section>
+
+</main>
+</body>
+</html>

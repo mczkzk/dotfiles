@@ -38,6 +38,7 @@ dot_claude/
 | `/e2e-verify` | manual | Interactive. Verify UI with Playwright, take screenshots. `video` also records the failing step via `/e2e-record` |
 | `/e2e-record` | manual/auto | One-shot. Record a UI flow with Playwright as an mp4 (needs ffmpeg). Standalone, or called by `/e2e-verify video` |
 | `/video-debug` | manual | Extract frames from screen recording for visual debugging |
+| `/visual-report` | manual/auto | Interactive. Explain a mechanism, cause, or open question as one HTML report built from real screenshots, diagrams, video, and measured numbers. Optional PDF via headless Chrome |
 | `/catchup` | manual/auto | One-shot. Rebuilds context on the current branch's task from `.claude/tasks/`, git, and the PR, then reports progress and the next step |
 | `/spike-branch` | manual | Interactive. Spike implementation on throwaway branch, document findings, split into subtasks |
 | `/deep-dive` | manual | Interactive. Discuss based on findings |
