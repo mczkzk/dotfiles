@@ -8,7 +8,7 @@ Global configuration for Claude Code (`~/.claude/`), managed via chezmoi.
 dot_claude/
 ├── CLAUDE.md              # Global instructions (loaded every session)
 ├── README.md              # This file
-├── .jira.env              # JIRA API credentials (not in chezmoi, manually placed)
+├── .jira.env              # JIRA API credentials (age-encrypted in chezmoi, deployed as 0600)
 ├── settings.json          # Permission and tool settings
 ├── statusline-command.sh  # Status line renderer
 ├── skills/                # Custom skills (see table below)
@@ -64,6 +64,7 @@ dot_claude/
 5. **Review** — fix if needed
    - Default: `/pr-review` (with agents + JIRA/Slack/plan.md)
    - Worried: `/codex:review` or `/codex:adversarial-review` (cross-model; latter challenges design choices)
+   - Security: `/security-review` (branch diff, light) or `/claude-security` (whole repo or diff, multi-agent verified, can suggest patches; slow and token-heavy)
 6. **Respond** — `/pr-review-respond` when reviewer leaves comments (especially useful for English replies); fix if needed
 7. **Archive** — Move completed tasks to `.claude/tasks/archive/`
 
@@ -99,15 +100,19 @@ Note: `/deep-dive` also supports **agent teams** (experimental) for parallel hyp
 
 ### Required by skills
 - Slack MCP — Used by `/pr-review` for discussion context (MCP registry)
-- Atlassian MCP — Used by `/jira-fetch`, `/pr-review` for JIRA context (MCP registry)
+- Atlassian MCP — Used by `/pr-review`, `/custom-feature-dev`, `/deep-dive` for JIRA context (MCP registry). `/jira-fetch` calls the JIRA REST API directly with `.jira.env` instead
 
 ### [Bundled skills](https://code.claude.com/docs/en/skills#bundled-skills) (included with Claude Code)
 - simplify — Code quality pass with 3 parallel agents (reuse, quality, efficiency). Called by `/custom-simplify`
 - batch — Codebase-wide parallel changes. Decomposes into 5-30 units, each in isolated git worktree. **Each unit auto-creates a PR**
+- security-review — Security review of the current branch's pending changes
 
 ### Plugins (claude-plugins-official)
 - [feature-dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev) — Guided feature development with codebase exploration and architecture design
 - [skill-creator](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) — Create, modify, and eval custom skills
+- [claude-security](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-security) — Codebase or diff vulnerability scan with a 3-agent verification panel, plus optional verified patch files. Not in `enabledPlugins`, so enable `claude-security@claude-plugins-official` on a machine where `/claude-security` is missing
+  - Writes its report to `CLAUDE-SECURITY-<timestamp>/` at the repo root (excluded in this repo via `.chezmoiignore`)
+  - "Suggest patches" runs a verification round per finding and takes a while. To just see fix ideas, ask for them directly instead
 
 ### Plugins (third-party)
 - [codex-plugin-cc](https://github.com/openai/codex-plugin-cc) — Delegate investigation or fixes to Codex CLI as a rescue subagent (`/codex:rescue`, `/codex:setup`)

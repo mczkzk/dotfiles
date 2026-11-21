@@ -93,8 +93,9 @@ To set up encryption from scratch (first machine only):
 ```bash
 age-keygen -o ~/.config/chezmoi/key.txt
 ```
-Then add the `recipient` (public key) to `.chezmoi.toml.tmpl` and encrypt files:
+Then add the `recipient` (public key) to `.chezmoi.toml.tmpl` and encrypt files. Run `chmod 600` first so chezmoi records the file as `private_` and keeps other users from reading it after deploy:
 ```bash
+chmod 600 ~/.claude/.jira.env
 chezmoi add --encrypt ~/.claude/.jira.env
 ```
 
