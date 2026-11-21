@@ -34,7 +34,6 @@
       "Bash(rm:*)",
       "Bash(tree:*)",
       "Bash(chezmoi:*)",
-      "WebFetch(domain:*)",
       "WebSearch"
     ],
     "deny": [
@@ -48,6 +47,14 @@
       "Bash(git commit --no-verify:*)",
       "Bash(git commit -n:*)",
       "Bash(HUSKY=0 git commit:*)",
+      "Bash(*.jira.env*)",
+      "Bash(*id_rsa*)",
+      "Bash(*id_ed25519*)",
+      "Bash(*id_ecdsa*)",
+      "Bash(*id_dsa*)",
+      "Bash(*.aws/credentials*)",
+      "Bash(*.netrc*)",
+      "Read(~/.claude/.jira.env)",
       "Read(**/.env*)",
       "Read(**/id_rsa*)",
       "Read(**/id_ed25519*)",

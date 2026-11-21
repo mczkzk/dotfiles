@@ -185,8 +185,10 @@ end
             (.mimeType | startswith("image/")) or
             (.mimeType | startswith("video/")) or
             (.mimeType | test("spreadsheet|excel|officedocument\\.spreadsheet"))
-        ) | "\(.content)\t\(.filename)"' | while IFS=$'\t' read -r url filename; do
-            if [[ -n "$url" && -n "$filename" ]]; then
+        ) | "\(.content)\t\(.filename | gsub("[[:cntrl:]]"; "_"))"' | while IFS=$'\t' read -r url filename; do
+            # ファイル名は添付した人が自由に決められるため、改行で行を偽装したりパスで attachments の外に書き込んだりできないようにする
+            filename="${filename##*/}"
+            if [[ -n "$url" && -n "$filename" && "$filename" != "." && "$filename" != ".." ]]; then
                 echo "  - ${filename}"
                 curl -s -L \
                     -H "Authorization: Basic ${AUTH}" \
